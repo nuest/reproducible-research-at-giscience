@@ -1,14 +1,14 @@
 ---
-title: 'Analysis and visualisations for "Reproducible research and GIScience: an evaluation using GIScience conference papers"'
+title: 'Reproducibility assessment data analysis for "Reproducible research and GIScience: an evaluation using GIScience conference papers"'
 author: "Daniel Nüst"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
+  html_document:
+    df_print: paged
+    toc: yes
   pdf_document:
     keep_tex: yes
     latex_engine: xelatex
-    toc: yes
-  html_document:
-    df_print: paged
     toc: yes
 urlcolor: blue
 # add lscape package to support kableExtra::landscape() for PDF output
@@ -16,21 +16,26 @@ header-includes: |
   \usepackage{lscape}
 ---
 
-This document is an exploratory analysis of all accepted full papers, and posters at the [GIScience conference series](https://www.giscience.org/).
+This document visualises the expert assessment for accepted full papers at the [GIScience conference series](https://www.giscience.org/) for the following conferences and proceedings.
 
 - 2018: Tenth International Conference on Geographic Information Science, Melbourne, Australia
+  > Proceedings 10th International Conference on Geographic Information Science (GIScience 2018). 2018. In Winter, S., Griffin, A., Sester, M. (Eds.), LIPICS Vol. 114. ISBN 978-3-95977-083-5. http://www.dagstuhl.de/dagpub/978-3-95977-083-5
+
+<!--
 - 2016: Ninth International Conference on Geographic Information Science, Sep 27, 2016 - Sep 30, 2016, 	Montreal, Canada
+  > Geographic Information Science. 2016. In J. A. Miller, D. O’Sullivan, & N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-45738-3
 - 2014: Eighth International Conference on Geographic Information Science, Sep 24, 2014 - Sep 26, 2014, 	Vienna, Austria
+  > Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
 - 2012: Seventh International Conference on Geographic Information Science, Sep 18, 2012 - Sep 21, 2012, Columbus, Ohio, USA
+  > Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
+-->
 
 The analysis is based on the text analysis published in _"Reproducible research and GIScience: an evaluation using AGILE conference papers"_ ([https://doi.org/10.7717/peerj.5072](https://doi.org/10.7717/peerj.5072)), see [https://github.com/nuest/reproducible-research-and-giscience](https://github.com/nuest/reproducible-research-and-giscience).
 
 ## Reproduce paper
 
-_If you do not have the original data or do not download the data, you cannot reproduce the text analysis part of the paper, i.e. wordcloud and terms frequency analysis._ **You can still reproduce the other figures**.
-
-To create the PDF of the reproducibility package based on this document you can run the following commandsin a new R session after completing the prerequisites with the original paper corpus data.
-If you have problems rendering the PDF and execute each chunk independently, _skip the following chunk_.
+To create the PDF of the reproducibility package based on this document you can run the following commands in a new R session after completing the prerequisites with the original paper corpus data.
+If you have problems rendering the PDF you can execute each chunk independently in [RStudio](https://rstudio.com/products/rstudio/).
 
 ```{r render_with_rmarkdown,eval=FALSE}
 require("knitr")
@@ -38,7 +43,7 @@ require("rmarkdown")
 rmarkdown::render("giscience-paper-reproducibility.Rmd", output_format = "pdf_document")
 ```
 
-## Software dependencies
+## Software dependencies and code
 
 This document does not install the required R packages by default.
 You can run the script `install.R` to install all required dependencies on a new R installation, or use `install.packages(..)` to install missing R packages.
@@ -47,270 +52,39 @@ You can run the script `install.R` to install all required dependencies on a new
 source("install.R")
 ```
 
-## Dependencies and code
-
-The **text analysis** is based the R package [`tidytext`](https://cran.r-project.org/package=tidytext) from the [`tidyverse`](https://www.tidyverse.org/) suite of packages and uses the [`dplyr`](http://dplyr.tidyverse.org/) grammar.
-Read the [`tidytext` tutorial](https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html) to learn about the used functions and concepts.
-The **plots and tables** of survey data and evaluation use the packages [`ggplot2`](http://ggplot2.tidyverse.org/), [`knitr::kable()`](https://yihui.name/knitr/), [`huxtable`](https://hughjonesd.github.io/huxtable/), and [`kableExtra`](https://cran.r-project.org/package=kableExtra).
+The plots and tables of survey data and evaluation use the packages [`ggplot2`](http://ggplot2.tidyverse.org/), [`knitr::kable()`](https://yihui.name/knitr/), [`huxtable`](https://hughjonesd.github.io/huxtable/), and [`kableExtra`](https://cran.r-project.org/package=kableExtra).
 Required libraries and runtime environment description are as follows.
 
 ```{r load_libraries, echo=TRUE, message=FALSE, warning=FALSE}
-library("pdftools")
-library("stringr")
-library("tidyverse")
-library("knitr")
-library("tidytext")
-library("wordcloud")
-library("RColorBrewer")
-library("readr")
-library("ggplot2")
-library("rvest")
-library("jsonlite")
-library("reshape2")
-library("ggthemes")
-library("grid")
-library("gridBase")
-library("gridExtra")
-library("kableExtra")
-library("devtools")
-library("rlang")
-library("huxtable")
-library("here")
-library("httr")
-library("googledrive")
-library("googlesheets")
+#library("pdftools")
+#library("stringr")
+#library("tidyverse")
+#library("knitr")
+#library("tidytext")
+#library("wordcloud")
+#library("RColorBrewer")
+#library("readr")
+#library("ggplot2")
+#library("rvest")
+#library("jsonlite")
+#library("reshape2")
+#library("ggthemes")
+#library("grid")
+#library("gridBase")
+#library("gridExtra")
+#library("kableExtra")
+#library("devtools")
+#library("rlang")
+#library("huxtable")
+#library("here")
+#library("httr")
+#library("googledrive")
+library("googlesheets4")
 ```
 
 ```{r set_seed}
 # for deterministic rendering of the wordcloud
 set.seed(nchar("International Conference on Geographic Information Science"))
-```
-
-## Load data
-
-```{r paths, echo=FALSE}
-data_path <- here::here("papers")
-```
-
-The data for the analysis is required in form of a directory with PDF files.
-Add the PDFs to a directory called ` `r data_path` ` (path automatically inserted here based on above variable) next to the file `giscience-paper-reproducibility.Rmd` (this file).
-You can contact the original paper authors and ask for the test dataset to reproduce the full analysis.
-Alternatively, you can download the 2018 papers from the Open Access proceedings at [https://drops.dagstuhl.de/opus/portals/lipics/index.php?semnr=16081](https://drops.dagstuhl.de/opus/portals/lipics/index.php?semnr=16081) and conduct the analysis with that subset of the data.
-
-```{r data_download_drive, eval=FALSE, echo=FALSE}
-dir.create(data_path)
-
-drive_dir <- drive_get("https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
-drive_dir_contents <- drive_ls(drive_dir)
-for (i in rownames(drive_dir_contents)) {
-  current <- drive_dir_contents[i,]
-  if(endsWith(current$name, ".pdf"))
-    drive_download(as_id(current$id), file.path(data_path, current$name))
-}
-```
-
-The text is extracted from PDFs and it is processed to create a [tidy](https://www.jstatsoft.org/article/view/v059i10) data structure without [stop words](https://en.wikipedia.org/wiki/Stop_words).
-The stop words include specific words, such as `university`, which is included in many pages, abbreviations such as `e.g.`, and terms particular to scientific articles, such as `figure`.
-Also all numeric literals are removed from the word list.
-
-```{r load_files, echo=FALSE, cache=TRUE}
-proceedings <- c("2012" = "10.1007_978-3-642-33024-7.pdf",
-  "2014" = "10.1007_978-3-319-11593-1.pdf",
-  "2016" = "10.1007_978-3-319-45738-3.pdf",
-  "2018" = "lipics-vol114-giscience2018-complete.pdf")
-proceedings_files <- file.path(data_path, proceedings)
-
-texts <- lapply(proceedings_files, pdf_text)
-texts <- unlist(lapply(texts, str_c, collapse = TRUE))
-infos <- lapply(proceedings_files, pdf_info)
-
-tidy_texts <- tibble(year = names(proceedings),
-                     path = proceedings_files,
-                     text = texts,
-                     pages = map_chr(infos, function(info) {info$pages}))
-
-# create a table of all words
-all_words <- tidy_texts %>%
-  select(year,
-         text) %>%
-  unnest_tokens(word, text)
-
-# remove stop words and remove numbers
-my_stop_words <- tibble(
-  word = c(
-    "et",
-    "al",
-    "fig",
-    "e.g",
-    "i.e",
-    "http",
-    "ing",
-    "pp",
-    "figure",
-    "based",
-    "conference",
-    "university",
-    "table"
-  ),
-  lexicon = "agile"
-)
-
-all_stop_words <- stop_words %>%
-  bind_rows(my_stop_words)
-suppressWarnings({
-  no_numbers <- all_words %>%
-    filter(is.na(as.numeric(word)))
-})
-
-no_stop_words <- no_numbers %>%
-  anti_join(all_stop_words, by = "word")
-
-total_words = nrow(no_numbers)
-after_cleanup = nrow(no_stop_words)
-```
-
-About `r round(after_cleanup/total_words * 100)`&nbsp;% of the words are considered stop words.
-The following tables shows how many non-stop words each conference year has, sorted by number of non-stop words.
-
-```{r stop_words, echo=FALSE, message=FALSE, warning=FALSE}
-nonstopwords_per_doc <- no_stop_words %>%
-  group_by(year) %>%
-  summarise(words = n()) %>%
-  arrange(desc(words)) %>%
-  rename(`non-stop words` = words)
-
-words_per_doc <- no_numbers %>%
-  group_by(year) %>%
-  summarise(words = n()) %>%
-  arrange(desc(words)) %>%
-  rename(`all words` = words)
-
-inner_join(nonstopwords_per_doc, words_per_doc) %>%
-  bind_rows(tibble(year = "Total",
-                   `non-stop words` = sum(nonstopwords_per_doc$`non-stop words`),
-                   `all words` = sum(words_per_doc$`all words`))) %>%
-  kable() %>%
-  kable_styling("striped", full_width = FALSE) %>%
-  row_spec(nrow(nonstopwords_per_doc) + 1, bold = TRUE)
-```
-
-## Text analysis and visualisation
-
-### Top wordstems and word clouds
-
-```{r params, include=FALSE}
-# chosen manually
-minimum_occurence <- 60
-max_words <- 120
-```
-
-The following clouds and table are based on word stems extracted with a stemming algorithm from package [`quanteda`](https://cran.r-project.org/package=quanteda).
-Words must occur at least `r minimum_occurence` times to be included.
-Each cloud has a maximum of `r max_words` words.
-
-```{r cloud_and_top_words, echo=FALSE}
-top_words <- no_stop_words %>%
-  group_by(word) %>%
-  tally %>%
-  arrange(desc(n)) %>%
-  head(20)
-
-wordstems <- no_stop_words %>%
-  mutate(wordstem = quanteda::char_wordstem(no_stop_words$word))
-
-countYearsUsingWordstem <- function(the_word) {
-  sapply(the_word, function(w) {
-    wordstems %>%
-      filter(wordstem == w) %>%
-      group_by(year) %>%
-      count %>%
-      nrow
-  })
-}
-
-top_wordstems <- wordstems %>%
-  group_by(wordstem) %>%
-  tally %>%
-  arrange(desc(n)) %>%
-  head(n = 100) %>%
-  mutate(`year w/ wordstem` = countYearsUsingWordstem(wordstem)) %>%
-  add_column(place = c(1:nrow(.)), .before = 0)
-
-cloud_wordstems <- wordstems %>%
-  group_by(year, wordstem) %>%
-  tally %>%
-  arrange(desc(n))
-
-top_wordstems %>%
-  head(n = 100) %>%
-  kable() %>%
-  kable_styling("striped", full_width = FALSE) %>%
-  scroll_box(height = "240px")
-```
-
-```{r wordclouds, echo=FALSE, dpi=300, fig.width=12, fig.height=10, fig.cap="World clouds per conference year (clockwise starting top left: 2012, 2014, 2016, 2018)"}
-par(mfrow=c(2,2))
-
-for (the_year in names(proceedings)) {
-  cloud_words <- cloud_wordstems %>%
-    filter(year == the_year) %>%
-    filter(n >= minimum_occurence) %>%
-    head(n = max_words)
-  wordcloud(cloud_words$wordstem, cloud_words$n,
-            random.order = FALSE,
-            fixed.asp = FALSE,
-            rot.per = 0,
-            color = brewer.pal(8,"Dark2"))
-}
-```
-
-### Reproducible research-related keywords in GIScience papers
-
-The following tables lists how often terms related to reproducible research appear in each document.
-The detection matches full words using regex option `\b`.
-
-- reproduc (`reproduc.*`, reproducibility, reproducible, reproduce, reproduction)
-- replic (`replicat.*`, i.e. replication, replicate)
-- repeatab (`repeatab.*`, i.e. repeatability, repeatable)
-- software
-- (pseudo) code/script(s) [column name _code_]
-- algorithm (`algorithm.*`, i.e. algorithms, algorithmic)
-- process (`process.*`, i.e. processing, processes, preprocessing)
-- data (`data.*`, i.e. dataset(s), database(s))
-- result(s) (`results?`)
-- repository(ies) (`repositor(y|ies)`)
-- collaboration platforms (`git(hub|lab)`)
-
-```{r keywords_per_paper, echo=FALSE, warning=FALSE}
-tidy_texts_lower <- str_to_lower(tidy_texts$text)
-word_counts <- tibble(
-  year = tidy_texts$year,
-  `reproduc..` = str_count(tidy_texts_lower, "\\breproduc.*\\b"),
-  `replic..` = str_count(tidy_texts_lower, "\\breplicat.*\\b"),
-  `repeatab..` = str_count(tidy_texts_lower, "\\brepeatab.*\\b"),
-  `code` = str_count(tidy_texts_lower,
-    "(\\bcode\\b|\\bscript.*\\b|\\bpseudo\ code\\b)"),
-  software = str_count(tidy_texts_lower, "\\bsoftware\\b"),
-  `algorithm(s)` = str_count(tidy_texts_lower, "\\balgorithm.*\\b"),
-  `(pre)process..` = str_count(tidy_texts_lower, 
-                "(\\bprocess.*\\b|\\bpreprocess.*\\b|\\bpre-process.*\\b)"),
-  `data.*` = str_count(tidy_texts_lower, "\\bdata.*\\b"),
-  `result(s)` = str_count(tidy_texts_lower, "\\bresults?\\b"),
-  `repository/ies` = str_count(tidy_texts_lower, "\\brepositor(y|ies)\\b"),
-  #`repos` = str_count(tidy_texts_lower, "\\bzenodo|figshare|osf|dryad\\b"),
-  `github/lab` = str_count(tidy_texts_lower, "\\bgit(hub|lab)\\b")
-)
-
-word_counts_sums <- rbind(word_counts,
-                          word_counts %>% 
-                            summarise_if(is.numeric, funs(sum)) %>%
-                            add_column(year = "Total", .before = 0))
-
-word_counts_sums %>%
-  kable() %>%
-  kable_styling("striped", font_size = 12, bootstrap_options = "condensed")  %>%
-  row_spec(0, font_size = "x-small", bold = T)  %>%
-  row_spec(nrow(word_counts_sums), bold = T)
 ```
 
 ## Reproduciblity assessment
@@ -319,9 +93,15 @@ word_counts_sums %>%
 assessment_file <- "paper_assessment.csv"
 ```
 
-```{r evaldata_download, echo=FALSE}
-googlesheets::gs_download(from = "https://docs.google.com/spreadsheets/d/1Df0zX5yqDuDSCzHHVaucNtThseHL5L32U2sWTPhyl0I",
-                          to = here::here(assessment_file))
+```{r evaldata_download, echo=FALSE, eval=FALSE}
+assessment_sheet <- googlesheets4::read_sheet(ss = "https://docs.google.com/spreadsheets/d/1Df0zX5yqDuDSCzHHVaucNtThseHL5L32U2sWTPhyl0I/edit#gid=0",
+                                              sheet = "assessment")
+
+#assessment_sheet <- assessment_sheet %>%
+#TODO: replace NULL with NA
+#turn lists into chracter strings
+
+write.csv(assessment_sheet, file = here::here(assessment_file))
 ```
 
 The following plots are based on the file `r assessment_file`, the result from the manual reproducibility assessment.
@@ -366,7 +146,7 @@ kable(paper_evaluation_raw %>%
 
 \newpage
 
-## Conceptual papers
+### Conceptual papers
 
 ```{r conceptual_papers,warning=FALSE}
 paper_evaluation <- paper_evaluation_raw %>%
@@ -397,7 +177,7 @@ These are evaluated.
 
 `r paper_evaluation %>% filter(is.na(preprocessing)) %>% count() %>% .$n` papers are not applicable for preprocessing criterion.
 
-## Table: Statistics of reproducibility levels per criterion
+### Table: Statistics of reproducibility levels per criterion
 
 ```{r summary_evaldata}
 evaldata_numeric <- paper_evaluation %>%
@@ -421,7 +201,7 @@ The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, wi
 
 \newpage
 
-## Figure: Results of reproducibility assessment
+### Figure: Results of reproducibility assessment
 
 ```{r Fig3,fig.width=10}
 # match the colours to time series plot below
@@ -475,7 +255,7 @@ methods_and_results_eq_one <- evaldata_numeric %>%
 
 \newpage
 
-## Table: Mean levels per criterion for full and short papers
+### Table: Mean levels per criterion for full and short papers
 
 ```{r summary_evaldata_grouped}
 summaries_short_paper <- sapply(evaldata_numeric %>%
@@ -503,7 +283,7 @@ kable(rbind(means_full_paper, means_short_paper),
 
 \newpage
 
-## Extra table: Mean levels averaged across criteria over time
+### Extra table: Mean levels averaged across criteria over time
 
 ```{r evaldata_summary_by_year_mean}
 means_years <- evaldata_numeric %>%
@@ -537,7 +317,7 @@ kable(means_years_table,
 
 \newpage
 
-## Figure: Mean reproducibility levels per category over time
+### Figure: Mean reproducibility levels per category over time
 
 ```{r Fig4,fig.width=10,dpi=300}
 evaldata_years <- evaldata_numeric %>%
@@ -572,6 +352,8 @@ ggplot(evaldata_years_long, aes(year, value)) +
   stat_summary(fun.y = mean, fun.ymin = mean, fun.ymax = mean, shape = "-", size = 2) +
   stat_summary(fun.y = mean, geom = "line", linetype = "dotted", mapping = aes(group = 1))
 ```
+
+\newpage
 
 ## License & Metadata
 

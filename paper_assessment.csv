@@ -1,0 +1,195 @@
+,,,,,reviewer,,,,,,,,
+paper,year,author,title,conceptual paper (T/F/requires discussion),1,2,input data,preprocessing,method/analysis/processing,computational environment,results,Notes Reviewer,Could be made reproducible
+12018,2018,"Amores, David ; Vasardani, Maria ; Tanin, Egemen",Early Detection of Herding Behaviour during Emergency Evacuations,F,DN,FO,"FO:1
+DN: 1","FO:1
+DN:1","FO:1
+DN:1","FO:0
+DN:0","FO:1
+DN:1","DN: simulation data, open source tool > possible to make much more transparent!",Yes
+22018,2018,"Belussi, Alberto ; Carra, Damiano ; Migliorini, Sara ; Negri, Mauro ; Pelagatti, Giuseppe",What Makes Spatial Data Big? A Discussion on How to Partition Spatial Data,F,FO,MK,"FO:0
+MK:0","FO:1
+MK:1","FO:1
+MK:1","FO:0
+MK:0","FO:1
+MK:1","MK: I couldn't find a description of the comp. environm. Did I miss it?
+Frank checked and agreed.",
+32018,2018,"Fogliaroni, Paolo ; Bucher, Dominik ; Jankovic, Nikola ; Giannopoulos, Ioannis",Intersections of Our World,F,MK,DN,"MK:0
+DN:0","MK:1
+DN:1","MK:1
+DN:1","MK:0
+DN:0","MK:1
+DN:1","DN: OSM data (whole planet), PostGIS, web application for exploring precomputed information > definetely could be made more reproducible! https://intersection.geo.tuwien.ac.at/# still functional!; software versions partly mentioned (PostGIS) but no code; polygons used for the cities to get the same results _with their web tool_ are missing
+
+Decision: One of the two datasets (albeit the smaller one) is not recreatable data: 0;",
+42018,2018,"Harvey, Francis",Considerations of Graphical Proximity and Geographical Nearness,F,CG,BH,0; BH:0,"0, BH:-","1, BH:1","0, BH:0","1, BH:1","Borderline. Main aim is to propose a theory of geo-graphical nearness. Exploratory experiment
+
+Experiment:
+- ""Data collected for the study comes from an online survey developed with the software suite Lime Survey"". 
+- ""[data] was analyzed using classical and Bayesian methods available in the open software package JASP""",
+52018,2018,"Hu, Yingjie ; Janowicz, Krzysztof",An Empirical Study on the Names of Points of Interest and Their Changes with Geographic Distance,F,BH,CG,CG: 0 (was 1); BH:0-1; Decision: 0,CG:1; BH:1,"CG:1, BH:1",CG:0; BH: 0,CG: 1 (was 2); BH:1,"Mentioning of a python script that is not provided; formulas used documented in the text; statistical measures provided as result; data from YELP dataset - available for download, but metadata on time of download missing",
+62018,2018,"Jeong, Myeong-Hun ; Yin, Junjun ; Wang, Shaowen",Outlier Detection and Comparison of Origin-Destination Flows Using Data Depth,F,BH,DN,"BH: 0
+DN: 0","BH:0
+DN:0","BH:0 (was 1)
+DN:0","BH:0
+DN:0","BH:1
+DN:1","BH: Data: taxi data from May-July 2014 in NY; unavailable / for other plots other taxi data dates are used; R is mentioned, but no code is provided; use of multiple cores mentioned - no further details provided; 
+
+DN: TAZ data is described, but that's only partial; Dates are mentioned clearly, but no URL where to get the data; ""Hadoop with Pig, AWS and the Bridger supercomputer""... not good enough - ""link to the code is available upon request""",yes
+72018,2018,"Kattenbeck, Markus ; Nuhn, Eva ; Timpf, Sabine",Is Salience Robust? A Heterogeneity Analysis of Survey Ratings,F,CG,MK,CG:1 MK:1,CG:1 MK:1,CG:1 MK:1,CG:0 MK:0,CG:1 MK:1,"- ""[Collected data] will be accessible via Data in Brief https://www.journals.elsevier.com/data-in-brief by the end of 2018"". I checked. No paper yet
+- ""the first author of this paper collected data throughout his PhD [19]. ""
+- ""A custom designed Android application facilitated the data collection in [19] and this application was reused for our study in Augsburg""
+- ""PLS Path modeling as a statistical method and as an adequate means of assessing measurement invariance""",
+82018,2018,"Krumpe, Filip",Labeling Points of Interest in Dynamic Maps using Disk Labels,F,MK,FO,"FO:1
+MK:1","FO:2
+MK:2","FO:2
+MK:2","FO:0
+MK:0","FO:1
+MK:1","FO: Not sure about the ""2""'s, difficult case because actual analysis code is not provided, but Github repository has the library
+MK: I am fine with the 2s but I couldn't find a description for the computational environment used to compute the table. So I gave it a 0
+Frank checked and agreed",
+92018,2018,"Lafia, Sara ; Turner, Andrew ; Kuhn, Werner",Improving Discovery of Open Civic Data,T,,,BH:0,BH:0,BH: 1,BH:0,BH:1,DN: I think there is data analysis happening here (Figure 7 & 8)! BH: I tried a quick assessment; requires a second opinion,
+102018,2018,"Li, Yan ; Shekhar, Shashi",Local Co-location Pattern Detection: A Summary of Results,F,FO,CG,"FO: 0 (couldn't find any concrete link to what is used); CG: 0 (""Chicago crime dataset"")",FO: 1; CG: 1 ,FO:1; CG: 1,FO:1; CG: 1,FO:1; CG:1,"""The platform for the simulation was Microsoft .NET Framework 4.5 on a computer with Intel(R) Core(TM) i7-4770 3.40 GHz CPU and 32 GB RAM""",
+112018,2018,"Méneroux, Yann ; Kanasugi, Hiroshi ; Saint Pierre, Guillaume ; Le Guilcher, Arnaud ; Mustière, Sébastien ; Shibasaki, Ryosuke ; Kato, Yugo",Detection and Localization of Traffic Signals with GPS Floating Car Data and Random Forest,F,DN,BH,DN:0; BH:0,DN:1; BH:1,"DN:1, BH: 1 (was 2)",DN:1; BH:1,DN:1; BH:1,"DN: ""extract routable map from the national reference"" - is that redoable? But commercial floating car data; preprocessing described in text; processing algorithms cited and math given; hardware is described; R randomForest package mentioned but without version; BH: very strict to limit methods to 1 because of a missing verison of the R code - they do provide a reference to the package from the year 2002 but ok, that might not be enough. Agree on the data - also for OSM we would need more details",
+122018,2018,"Murray, Alan T. ; Feng, Xin ; Shokoufandeh, Ali",Heterogeneous Skeleton for Summarizing Continuously Distributed Demand in a Region,F,DN,CG,"CG: 0
+DN: 0","CG: 0
+DN:0","CG: 1
+DN:1","CG: 0
+DN:0","CG: 1
+DN: 1","Only this: ""The models were implemented in the Python platform using arcpy, pysal and sympy libraries, amoung others, on a Windows 10 Enterprise server with an Intel Xeon E5-2650 v3 (2.3GHz) 64 bit CPU and 64 GB of RAM. ArcGIS was utilized for data creation, management, manipulation, analysis, and visualization""
+
+DN: no versions given, no code;",
+132018,2018,"Niedermann, Benjamin ; Oehrlein, Johannes ; Lautenbach, Sven ; Haunert, Jan-Henrik",A Network Flow Model for the Analysis of Green Spaces in Urban Areas,F,FO,DN,"FO: 1
+DN: 1","FO: 1
+DN: 1","FO: 1
+DN: 1","FO: 1
+DN: 1","FO: 1
+DN: 1","DN: extensive text description of the algorithm/model, but no code; link to data source broken (works without the www, i.e. https://land.copernicus.eu/ - how stupid (not of the authors)), data source probably reliable; Software with versions and hardware described; one used software (Gurobi) is commercial/not open; http://www2.geoinfo.uni-bonn.de/urbanarea/ still works, and is useful!
+
+Conflict FO/DN: the result visualisations are scripted, but we don't have access to the scripts or data;",Yes
+142018,2018,"Saha, Rudra Ranajee ; Hashem, Tanzima ; Shahriar, Tasmia ; Kulik, Lars",Continuous Obstructed Detour Queries,F,MK,BH,MK:0; BH:0,"MK:1, BH:-",MK:1; BH:1,MK:1; BH:1,MK:1; BH:1,"BH: paper is way too mathematical for me to understand. Regarding data: I do not know what original data they refer to and the data they generated do not seem to be available; preprocessing not necessary - or do you refer to the generation of random POIs, Markus?
+MK: Regarding input data. There is some initial description but I agree this is not enough for 1, so I changed it to 0.
+Regarding Preprocessing: To me, the sections 5.2 and 5.3 read like there is some preprocessing going on though I do not understand what exactly they are doing. How about changing it to 0? 1 is too much, I would agree with that.",
+152018,2018,"Schito, Joram ; Wissen Hayek, Ulrike ; Raubal, Martin",Enhanced Multi Criteria Decision Analysis for Planning Power Transmission Lines,F,CG,FO,"CG: 0 (was 1) ; FO: 0 (""we collected the appropriate data from publicly accessible data portals and stored them in a database"")",1; FO: 1,1; FO: 1,0; FO: 1,CG: 1 (was 2); FO:1,"- ""we explore the utility of a Cluster Analysis in combination with a Principal Component Analysis and a Multivariate Analysis of Variance""",
+162018,2018,"Shashidharan, Ashwin ; Vatsavai, Ranga Raju ; Van Berkel, Derek B. ; Meentemeyer, Ross K.",FUTURES-AMR: Towards an Adaptive Mesh Refinement Framework for Geosimulations,F,BH,MK,MK: 0; BH:0,MK: 1; BH:-,MK: 1; BH:1,MK: 1; BH:1,MK: 1; BH:1,"BH: again, I do not see any specific preprocessing used?
+MK: I think there is some preprocessing going in section 4.1.1 and further described in 4.2 (""...policies specified as input to the simulation [...] policies serve as refinement and coarsing criteria for a simulation to perform refinement.""). What do you think about that?",
+172018,2018,"Yan, Bo ; Janowicz, Krzysztof ; Mai, Gengchen ; Zhu, Rui",xNet+SC: Classifying Places Based on Images by Incorporating Spatial Contexts,F,BH,FO,FO:0 (was 1); BH:0 (images not recreatable),FO:1; BH:1,"FO:1, BH:1","FO:1, BH:1","FO:1, BH:1","FO: very well described with sufficient information to replicate; however, I could not find any actual code or the exact input data (the images)",
+12016,2016,"Cici Alexander, Lars Arge, Peder Klith Bøcher, Morten Revsbæk, Brody Sandel, Jens-Christian Svenning et al.",Computing River Floods Using Massive Terrain Data,F,DN,FO,,,,,,,
+22016,2016,"Jan-Henrik Haunert, Wouter Meulemans","Partitioning
+Polygons via Graph Augmentation",F,FO,CG,,,,,,,
+32016,2016,"Carson J. Q. Farmer, Carsten Keßler","Hierarchical
+Prism Trees for Scalable Time Geographic Analysis",F,CG,MK,,,,,,,
+42016,2016,"Emre Eftelioglu, Yan Li, Xun Tang, Shashi Shekhar, James M. Kang, Christopher Farah","Mining
+Network Hotspots with Holes: A Summary of Results",F,MK,BH,,,,,,,
+52016,2016,KwangSoo Yang,"Distance-Constrained
+k Spatial Sub-Networks: A Summary of Results",F,BH,DN,,,,,,,
+62016,2016,"Dipto Sarkar, Renee Sieber, Raja Sengupta","GIScience
+Considerations in Spatial Social Networks",T,,,,,,,,,
+72016,2016,Takeshi Shirabe,"On
+Distortion of Raster-Based Least-Cost Corridors",F,DN,CG,,,,,,,
+82016,2016,"Joseph V. Tuccillo, Barbara P. Buttenfield","Model-Based
+Clustering of Social Vulnerability to Urban Extreme Heat Events",F,FO,MK,,,,,,,
+92016,2016,"Jiaoli Chen, Shih-Lung Shaw","Representing
+the Spatial Extent of Places Based on Flickr Photos with a
+Representativeness-Weighted Kernel Density Estimation",F,CG,BH,,,,,,,
+102016,2016,"Tuhin Paul, Kevin Stanley, Nathaniel Osgood, Scott Bell, Nazeem Muhajarine","Scaling
+Behavior of Human Mobility Distributions",F,MK,BH,,,,,,,
+112016,2016,"Ashwin Shashidharan, Derek B. van Berkel, Ranga Raju Vatsavai, Ross K. Meentemeyer","pFUTURES:
+A Parallel Framework for Cellular Automaton Based Urban Growth Models",F,BH,FO,,,,,,,
+122016,2016,"Qinghan Liang, Silvia Nittel, Torsten Hahmann","From Data
+Streams to Fields: Extending Stream Data Models with Field Data Types",T,,,,,,,,,
+132016,2016,"Joshua A. Lewis, Max J. Egenhofer","Point
+Partitions: A Qualitative Representation for Region-Based Spatial Scenes in R2",T,,,,,,,,,
+142016,2016,"Xiaoxiao Liu, Stefania Bertazzon","Fine
+Scale Spatio-Temporal Modelling of Urban Air Pollution",F,DN,MK,,,,,,,
+152016,2016,"Matt Duckham, Marc van Kreveld, Ross Purves, Bettina Speckmann, Yaguang Tao, Kevin Verbeek et al.","Modeling
+Checkpoint-Based Movement with the Earth Mover’s Distance",F,FO,BH,,,,,,,
+162016,2016,"Benjamin Adams, Mark Gahegan","Exploratory
+Chronotopic Data Analysis",F,CG,DN,,,,,,,
+172016,2016,"Christopher Allen, Thomas Hervey, Sara Lafia, Daniel W. Phillips, Behzad Vahedi, Werner Kuhn","Exploring
+the Notion of Spatial Lenses",F,MK,FO,,,,,,,
+182016,2016,"Krzysztof Janowicz, Yingjie Hu, Grant McKenzie, Song Gao, Blake Regalia, Gengchen Mai et al.","Moon
+Landing or Safari? A Study of Systematic Errors and Their Causes in Geographic
+Linked Data",F,BH,CG,,,,,,,
+192016,2016,"Arthur van Goethem, Marc van Kreveld, Bettina Speckmann","Circles
+in the Water: Towards Island Group Labeling",F,DN,BH,,,,,,,
+202016,2016,"Benjamin Niedermann, Martin Nöllenburg","An
+Algorithmic Framework for Labeling Road Maps",F,FO,DN,,,,,,,
+212016,2016,"Peter Kiefer, Ioannis Giannopoulos, Andrew Duchowski, Martin Raubal","Measuring
+Cognitive Load for Map Tasks Through Pupil Diameter",F,CG,FO,,,,,,,
+12014,2014,"Thomas C. van Dijk, Arthur van Goethem, Jan-Henrik Haunert, Wouter Meulemans, Bettina Speckmann",Map Schematization with Circular Arcs,F,MK,CG,,,,,,,
+22014,2014,"Kevin Buchin, Arthur van Goethem, Michael Hoffmann, Marc van Kreveld, Bettina Speckmann",Travel-Time Maps: Linear Cartograms with Fixed Vertex Locations,F,BH,MK,,,,,,,
+32014,2014,"Sara Irina Fabrikant, Sara Maggi, Daniel R. Montello",3D Network Spatialization: Does It Add Depth to 2D Representations of Semantic Proximity?,F,DN,FO,,,,,,,
+42014,2014,"Paul Holloway, Jennifer A. Miller","Uncertainty
+ Analysis of Step-Selection Functions: The Effect of Model Parameters on
+ Inferences about the Relationship between Animal Movement and the 
+Environment",F,FO,CG,,,,,,,
+52014,2014,"Kris Hatch, Suzana Dragićević, Jozo Dujmović",Logic Scoring of Preference and Spatial Multicriteria Evaluation for Urban Residential Land Use Analysis,F,CG,MK,,,,,,,
+62014,2014,François Bavaud,Spatial Weights: Constructing Weight-Compatible Exchange Matrices from Proximity Matrices,F,MK,BH,,,,,,,
+72014,2014,Guillaume Guex,"Spatial Graphs Cost and Efficiency: Exploring Edges
+Competition by MCMC",F,BH,DN,,,,,,,
+82014,2014,"Sophia Karagiorgou, Dieter Pfoser, Dimitrios Skoutas","Geosemantic Network-of-Interest Construction Using
+     Social Media Data",F,DN,CG,,,,,,,
+92014,2014,"Ahmed Loai Ali, Falko Schmid","Data Quality Assurance for Volunteered Geographic
+Information",F,FO,MK,,,,,,,
+102014,2014,"Mark Gahegan, Benjamin Adams","Re-Envisioning Data Description Using Peirce’s
+     Pragmatics",F,CG,BH,,,,,,,
+112014,2014,"Gilberto Camara, Max J. Egenhofer, Karine Ferreira, Pedro Andrade, Gilberto Queiroz, Alber Sanchez et al.",Fields as a Generic Data Type for Big Spatial Data,F,MK,DN,,,,,,,
+122014,2014,"Werner Kuhn, Tomi Kauppinen, Krzysztof Janowicz","Linked Data - A Paradigm Shift for Geographic Information
+Science",T,,,,,,,,,
+132014,2014,"Gaurav Sinha, David Mark, Dave Kolas, Dalia Varanka, Boleslo E. Romero, Chen-Chieh Feng et al.",An Ontology Design Pattern for Surface Water Features,reviewers double-check,,,,,,,,,
+142014,2014,"Johannes Scholz, Stefan Schabus","An Indoor Navigation Ontology for Production Assets in
+     a Production Environment",reviewers double-check,,,,,,,,,
+152014,2014,"Ioannis Giannopoulos, Peter Kiefer, Martin Raubal, Kai-Florian Richter, Tyler Thrash","Wayfinding Decision Situations: A Conceptual Model and
+Evaluation",F,BH,FO,,,,,,,
+162014,2014,"William Mackaness, Phil Bartie, Candela Sanchez-Rodilla Espeso","Understanding Information Requirements in “Text Only”
+Pedestrian Wayfinding Systems",F,DN,MK,,,,,,,
+172014,2014,"Ludovic Moncla, Mauro Gaio, Sébastien Mustière",Automatic Itinerary Reconstruction from Texts,F,FO,BH,,,,,,,
+182014,2014,"Jing Wang, Stephan Winter, Daniel Langerenken, Haifeng Zhao",Integrating Sensing and Routing for Indoor Evacuation,F,CG,DN,,,,,,,
+192014,2014,"Dev Oliver, Shashi Shekhar, Xun Zhou, Emre Eftelioglu, Michael R. Evans, Qiaodi Zhuang et al.",Significant Route Discovery: A Summary of Results,F,MK,FO,,,,,,,
+202014,2014,"A. K. M. Mustafizur Rahman Khan, Tanzima Hashem, Egemen Tanin, Lars Kulik","Location Oblivious Privacy Protection for Group Nearest
+Neighbor Queries",F,BH,CG,,,,,,,
+212014,2014,"Frank Kammer, Maarten Löffler, Paul Mutser, Frank Staals","Practical Approaches to Partially Guarding a Polyhedral
+Terrain",F,DN,BH,,,,,,,
+222014,2014,"Joshua A. Lewis, Max J. Egenhofer",Oriented Regions for Linearly Conceptualized Features,T,,,,,,,,,
+232014,2014,"Eliseo Clementini, Anthony G. Cohn",RCC*-9 and CBM*,T,,,,,,,,,
+12012,2012,"Amin Abdalla, Andrew U. Frank",Combining Trip and Task Planning: How to Get from A to Passport,T,,,,,,,,,
+22012,2012,"Chris Anderson-Tarver, Mike Gleason, Barbara Buttenfield, Larry Stanislawski","Automated Centerline Delineation to Enrich the National
+Hydrography Dataset",F,FO,DN,,,,,,,
+32012,2012,"Kevin Buchin, Bettina Speckmann, Sander Verdonschot",Evolution Strategies for Optimizing Rectangular Cartograms,F,CG,FO,,,,,,,
+42012,2012,"Maike Buchin, Somayeh Dodge, Bettina Speckmann",Context-Aware Similarity of Trajectories,F,MK,CG,,,,,,,
+52012,2012,"Yao-Yi Chiang, Craig A. Knoblock",Generating Named Road Vector Data from Raster Maps,F,BH,MK,,,,,,,
+62012,2012,"Matthew P. Dube, Max J. Egenhofer",An Ordering of Convex Topological Relations,T,,,,,,,,,
+72012,2012,Julien Gaffuri,Toward Web Mapping with Vector Data,F,DN,FO,,,,,,,
+82012,2012,"Carsten Keßler, Krzysztof Janowicz, Tomi Kauppinen","spatial@linkedscience – Exploring the Research Field of
+GIScience with Linked Data",F,FO,CG,,,,,,,
+92012,2012,"Nicolas Maisonneuve, Bastien Chopard","Crowdsourcing Satellite Imagery Analysis: Study of Parallel
+and Iterative Models",F,CG,MK,,,,,,,
+102012,2012,"Pradeep Mohan, Xun Zhou, Shashi Shekhar","Quantifying Resolution Sensitivity of Spatial
+Autocorrelation: A Resolution Correlogram Approach",F,MK,BH,,,,,,,
+112012,2012,"Silvia Nittel, Christopher Dorr, John C. Whittier","LocalAlert: Simulating
+Decentralized Ad-Hoc Collaboration in Emergency Situations",F,BH,DN,,,,,,,
+122012,2012,"Avinash Rude, Kate Beard","High-Level Event Detection in Spatially Distributed Time
+Series",F,DN,CG,,,,,,,
+132012,2012,"Thiago Luís Lopes Siqueira, Cristina Dutra de Aguiar Ciferri, Valéria Cesário Times, Ricardo Rodrigues Ciferri",Towards Vague Geographic Data Warehouses,reviewers double-check,,,,,,,,,
+142012,2012,"Guibo Sun, Hui Lin, Rongrong Li","Measuring the Influence of Built Environment on Walking
+Behavior: An Accessibility Approach",F,FO,MK,,,,,,,
+152012,2012,Guillaume Touya,"Social Welfare to Assess the Global Legibility of a
+Generalized Map",F,CG,BH,,,,,,,
+162012,2012,"Jan Oliver Wallgrün, Jinlong Yang, Alexander Klippel, Frank Dylla","Investigations into the Cognitive Conceptualization and
+Similarity Assessment of Spatial Scenes",F,MK,DN,DN: 1,DN: NA,DN: 1,DN: 1,DN: 1,"DN: three human experiments; icon sets could be provided, especially the ones after manual selection;",Yes (except the humans)
+172012,2012,"Lisa A. Walton, Michael Worboys",A Qualitative Bigraph Model for Indoor Space,T,,,,,,,,,
+182012,2012,"Toyohide Watanabe, Kosuke Yamamoto","Dynamic Refuse Collection Strategy Based on Adjacency
+Relationship between Euler Cycles",F,BH,FO,,,,,,,
+192012,2012,"Ting Wei, Scott Bell","Impact of Indoor Location Information Reliability on Users’
+Trust of an Indoor Positioning System",F,DN,MK,DN: 1,DN: 0,DN: 1,DN: 0,DN: 1,DN: human subject study; SaskEPS software; created data should be shared;,
+202012,2012,Nancy Wiegand,Ontology for the Engineering of Geospatial Systems,F,FO,BH,,,,,,,
+212012,2012,Nancy Wiegand,Preserving Detail in a Combined Land Use Ontology,F,CG,DN,DN: 1,DN: 1,DN: 1,DN: 0,DN: 0,"DN: ""custom Java code"" already mentioned in the abstract :-); ""established once then myriad uses""; indented bullet lists in Word as database, manual work; https://ontohub.org/socop/WisLandUseCodes///symbols?kind=Class",Yes
+222012,2012,Michael Worboys,The Maptree: A Fine-Grained Formal Representation of Space,T,,,,,,,,,
+232012,2012,"Hui Yang, Gefei Feng","Automatic Creation of Crosswalk for Geospatial Metadata
+Standard Interoperability",F,MK,FO,,,,,,,
+242012,2012,"KwangSoo Yang, Venkata M. V. Gunturi, Shashi Shekhar","A Dartboard Network Cut Based Approach to Evacuation Route
+Planning: A Summary of Results",F,BH,CG,,,,,,,
+252012,2012,"Eman M. G. Younis, Christopher B. Jones, Vlad Tanasescu, Alia I. Abdelmoty","Hybrid Geo-spatial Query Methods on the Semantic Web with a
+Spatially-Enhanced Index of DBpedia",F,DN,BH,DN: 1,DN: 0,DN: 1,DN: 0,DN: 1,"DN: ""filtered manually"", instructions are detailed, could potentially, with a lot of effort, recreate dataset somehow close to the original _for today_; Ordenance Survey and DBpedia still exist...",Yes
+262012,2012,"Yihong Yuan, Martin Raubal","Extracting Dynamic Urban Mobility Patterns from Mobile Phone
+Data",F,FO,DN,DN: 0,DN: 1,DN: 1,DN: 0,DN: 1,"DN: they could have provided the voronoi poloygons with aggregated data; all processing is ""documented as text""; ",No (private data)

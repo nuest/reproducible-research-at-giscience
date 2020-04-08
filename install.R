@@ -1,16 +1,13 @@
 # Install CRAN packages
-install.packages("pdftools")
 install.packages("tidyverse")
-install.packages("tidytext")
-install.packages("wordcloud")
 install.packages("ggthemes")
 install.packages("kableExtra")
 install.packages("huxtable")
 install.packages("here")
 install.packages("gridBase")
 install.packages("gridExtra")
-install.packages("googledrive")
-install.packages("googlesheets")
+install.packages("googlesheets4")
+install.packages("reshape2")
 
 # Install LaTeX packages
 tinytex::tlmgr_install("siunitx")

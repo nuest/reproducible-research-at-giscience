@@ -3,12 +3,12 @@ title: 'Reproducibility assessment data analysis for "Reproducible research and 
 author: "Daniel Nüst"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
-  html_document:
-    df_print: paged
-    toc: yes
   pdf_document:
     keep_tex: yes
     latex_engine: xelatex
+    toc: yes
+  html_document:
+    df_print: paged
     toc: yes
 urlcolor: blue
 # add lscape package to support kableExtra::landscape() for PDF output
@@ -19,7 +19,8 @@ header-includes: |
 This document visualises the expert assessment for accepted full papers at the [GIScience conference series](https://www.giscience.org/) for the following conferences and proceedings.
 
 - 2018: Tenth International Conference on Geographic Information Science, Melbourne, Australia
-  > Proceedings 10th International Conference on Geographic Information Science (GIScience 2018). 2018. In Winter, S., Griffin, A., Sester, M. (Eds.), LIPICS Vol. 114. ISBN 978-3-95977-083-5. http://www.dagstuhl.de/dagpub/978-3-95977-083-5
+  
+  _Proceedings 10th International Conference on Geographic Information Science (GIScience 2018). 2018. In Winter, S., Griffin, A., Sester, M. (Eds.), LIPICS Vol. 114. ISBN 978-3-95977-083-5. http://www.dagstuhl.de/dagpub/978-3-95977-083-5 _
 
 <!--
 - 2016: Ninth International Conference on Geographic Information Science, Sep 27, 2016 - Sep 30, 2016, 	Montreal, Canada
@@ -56,29 +57,17 @@ The plots and tables of survey data and evaluation use the packages [`ggplot2`](
 Required libraries and runtime environment description are as follows.
 
 ```{r load_libraries, echo=TRUE, message=FALSE, warning=FALSE}
-#library("pdftools")
-#library("stringr")
-#library("tidyverse")
-#library("knitr")
-#library("tidytext")
-#library("wordcloud")
-#library("RColorBrewer")
-#library("readr")
-#library("ggplot2")
-#library("rvest")
-#library("jsonlite")
-#library("reshape2")
-#library("ggthemes")
-#library("grid")
-#library("gridBase")
-#library("gridExtra")
-#library("kableExtra")
-#library("devtools")
-#library("rlang")
-#library("huxtable")
-#library("here")
-#library("httr")
-#library("googledrive")
+library("tidyverse")
+library("readr")
+library("ggplot2")
+library("reshape2")
+library("ggthemes")
+library("grid")
+library("gridBase")
+library("gridExtra")
+library("kableExtra")
+library("huxtable")
+library("here")
 library("googlesheets4")
 ```
 
@@ -95,11 +84,11 @@ assessment_file <- "paper_assessment.csv"
 
 ```{r evaldata_download, echo=FALSE, eval=FALSE}
 assessment_sheet <- googlesheets4::read_sheet(ss = "https://docs.google.com/spreadsheets/d/1Df0zX5yqDuDSCzHHVaucNtThseHL5L32U2sWTPhyl0I/edit#gid=0",
-                                              sheet = "assessment")
-
+                                              sheet = "assessment",
+                                              range = cell_rows(1:18) # only 2018
+                                              )
+assessment_sheet$paper <- as.character(assessment_sheet$paper)
 #assessment_sheet <- assessment_sheet %>%
-#TODO: replace NULL with NA
-#turn lists into chracter strings
 
 write.csv(assessment_sheet, file = here::here(assessment_file))
 ```
@@ -134,8 +123,8 @@ categoryColumns <- c("input data",
 ```{r corpus_table_with_small_font_for_latex}
 options(knitr.kable.NA = '-')
 kable(paper_evaluation_raw %>% 
-        select(-matches("reviewer")) %>%
-        mutate(`short paper` = if_else(`short paper` == TRUE, "X", "")),
+      select(-matches("X1|reviewer|conceptual")),
+      #mutate(`short paper` = if_else(`short paper` == TRUE, "X", "")),
       format = "latex", # change output format to "html" when running the chunk manually
       #format = "html",
       booktabs = TRUE,
@@ -151,7 +140,7 @@ kable(paper_evaluation_raw %>%
 ```{r conceptual_papers,warning=FALSE}
 paper_evaluation <- paper_evaluation_raw %>%
   # add year column
-  mutate(year = as.numeric(str_extract(author, "[0-9]+"))) %>%
+  #mutate(year = as.numeric(str_extract(author, "[0-9]+"))) %>%
   # create new attribute for conceptual papers
   mutate(conceptual = is.na(`input data`) 
          & is.na(preprocessing) 
@@ -258,21 +247,16 @@ methods_and_results_eq_one <- evaldata_numeric %>%
 ### Table: Mean levels per criterion for full and short papers
 
 ```{r summary_evaldata_grouped}
-summaries_short_paper <- sapply(evaldata_numeric %>%
-                                  filter(`short paper` == TRUE) %>%
-                                  select(categoryColumns), summary)
-means_short_paper <- subset(summaries_short_paper, rownames(summaries) %in% c("Mean"))
-rownames(means_short_paper) <- c("Short papers")
-summaries_full_paper <- sapply(evaldata_numeric %>% filter(`short paper` == FALSE) %>%
+summaries <- sapply(evaldata_numeric %>%
                                  select(categoryColumns), summary)
-means_full_paper <- subset(summaries_full_paper, rownames(summaries) %in% c("Mean"))
-rownames(means_full_paper) <- c("Full papers")
+means <- subset(summaries, rownames(summaries) %in% c("Mean"))
+rownames(means) <- c("Full papers")
 ```
 
 \small
 
 ```{r summary_evaldata_grouped_smallfont_latex}
-kable(rbind(means_full_paper, means_short_paper),
+kable(means,
       digits = 2,
       col.names = c("input data", "preproc.", "method/analysis/proc.", "comp. env.", "results"),
       caption = paste0("\\label{tab:mean_full_vs_short}",
@@ -287,7 +271,8 @@ kable(rbind(means_full_paper, means_short_paper),
 
 ```{r evaldata_summary_by_year_mean}
 means_years <- evaldata_numeric %>%
-  filter(conceptual == FALSE) %>%
+  #filter(conceptual == FALSE) %>%
+  filter(conceptual == "no") %>%
   group_by(year) %>%
   summarise(mean = mean(c(`input data`, 
                           preprocessing, 

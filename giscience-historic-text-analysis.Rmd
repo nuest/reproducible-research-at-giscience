@@ -1,0 +1,296 @@
+---
+title: 'Text analysis of accepted full papers at GIScience conferences 2012, 2014, 2016, and 2018'
+author: "Daniel Nüst, Opening Reproducible Research (o2r), Institute for Geoinformatics, University of Münster"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: yes
+---
+
+## Introduction
+
+This document is an exploratory analysis of all accepted full papers, and posters at the [GIScience conference series](https://www.giscience.org/).
+
+- 2018: Tenth International Conference on Geographic Information Science, Melbourne, Australia
+- 2016: Ninth International Conference on Geographic Information Science, Sep 27, 2016 - Sep 30, 2016, 	Montreal, Canada
+- 2014: Eighth International Conference on Geographic Information Science, Sep 24, 2014 - Sep 26, 2014, 	Vienna, Austria
+- 2012: Seventh International Conference on Geographic Information Science, Sep 18, 2012 - Sep 21, 2012, Columbus, Ohio, USA
+
+The analysis is based on the text analysis published in _"Reproducible research and GIScience: an evaluation using AGILE conference papers"_ ([https://doi.org/10.7717/peerj.5072](https://doi.org/10.7717/peerj.5072)).
+
+```{r load_libraries, message=FALSE, warning=FALSE, include=FALSE}
+library("here")
+library("pdftools")
+library("stringr")
+library("tidyverse")
+library("tidytext")
+library("wordcloud")
+library("RColorBrewer")
+library("grid")
+library("gridBase")
+library("gridExtra")
+library("kableExtra")
+library("quanteda")
+
+# for deterministic cloud rendering
+set.seed(nchar("International Conference on Geographic Information Science"))
+```
+
+## Load data
+
+**List of proceedings**
+
+- Proceedings 10th International Conference on Geographic Information Science (GIScience 2018). 2018. In Winter, S., Griffin, A., Sester, M. (Eds.), LIPICS Vol. 114. ISBN 978-3-95977-083-5. http://www.dagstuhl.de/dagpub/978-3-95977-083-5
+- Geographic Information Science. 2016. In J. A. Miller, D. O’Sullivan, & N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-45738-3
+- Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
+- Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
+
+```{r input_files, echo=FALSE, cache=TRUE}
+data_path <- here::here("proceedings")
+proceedings <- c("2012" = "10.1007_978-3-642-33024-7.pdf",
+                 "2014" = "10.1007_978-3-319-11593-1.pdf",
+                 "2016" = "10.1007_978-3-319-45738-3.pdf",
+                 "2018" = "lipics-vol114-giscience2018-complete.pdf")
+proceedings_files <- file.path(data_path, proceedings)
+```
+
+Add the PDFs to a directory called ` `r data_path` ` next to the file `giscience-historic-text-analysis.Rmd` (this file).
+The proceedings of the papers are not openly available for the years 2012 to 2016.
+You can contact the original paper authors and ask for the test dataset to reproduce the full analysis.
+Alternatively, you can download the 2018 proceedings from the LIPIcs website (Open Access; [direct PDF link](https://drops.dagstuhl.de/opus/volltexte/lipics-complete/lipics-vol114-giscience2018-complete.pdf)) and conduct the analysis with that subset of the data.
+This workflow uses the following input files:
+
+```{r list_files, echo=FALSE}
+kable(tibble(year = names(proceedings), file = proceedings)) %>%
+  kable_styling("striped", full_width = FALSE)
+```
+
+```{r data_download_drive, eval=FALSE, echo=FALSE}
+dir.create(data_path, showWarnings = FALSE)
+
+drive_dir <- drive_get("https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
+drive_dir_contents <- drive_ls(drive_dir)
+for (i in rownames(drive_dir_contents)) {
+  current <- drive_dir_contents[i,]
+  if(endsWith(current$name, ".pdf"))
+    drive_download(as_id(current$id), file.path(data_path, current$name))
+}
+```
+
+The text is extracted from PDFs and it is processed to create a [tidy](https://www.jstatsoft.org/article/view/v059i10) data structure without [stop words](https://en.wikipedia.org/wiki/Stop_words).
+The stop words include specific words, such as `university`, which is included in many pages, abbreviations such as `e.g.`, and terms particular to scientific articles, such as `figure`.
+Also all numeric literas are removed from the word list.
+
+```{r load_files, echo=FALSE, cache=TRUE}
+
+texts <- lapply(proceedings_files, pdf_text)
+texts <- unlist(lapply(texts, str_c, collapse = TRUE))
+infos <- lapply(proceedings_files, pdf_info)
+
+tidy_texts <- tibble(year = names(proceedings),
+                     path = proceedings_files,
+                     text = texts,
+                     pages = map_chr(infos, function(info) {info$pages}))
+
+# create a table of all words
+all_words <- tidy_texts %>%
+  select(year,
+         text) %>%
+  unnest_tokens(word, text)
+
+# remove stop words and remove numbers
+my_stop_words <- tibble(
+  word = c(
+    "et",
+    "al",
+    "fig",
+    "e.g",
+    "i.e",
+    "http",
+    "ing",
+    "pp",
+    "figure",
+    "based",
+    "conference",
+    "university",
+    "table"
+  ),
+  lexicon = "agile"
+)
+
+all_stop_words <- stop_words %>%
+  bind_rows(my_stop_words)
+suppressWarnings({
+  no_numbers <- all_words %>%
+    filter(is.na(as.numeric(word)))
+})
+
+no_stop_words <- no_numbers %>%
+  anti_join(all_stop_words, by = "word")
+
+total_words = nrow(no_numbers)
+after_cleanup = nrow(no_stop_words)
+```
+
+About `r round(after_cleanup/total_words * 100)`&nbsp;% of the words are considered stop words.
+The following tables shows how many non-stop words each conference year has, sorted by number of non-stop words.
+
+```{r stop_words, echo=FALSE, message=FALSE, warning=FALSE}
+nonstopwords_per_doc <- no_stop_words %>%
+  group_by(year) %>%
+  summarise(words = n()) %>%
+  arrange(desc(words)) %>%
+  rename(`non-stop words` = words)
+
+words_per_doc <- no_numbers %>%
+  group_by(year) %>%
+  summarise(words = n()) %>%
+  arrange(desc(words)) %>%
+  rename(`all words` = words)
+
+inner_join(nonstopwords_per_doc, words_per_doc) %>%
+  bind_rows(tibble(year = "Total",
+                   `non-stop words` = sum(nonstopwords_per_doc$`non-stop words`),
+                   `all words` = sum(words_per_doc$`all words`))) %>%
+  kable() %>%
+  kable_styling("striped", full_width = FALSE) %>%
+  row_spec(nrow(nonstopwords_per_doc) + 1, bold = TRUE)
+```
+
+## Top wordstems and word clouds
+
+```{r params, include=FALSE}
+# chosen manually
+minimum_occurence <- 100
+max_words <- 100
+```
+
+The following table shows the number of occurence for the `r max_words` most occuring wordstems across all proceedings.
+
+```{r cloud_and_top_words, echo=FALSE}
+top_words <- no_stop_words %>%
+  group_by(word) %>%
+  tally %>%
+  arrange(desc(n)) %>%
+  head(20)
+
+wordstems <- no_stop_words %>%
+  mutate(wordstem = quanteda::char_wordstem(no_stop_words$word))
+
+countYearsUsingWordstem <- function(the_word) {
+  sapply(the_word, function(w) {
+    wordstems %>%
+      filter(wordstem == w) %>%
+      group_by(year) %>%
+      count %>%
+      nrow
+  })
+}
+
+top_wordstems <- wordstems %>%
+  group_by(wordstem) %>%
+  tally %>%
+  arrange(desc(n)) %>%
+  head(n = max_words) %>%
+  mutate(`year w/ wordstem` = countYearsUsingWordstem(wordstem)) %>%
+  add_column(place = c(1:nrow(.)), .before = 0)
+
+cloud_wordstems <- wordstems %>%
+  group_by(year, wordstem) %>%
+  tally %>%
+  arrange(desc(n))
+
+top_wordstems %>%
+  head(n = max_words) %>%
+  kable() %>%
+  kable_styling("striped", full_width = FALSE) %>%
+  scroll_box(height = "240px")
+```
+
+The following clouds and table are based on word stems extracted with a stemming algorithm from package [`quanteda`](https://cran.r-project.org/package=quanteda).
+Words must occur at least `r minimum_occurence` times to be included in the cloud.
+Each cloud has a maximum of `r max_words` words.
+
+```{r wordclouds, echo=FALSE, dpi=300, fig.width=12, fig.height=10, fig.cap="World clouds per conference year (clockwise starting top left: 2012, 2014, 2016, 2018)"}
+par(mfrow=c(2,2))
+
+for (the_year in names(proceedings)) {
+  cloud_words <- cloud_wordstems %>%
+    filter(year == the_year) %>%
+    filter(n >= minimum_occurence) %>%
+    head(n = max_words)
+  wordcloud(cloud_words$wordstem, cloud_words$n,
+            random.order = FALSE,
+            fixed.asp = FALSE,
+            rot.per = 0,
+            color = brewer.pal(8,"Dark2"))
+}
+```
+
+## Reproducible research-related keywords in GIScience papers
+
+The following tables lists how often terms related to reproducible research appear in each document.
+The detection matches full words using regex option `\b`.
+
+- reproduc (`reproduc.*`, reproducibility, reproducible, reproduce, reproduction)
+- replic (`replicat.*`, i.e. replication, replicate)
+- repeatab (`repeatab.*`, i.e. repeatability, repeatable)
+- software
+- (pseudo) code/script(s) [column name _code_]
+- algorithm (`algorithm.*`, i.e. algorithms, algorithmic)
+- process (`process.*`, i.e. processing, processes, preprocessing)
+- data (`data.*`, i.e. dataset(s), database(s))
+- result(s) (`results?`)
+- repository(ies) (`repositor(y|ies)`)
+- collaboration platforms (`git(hub|lab)`)
+
+```{r keywords_per_paper, echo=FALSE, warning=FALSE}
+tidy_texts_lower <- str_to_lower(tidy_texts$text)
+word_counts <- tibble(
+  year = tidy_texts$year,
+  `reproduc..` = str_count(tidy_texts_lower, "\\breproduc.*\\b"),
+  `replic..` = str_count(tidy_texts_lower, "\\breplicat.*\\b"),
+  `repeatab..` = str_count(tidy_texts_lower, "\\brepeatab.*\\b"),
+  `code` = str_count(tidy_texts_lower,
+    "(\\bcode\\b|\\bscript.*\\b|\\bpseudo\ code\\b)"),
+  software = str_count(tidy_texts_lower, "\\bsoftware\\b"),
+  `algorithm(s)` = str_count(tidy_texts_lower, "\\balgorithm.*\\b"),
+  `(pre)process..` = str_count(tidy_texts_lower, 
+                "(\\bprocess.*\\b|\\bpreprocess.*\\b|\\bpre-process.*\\b)"),
+  `data.*` = str_count(tidy_texts_lower, "\\bdata.*\\b"),
+  `result(s)` = str_count(tidy_texts_lower, "\\bresults?\\b"),
+  `repository/ies` = str_count(tidy_texts_lower, "\\brepositor(y|ies)\\b"),
+  #`repos` = str_count(tidy_texts_lower, "\\bzenodo|figshare|osf|dryad\\b"),
+  `github/lab` = str_count(tidy_texts_lower, "\\bgit(hub|lab)\\b")
+)
+
+word_counts_sums <- rbind(word_counts,
+                          word_counts %>% 
+                            summarise_if(is.numeric, funs(sum)) %>%
+                            add_column(year = "Total", .before = 0))
+
+word_counts_sums %>%
+  kable() %>%
+  kable_styling("striped", font_size = 10, bootstrap_options = "condensed")  %>%
+  row_spec(0, font_size = "x-small", bold = T)  %>%
+  row_spec(nrow(word_counts_sums), bold = T)
+```
+
+## License & Metadata
+
+This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+All contained code is licensed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/).
+
+**Runtime environment description:**
+
+```{r session_info, echo=FALSE}
+devtools::session_info(include_base = TRUE)
+```
+
+```{r upload_to_drive, eval=FALSE, include=FALSE}
+# upload the HTML and Rmd file to the authoring team's shared folder
+library("googledrive")
+googledrive::drive_auth()
+drive_put("GIScience-papers.Rmd", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA/")
+drive_put("GIScience-papers.html", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA/")
+```

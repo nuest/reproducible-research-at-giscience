@@ -22,18 +22,16 @@ Click the “Binder” button below to open the notebook on
 
 ## Reproduce locally
 
-Open the *main analysis file* `giscience-paper-reproducibility.Rmd` with
+Open one of the two *R Markdown analysis files* (`.Rmd`) with
 [RStudio](https://www.rstudio.com/products/rstudio/). Then select “Knit
-\> Knit to PDF” to render the document. We mainly use PDF output,
-because the paper is submitted with LaTeX. If you have errors rendering
-the whole PDF, try running each
+\> Knit to PDF” to render the document. If you have errors rendering the
+whole PDF, try running each
 [chunk](https://rmarkdown.rstudio.com/authoring_rcodechunks.html) to
-locate the problem or use “Knit to HTML”.
-
-The document does *not* include code to install required packages. Run
-the code in the file `install.R` to install all dependencies. You can
-skip the installation of `tinytex` and the LaTeX packages if you knit to
-HTML or run the chunks directly from RStudio.
+locate the problem or use “Knit to HTML”. The document does *not*
+include code to install required packages. Run the code in the file
+`install.R` to install all dependencies. You can skip the installation
+of LaTex (recommended to use `tinytex`) and installation of LaTeX
+packages if you knit to HTML or run the chunks directly from RStudio.
 
 ## Reproduce locally with Docker
 
@@ -51,7 +49,7 @@ docker build --tag rr-giscience .
 docker run -it -p 8888:8888 rr-giscience
 
 # run the image for rendering PDF
-docker run -i -v $(pwd):/rockerverse --user $UID rr-giscience Rscript -e 'setwd("/giscience"); rmarkdown::render("giscience-paper-reproducibility.Rmd")'
+docker run -i -v $(pwd):/giscience --user $UID rr-giscience Rscript -e 'setwd("/giscience"); rmarkdown::render("giscience-paper-reproducibility.Rmd")'
 ```
 
 Open a browser at <http://localhost:8888> or click on the login link
@@ -61,8 +59,10 @@ continue with the instructions in [Reproduce online](#reproduce-online).
 ## Files in this repository
 
   - `paper_assessment.csv`: Results of manual paper evaluation.
-  - `giscience-paper-reproducibility.Rmd`: R Markdown document with the
-    code to conduct the analysis and create the figures of the paper.
+  - `giscience-reproducibility-assessment.Rmd`: R Markdown document with
+    the visualisations about the assessment of paper reproducibility.
+  - `giscience-historic-text-analysis.Rmd`: R Markdown document with the
+    text analysis of historic GIScience proceedings.
   - `Dockerfile`: A recipe for the computational environment using
     [Docker](https://en.wikipedia.org/wiki/Docker_\(software\)).
   - `install.R`: R script file executed during creation of the Docker

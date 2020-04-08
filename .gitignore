@@ -39,3 +39,9 @@ vignettes/*.pdf
 .Renviron
 
 papers/*.pdf
+
+proceedings/*.pdf
+
+giscience-historic-text-analysis.html
+
+giscience-historic-text-analysis_files/

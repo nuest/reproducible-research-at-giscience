@@ -1,0 +1,76 @@
+---
+title: "Reproducible Research and GIScience: an evaluation using GIScience conference papers"
+titlerunning: "Reprocuible GIScience"
+format: "a4paper"
+hyphenation: "UKenglish"
+authorcolumns: false
+numberwithinsect: false # for section-numbered lemmas etc.
+cleveref: true # for enabling cleveref support
+autoref: true # for enabling autoref support
+anonymous: false # for anonymousing the authors (e.g. for double-blind review)
+thm-restate: true # for enabling thm-restate support
+author:
+  # mandatory, please use full name; only 1 author per \author macro; first two parameters are mandatory, other parameters can be empty. Please provide at least the name of the affiliation and the country. The full address is optional
+  - name: Barbara Hofer
+    #footnote: Optional footnote, e.g. to mark corresponding author
+    affiliation: "Interfaculty Department of Geoinformatics - Z_GIS, University of Salzburg, Salzburg, Austria"
+    orcid: "https://orcid.org/0000-0001-7078-3766"
+    email: barbara.hofer@sbg.ac.at
+    #funding: "(Optional) author-specific funding acknowledgements"
+  - name: Carlos Granell
+    #footnote: Optional footnote, e.g. to mark corresponding author
+    affiliation: "Institute of New Imaging Technologies, Universitat Jaume I de Castellón, Castellón, Spain"
+    orcid: "https://orcid.org/0000-0003-1004-9695"
+    email: carlos.granell@uji.es
+    #funding: "(Optional) author-specific funding acknowledgements"
+  - name: Daniel Nüst
+    #footnote: Optional footnote, e.g. to mark corresponding author
+    affiliation: "Institute for Geoinformatics, University of Münster, Münster, Germany"
+    orcid: "https://orcid.org/0000-0002-0024-5046"
+    email: daniel.nuest@uni-muenster.de
+    funding: "_Opening Reproducible Research_ ([o2r](https://www.uni-muenster.de/forschungaz/project/12343)), German Research Foundation project number [PE&nbsp;1632/17-1](https://gepris.dfg.de/gepris/projekt/415851837)."
+  - name: Frank Ostermann
+    #footnote: Optional footnote, e.g. to mark corresponding author
+    affiliation: "Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente, Enschede, The Netherlands"
+    orcid: "https://orcid.org/0000-0002-9317-8291"
+    email: f.o.ostermann@utwente.nl
+    #funding: "(Optional) author-specific funding acknowledgements"
+  - name: Markus Konkol
+    #footnote: Optional footnote, e.g. to mark corresponding author
+    affiliation: "Institute for Geoinformatics, University of Münster, Münster, Germany"
+    orcid: "https://orcid.org/0000-0001-6651-0976"
+    email: m.konkol@uni-muenster.de
+    funding: "_Opening Reproducible Research_ ([o2r](https://www.uni-muenster.de/forschungaz/project/12343)), German Research Foundation project number [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837)."
+abstract: |
+  Authors of papers at the GIScience conference face challenges of computational reproducibility just like any other discipline using computers to analyse data. In this work, we apply a rubric for assessing the reproducibility to XX conference papers published at the GIScience conference series in years 20XX-2018. The rubric was originally developed for an assessment of publications at the AGILE conference. The results of the GIScience paper assessment are in line with previous findings. The description of workflows and publication of data and software used in most papers suffice to explain the presented work, but are far from enabling a reproduction by a third party with reasonable effort. We summarise and adapt previous recommendations for improving this dire picture and invite the GIScience community to start a broad discussion on reusability, quality, and openness of its research. All material and code of this work is published openly under Zenodo DOI here.
+bibliography: bibliography
+authorrunning: "TODO when order fixed" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
+# A "thin space" character, ' ' or &thinsp;, is used between the two first names.
+copyright: "TODO when order fixed, John Q. Public and Joan R. Public" # mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
+ccdesc:
+  # Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm
+  concept_significance: "500"
+  concept_desc: "Information systems~Geographic information systems"
+keywords: "reproducible research, open science, reproducibility, GIScience"
+# OPTIONAL:
+#acknowledgements: "I want to thank \\dots"
+#category: "Invited paper"
+#relatedversion: "A full version of the paper is available at https://..." # optional, e.g. full version hosted on arXiv, HAL, or other respository/website
+supplement: "TODO See code at https://github.com/.. and data at https://doi.org/..." # optional, e.g. related research data, source code, ... hosted on a repository like zenodo, figshare, GitHub, ...
+nolinenumbers: false # disable line numbering
+hideLIPIcs: false # remove references to LIPIcs series (logo, DOI, ...), e.g. when preparing a pre-final version to be uploaded to arXiv or another public repository
+# appendix _after_ the bibliography
+#appendix: |
+output:
+  # xelatex needed for 'thin space' Unicode character (see authorrunning);
+  rticles::lipics_article:
+    latex_engine: xelatex
+---
+
+# Introductions
+
+\cite{nust_reproducible_2018} rocks.
+
+# Discussion
+
+# Conclusions

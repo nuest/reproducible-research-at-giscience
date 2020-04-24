@@ -55,3 +55,11 @@ giscience-reproducibility-assessment_files/
 .local/
 
 .rstudio/
+
+paper/reproducible-research-at-giscience.log
+
+paper/reproducible-research-at-giscience.pdf
+
+paper/reproducible-research-at-giscience.tex
+
+paper/reproducible-research-at-giscience.vtc

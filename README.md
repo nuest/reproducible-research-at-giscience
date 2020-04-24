@@ -63,6 +63,8 @@ properly managed.*
 
 ## Files in this repository
 
+  - `paper/reproducible-research-at-giscience.Rmd`: The paper
+    manuscript.
   - `paper_assessment.csv`: Results of manual paper evaluation.
   - `giscience-reproducibility-assessment.Rmd`: R Markdown document with
     the visualisations about the assessment of paper reproducibility.

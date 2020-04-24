@@ -3,7 +3,7 @@ output: github_document
 title: Reproducible research at GIScience
 ---
 
-A text analysis of GIScience submissions and visualisation of reprocubility assessment for the article "Reproducible research and GIScience: an evaluation using GIScience conference papers".
+A text analysis of GIScience submissions and visualisation of reproducibility assessment for the article "Reproducible research and GIScience: an evaluation using GIScience conference papers".
 This repository is based on a previous analysis of [AGILE conference](https://agile-online.org/conference) submissions, see [https://github.com/nuest/reproducible-research-and-giscience](https://github.com/nuest/reproducible-research-and-giscience).
 
 <!--
@@ -13,37 +13,30 @@ This repository is based on a previous analysis of [AGILE conference](https://ag
 
 ## Reproduce online
 
-Click the "Binder" button below to open the notebook on [MyBinder.org](https://mybinder.org/).
+Click the "Binder" button below to open RStudio on [MyBinder.org](https://mybinder.org/).
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nuest/reproducible-research-at-giscience/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nuest/reproducible-research-at-giscience/master?urlpath=rstudio)
+
+Then you can navigate to the R Markdown notebook files (see [list of files below](#files-in-this-repository)) to inspect and execute the code for the text analysis and reproduce the figures as described in [Reproduce locally](#reproduce-locally), but installation of required packages is not required.
 
 ## Reproduce locally
 
 Open one of the two _R Markdown analysis files_ (`.Rmd`) with [RStudio](https://www.rstudio.com/products/rstudio/).
 Then select "Knit > Knit to PDF" to render the document.
 If you have errors rendering the whole PDF, try running each [chunk](https://rmarkdown.rstudio.com/authoring_rcodechunks.html) to locate the problem or use "Knit to HTML".
+
 The document does _not_ include code to install required packages.
 Run the code in the file `install.R` to install all dependencies.
-You can skip the installation of LaTex (recommended to use `tinytex`) and installation of LaTeX packages if you knit to HTML or run the chunks directly from RStudio.
+You can skip the installation of LaTeX (recommended to use [`tinytex`](https://yihui.org/tinytex/) if you must) and installation of LaTeX packages if you knit to HTML or run the chunks directly from RStudio.
 
 ## Reproduce locally with Docker
 
 Install [Docker CE](https://www.docker.com/community-edition) or a compatible tool for building an image based on a `Dockerfile` and running a container based on the image.
-Download the project files, open a command line in the root directory (where this file is), and run the following commands:
+The `Dockerfile` uses the Rocker image [`rocker/binder:3.6.0`](https://hub.docker.com/r/rocker/binder), providing R version `3.6.0` with a CRAN mirror timestamp of July 5th 2019.
 
-```bash
-# build the image
-docker build --tag rr-giscience .
+Download the project files, open a command line in the root directory (where this file is), and run the commands as documented at the end of the `Dockerfile`.
 
-# run the image for interactive UI
-docker run -it -p 8888:8888 rr-giscience
-
-# run the image for rendering PDF
-docker run -i -v $(pwd):/giscience --user $UID rr-giscience Rscript -e 'setwd("/giscience"); rmarkdown::render("giscience-paper-reproducibility.Rmd")'
-```
-
-Open a browser at http://localhost:8888 or click on the login link shown in the console.
-It will show the Jupyter start page and you can continue with the instructions in [Reproduce online](#reproduce-online).
+If you have [`repo2docker`](https://repo2docker.readthedocs.io), you can also run `repo2docker .` and use the `--editable` option to edit the workflows. _The `repo2docker` option is the only way the original authors worked on the analysis to ensure the computing environment is properly managed._
 
 ## Files in this repository
 
@@ -63,6 +56,13 @@ The deposited archive was created based on the tag `TODO` (matching the Zenodo v
 git clone https://github.com/nuest/reproducible-research-at-giscience.git
 cd reproducible-research-and-giscience
 git checkout TODO
+
+docker build --tag rr-giscience .
+docker save -o image.tar rr-giscience
+
+# TODO: render HTMLs with container and extract them from the container
+#docker run -i -v $(pwd):/giscience --user $UID rr-giscience Rscript -e 'setwd("/giscience"); rmarkdown::render("giscience-historic-text-analysis.Rmd"); rmarkdown::render("giscience-reproducibility-assessment.Rmd");'
+
 zip -r reproducible-reserach-and-giscience.zip .
 ```
 

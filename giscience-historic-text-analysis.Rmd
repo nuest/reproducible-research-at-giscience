@@ -4,7 +4,10 @@ author: "Daniel Nüst, Opening Reproducible Research (o2r), Institute for Geoinf
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
+    df_print: paged
     toc: yes
+params:
+  with_sp: FALSE
 ---
 
 ## Introduction
@@ -45,35 +48,41 @@ set.seed(nchar("International Conference on Geographic Information Science"))
 - Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
 - Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
 
+**Note:** The 2018 proceedings include the short papers in the same document.
+For comparability, only the full papers are taken into account for the analysis below.
+
 ```{r input_files, echo=FALSE, cache=TRUE}
+cat(here::here())
 data_path <- here::here("proceedings")
 proceedings <- c("2012" = "10.1007_978-3-642-33024-7.pdf",
                  "2014" = "10.1007_978-3-319-11593-1.pdf",
                  "2016" = "10.1007_978-3-319-45738-3.pdf",
                  "2018" = "lipics-vol114-giscience2018-complete.pdf")
 proceedings_files <- file.path(data_path, proceedings)
+names(proceedings_files) <- names(proceedings)
 ```
 
 Add the PDFs to a directory called ` `r data_path` ` next to the file `giscience-historic-text-analysis.Rmd` (this file).
 The proceedings of the papers are not openly available for the years 2012 to 2016.
 You can contact the original paper authors and ask for the test dataset to reproduce the full analysis.
 Alternatively, you can download the 2018 proceedings from the LIPIcs website (Open Access; [direct PDF link](https://drops.dagstuhl.de/opus/volltexte/lipics-complete/lipics-vol114-giscience2018-complete.pdf)) and conduct the analysis with that subset of the data.
-This workflow uses the following input files:
+For the analysis below the following input files were used:
 
 ```{r list_files, echo=FALSE}
-kable(tibble(year = names(proceedings), file = proceedings)) %>%
-  kable_styling("striped", full_width = FALSE)
+knitr::kable(tibble(year = names(proceedings), file = proceedings)) %>%
+  kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
 ```{r data_download_drive, eval=FALSE, echo=FALSE}
 dir.create(data_path, showWarnings = FALSE)
 
-drive_dir <- drive_get("https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
-drive_dir_contents <- drive_ls(drive_dir)
+library("googledrive")
+drive_dir <- googledrive::drive_get("https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
+drive_dir_contents <- googledrive::drive_ls(drive_dir)
 for (i in rownames(drive_dir_contents)) {
   current <- drive_dir_contents[i,]
   if(endsWith(current$name, ".pdf"))
-    drive_download(as_id(current$id), file.path(data_path, current$name))
+    googledrive::drive_download(as_id(current$id), file.path(data_path, current$name))
 }
 ```
 
@@ -82,24 +91,28 @@ The stop words include specific words, such as `university`, which is included i
 Also all numeric literas are removed from the word list.
 
 ```{r load_files, echo=FALSE, cache=TRUE}
+texts <- lapply(proceedings_files, pdftools::pdf_text)
 
-texts <- lapply(proceedings_files, pdf_text)
-texts <- unlist(lapply(texts, str_c, collapse = TRUE))
-infos <- lapply(proceedings_files, pdf_info)
+if(params$with_sp) {
+  texts[["2018-sp"]] <- texts[["2018"]][c(283:length(texts[["2018"]]))]
+  proceedings_files <- c(proceedings_files, `2018-sp` = proceedings_files[[4]])
+}
 
-tidy_texts <- tibble(year = names(proceedings),
-                     path = proceedings_files,
-                     text = texts,
-                     pages = map_chr(infos, function(info) {info$pages}))
+texts[["2018"]] <- texts[["2018"]][c(1:282)]
+
+texts <- unlist(lapply(texts, stringr::str_c, collapse = TRUE))
+
+tidy_texts <- tibble::tibble(year = names(texts),
+                             path = proceedings_files,
+                             text = texts)
 
 # create a table of all words
 all_words <- tidy_texts %>%
-  select(year,
-         text) %>%
-  unnest_tokens(word, text)
+  dplyr::select(year, text) %>%
+  tidytext::unnest_tokens(word, text)
 
 # remove stop words and remove numbers
-my_stop_words <- tibble(
+my_stop_words <- tibble::tibble(
   word = c(
     "et",
     "al",
@@ -119,14 +132,14 @@ my_stop_words <- tibble(
 )
 
 all_stop_words <- stop_words %>%
-  bind_rows(my_stop_words)
+  dplyr::bind_rows(my_stop_words)
 suppressWarnings({
   no_numbers <- all_words %>%
-    filter(is.na(as.numeric(word)))
+    dplyr::filter(is.na(as.numeric(word)))
 })
 
 no_stop_words <- no_numbers %>%
-  anti_join(all_stop_words, by = "word")
+  dplyr::anti_join(all_stop_words, by = "word")
 
 total_words = nrow(no_numbers)
 after_cleanup = nrow(no_stop_words)
@@ -136,25 +149,25 @@ About `r round(after_cleanup/total_words * 100)`&nbsp;% of the words are conside
 The following tables shows how many non-stop words each conference year has, sorted by number of non-stop words.
 
 ```{r stop_words, echo=FALSE, message=FALSE, warning=FALSE}
-nonstopwords_per_doc <- no_stop_words %>%
-  group_by(year) %>%
-  summarise(words = n()) %>%
-  arrange(desc(words)) %>%
-  rename(`non-stop words` = words)
+nonstopwords_per_year <- no_stop_words %>%
+  dplyr::group_by(year) %>%
+  dplyr::summarise(words = n()) %>%
+  dplyr::arrange(desc(words)) %>%
+  dplyr::rename(`non-stop words` = words)
 
-words_per_doc <- no_numbers %>%
-  group_by(year) %>%
-  summarise(words = n()) %>%
-  arrange(desc(words)) %>%
-  rename(`all words` = words)
+words_per_year <- no_numbers %>%
+  dplyr::group_by(year) %>%
+  dplyr::summarise(words = n()) %>%
+  dplyr::arrange(desc(words)) %>%
+  dplyr::rename(`all words` = words)
 
-inner_join(nonstopwords_per_doc, words_per_doc) %>%
-  bind_rows(tibble(year = "Total",
-                   `non-stop words` = sum(nonstopwords_per_doc$`non-stop words`),
-                   `all words` = sum(words_per_doc$`all words`))) %>%
-  kable() %>%
-  kable_styling("striped", full_width = FALSE) %>%
-  row_spec(nrow(nonstopwords_per_doc) + 1, bold = TRUE)
+dplyr::inner_join(nonstopwords_per_year, words_per_year, by = "year") %>%
+  dplyr::bind_rows(tibble(year = "Total",
+                   `non-stop words` = sum(nonstopwords_per_year$`non-stop words`),
+                   `all words` = sum(words_per_year$`all words`))) %>%
+  knitr::kable() %>%
+  kableExtra::kable_styling("striped", full_width = FALSE) %>%
+  kableExtra::row_spec(nrow(nonstopwords_per_year) + 1, bold = TRUE)
 ```
 
 ## Top wordstems and word clouds
@@ -169,55 +182,55 @@ The following table shows the number of occurence for the `r max_words` most occ
 
 ```{r cloud_and_top_words, echo=FALSE}
 top_words <- no_stop_words %>%
-  group_by(word) %>%
-  tally %>%
-  arrange(desc(n)) %>%
+  dplyr::group_by(word) %>%
+  dplyr::tally() %>%
+  dplyr::arrange(desc(n)) %>%
   head(20)
 
 wordstems <- no_stop_words %>%
-  mutate(wordstem = quanteda::char_wordstem(no_stop_words$word))
+  dplyr::mutate(wordstem = quanteda::char_wordstem(no_stop_words$word))
 
 countYearsUsingWordstem <- function(the_word) {
   sapply(the_word, function(w) {
     wordstems %>%
-      filter(wordstem == w) %>%
-      group_by(year) %>%
-      count %>%
+      dplyr::filter(wordstem == w) %>%
+      dplyr::group_by(year) %>%
+      dplyr::count() %>%
       nrow
   })
 }
 
 top_wordstems <- wordstems %>%
-  group_by(wordstem) %>%
-  tally %>%
-  arrange(desc(n)) %>%
+  dplyr::group_by(wordstem) %>%
+  dplyr::tally() %>%
+  dplyr::arrange(desc(n)) %>%
   head(n = max_words) %>%
-  mutate(`year w/ wordstem` = countYearsUsingWordstem(wordstem)) %>%
-  add_column(place = c(1:nrow(.)), .before = 0)
+  dplyr::mutate(`year w/ wordstem` = countYearsUsingWordstem(wordstem)) %>%
+  tibble::add_column(place = c(1:nrow(.)), .before = 0)
 
 cloud_wordstems <- wordstems %>%
-  group_by(year, wordstem) %>%
-  tally %>%
-  arrange(desc(n))
+  dplyr::group_by(year, wordstem) %>%
+  dplyr::tally() %>%
+  dplyr::arrange(desc(n))
 
 top_wordstems %>%
   head(n = max_words) %>%
-  kable() %>%
-  kable_styling("striped", full_width = FALSE) %>%
-  scroll_box(height = "240px")
+  knitr::kable() %>%
+  kableExtra::kable_styling("striped", full_width = FALSE) %>%
+  kableExtra::scroll_box(height = "300px")
 ```
 
 The following clouds and table are based on word stems extracted with a stemming algorithm from package [`quanteda`](https://cran.r-project.org/package=quanteda).
 Words must occur at least `r minimum_occurence` times to be included in the cloud.
 Each cloud has a maximum of `r max_words` words.
 
-```{r wordclouds, echo=FALSE, dpi=300, fig.width=12, fig.height=10, fig.cap="World clouds per conference year (clockwise starting top left: 2012, 2014, 2016, 2018)"}
+```{r wordclouds, echo=FALSE, dpi=300, fig.width=12, fig.height=10, fig.cap="World clouds of full papers per conference year (clockwise starting top left: 2012, 2014, 2016, 2018)"}
 par(mfrow=c(2,2))
 
 for (the_year in names(proceedings)) {
   cloud_words <- cloud_wordstems %>%
-    filter(year == the_year) %>%
-    filter(n >= minimum_occurence) %>%
+    dplyr::filter(year == the_year) %>%
+    dplyr::filter(n >= minimum_occurence) %>%
     head(n = max_words)
   wordcloud(cloud_words$wordstem, cloud_words$n,
             random.order = FALSE,
@@ -244,10 +257,11 @@ The detection matches full words using regex option `\b`.
 - repository(ies) (`repositor(y|ies)`)
 - collaboration platforms (`git(hub|lab)`)
 
-```{r keywords_per_paper, echo=FALSE, warning=FALSE}
-tidy_texts_lower <- str_to_lower(tidy_texts$text)
-word_counts <- tibble(
+```{r keywords_per_year, echo=FALSE, warning=FALSE}
+tidy_texts_lower <- stringr::str_to_lower(tidy_texts$text)
+word_counts <- tibble::tibble(
   year = tidy_texts$year,
+  `words` = str_count(tidy_texts_lower, "\\b.*\\b"),
   `reproduc..` = str_count(tidy_texts_lower, "\\breproduc.*\\b"),
   `replic..` = str_count(tidy_texts_lower, "\\breplicat.*\\b"),
   `repeatab..` = str_count(tidy_texts_lower, "\\brepeatab.*\\b"),
@@ -266,20 +280,21 @@ word_counts <- tibble(
 
 word_counts_sums <- rbind(word_counts,
                           word_counts %>% 
-                            summarise_if(is.numeric, funs(sum)) %>%
-                            add_column(year = "Total", .before = 0))
+                            dplyr::summarise_if(is.numeric, funs(sum)) %>%
+                            tibble::add_column(year = "Total", .before = 0))
 
 word_counts_sums %>%
-  kable() %>%
-  kable_styling("striped", font_size = 10, bootstrap_options = "condensed")  %>%
-  row_spec(0, font_size = "x-small", bold = T)  %>%
-  row_spec(nrow(word_counts_sums), bold = T)
+  knitr::kable() %>%
+  kableExtra::kable_styling("striped", font_size = 10, bootstrap_options = "condensed")  %>%
+  kableExtra::row_spec(0, font_size = "x-small", bold = T)  %>%
+  kableExtra::row_spec(nrow(word_counts_sums), bold = T)
 ```
 
 ## License & Metadata
 
 This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 All contained code is licensed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/).
+This document is versioned in a public [git](https://git-scm.com/) repository, [https://github.com/nuest/reproducible-research-at-giscience](https://github.com/nuest/reproducible-research-at-giscience).
 
 **Runtime environment description:**
 
@@ -291,6 +306,6 @@ devtools::session_info(include_base = TRUE)
 # upload the HTML and Rmd file to the authoring team's shared folder
 library("googledrive")
 googledrive::drive_auth()
-drive_put("GIScience-papers.Rmd", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA/")
-drive_put("GIScience-papers.html", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA/")
+googledrive::drive_put("giscience-historic-text-analysis.Rmd", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA/")
+googledrive::drive_put("giscience-historic-text-analysis.html", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA/")
 ```

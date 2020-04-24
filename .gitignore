@@ -51,3 +51,7 @@ giscience-reproducibility-assessment.pdf
 giscience-reproducibility-assessment.tex
 
 giscience-reproducibility-assessment_files/
+
+.local/
+
+.rstudio/

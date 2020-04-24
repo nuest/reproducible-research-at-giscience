@@ -3,10 +3,6 @@ title: 'Reproducibility assessment data analysis for "Reproducible research and 
 author: "Daniel Nüst"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
-  pdf_document:
-    keep_tex: yes
-    latex_engine: xelatex
-    toc: yes
   html_document:
     df_print: paged
     toc: yes
@@ -48,6 +44,7 @@ rmarkdown::render("giscience-paper-reproducibility.Rmd", output_format = "pdf_do
 
 This document does not install the required R packages by default.
 You can run the script `install.R` to install all required dependencies on a new R installation, or use `install.packages(..)` to install missing R packages.
+_This is not required if you use the Docker container provided by the authors._
 
 ```{r install_r, eval=FALSE}
 source("install.R")
@@ -83,6 +80,7 @@ assessment_file <- "paper_assessment.csv"
 ```
 
 ```{r evaldata_download, echo=FALSE, eval=FALSE}
+# TODO fix that this cell also works from Docker container
 assessment_sheet <- googlesheets4::read_sheet(ss = "https://docs.google.com/spreadsheets/d/1Df0zX5yqDuDSCzHHVaucNtThseHL5L32U2sWTPhyl0I/edit#gid=0",
                                               sheet = "assessment",
                                               range = cell_rows(1:18) # only 2018
@@ -97,20 +95,14 @@ The following plots are based on the file `r assessment_file`, the result from t
 
 ```{r load_evaldata,warning=FALSE}
 category_levels <- c("0", "1", "2", "3")
-paper_evaluation_raw <- read_csv(assessment_file, 
-    col_types = cols(
-      paper = col_skip(),
-      title = col_skip(),
-      `Notes Reviewer` = col_skip(),
-      `computational environment` = col_factor(levels = category_levels),
-      `input data` = col_factor(levels = category_levels),
-      `method/analysis/processing` = col_factor(levels = category_levels),
-      preprocessing = col_factor(levels = category_levels),
-      results = col_factor(levels = category_levels),
-      X12 = col_skip(),
-      X14 = col_skip(),
-      `Notes Reviewer` = col_skip(),
-      `Author comment` = col_skip()
+paper_evaluation <- readr::read_csv(assessment_file, 
+    col_types = readr::cols(
+      `conceptual paper` = readr::col_logical(),
+      `computational environment` = readr::col_factor(levels = category_levels),
+      `input data` = readr::col_factor(levels = category_levels),
+      `method/analysis/processing` = readr::col_factor(levels = category_levels),
+      preprocessing = readr::col_factor(levels = category_levels),
+      results = readr::col_factor(levels = category_levels)
       ),
     na = "NA")
 categoryColumns <- c("input data", 
@@ -122,34 +114,21 @@ categoryColumns <- c("input data",
 
 ```{r corpus_table_with_small_font_for_latex}
 options(knitr.kable.NA = '-')
-kable(paper_evaluation_raw %>% 
-      select(-matches("X1|reviewer|conceptual")),
-      #mutate(`short paper` = if_else(`short paper` == TRUE, "X", "")),
-      format = "latex", # change output format to "html" when running the chunk manually
-      #format = "html",
-      booktabs = TRUE,
-      caption = paste0("Reproducibility levels for paper corpus; ",
-                       "'-' is category not available")) %>%
-  kable_styling(latex_options = "scale_down")
+knitr::kable(paper_evaluation %>% 
+               dplyr::select(-matches("X1|reviewer|conceptual|authors")),
+            format = "latex", # change output format to "html" when running the chunk manually
+            #format = "html",
+            booktabs = TRUE,
+            caption = paste0("Reproducibility levels for paper corpus; ",
+                             "'-' is category not available")) %>%
+  kableExtra::kable_styling(latex_options = "scale_down")
 ```
-
-\newpage
 
 ### Conceptual papers
 
 ```{r conceptual_papers,warning=FALSE}
-paper_evaluation <- paper_evaluation_raw %>%
-  # add year column
-  #mutate(year = as.numeric(str_extract(author, "[0-9]+"))) %>%
-  # create new attribute for conceptual papers
-  mutate(conceptual = is.na(`input data`) 
-         & is.na(preprocessing) 
-         & is.na(`method/analysis/processing`) 
-         & is.na(`computational environment`) 
-         & is.na(results))
-
 count_conceptual <- nrow(paper_evaluation %>% 
-                           filter(conceptual))
+                           dplyr::filter(`conceptual paper` == TRUE))
 count_mixed <- nrow(paper_evaluation %>% 
                       filter(is.na(`input data`) 
                              | is.na(preprocessing) 
@@ -171,24 +150,21 @@ These are evaluated.
 ```{r summary_evaldata}
 evaldata_numeric <- paper_evaluation %>%
   # must convert factors to numbers to calculate the mean and median
-  mutate_if(is.factor, funs(as.integer(as.character(.))))
-
-summary(evaldata_numeric[,categoryColumns])
+  dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
+#summary(evaldata_numeric[,categoryColumns])
 
 # apply summary independently to format as table
 summaries <- sapply(evaldata_numeric[,categoryColumns], summary)
 exclude_values_summary <- c("1st Qu.", "3rd Qu.")
 kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 
-      digits = 2,
+      digits = 1,
       col.names = c("input data", "preproc.", "method/analysis/proc.",
                     "comp. env.", "results"),
       caption = paste0("\\label{tab:levels_statistics}Statistics of ",
-                       "reproducibility levels per criterion"))
+                       "reproducibility levels per criterion (rounded to one decimal place)"))
 ```
 
 The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, with `0` and `1` around the "middle" resulting in a fraction as the median.
-
-\newpage
 
 ### Figure: Results of reproducibility assessment
 
@@ -242,8 +218,6 @@ methods_and_results_eq_one <- evaldata_numeric %>%
 
 `r methods_and_results_eq_one` papers have level `1` in both methods and results criterion.
 
-\newpage
-
 ### Table: Mean levels per criterion for full and short papers
 
 ```{r summary_evaldata_grouped}
@@ -263,16 +237,11 @@ kable(means,
                        "Mean levels per criterion for full and short papers"))
 ```
 
-\normalsize
-
-\newpage
-
 ### Extra table: Mean levels averaged across criteria over time
 
 ```{r evaldata_summary_by_year_mean}
 means_years <- evaldata_numeric %>%
-  #filter(conceptual == FALSE) %>%
-  filter(conceptual == "no") %>%
+  filter(`conceptual paper` == FALSE) %>%
   group_by(year) %>%
   summarise(mean = mean(c(`input data`, 
                           preprocessing, 
@@ -298,16 +267,11 @@ kable(means_years_table,
       caption = "Summarised mean values over all criteria over time")
 ```
 
-\normalsize
-
-\newpage
-
 ### Figure: Mean reproducibility levels per category over time
 
 ```{r Fig4,fig.width=10,dpi=300}
 evaldata_years <- evaldata_numeric %>%
-  filter(conceptual == FALSE) %>%
-  filter(year != 2011) %>%
+  filter(`conceptual paper` == FALSE) %>%
   group_by(year) %>%
   summarise(input = mean(`input data`, na.rm = TRUE),
          preprocessing = mean(preprocessing, na.rm = TRUE),
@@ -315,8 +279,7 @@ evaldata_years <- evaldata_numeric %>%
             environment = mean(`computational environment`, na.rm = TRUE),
             results = mean(results, na.rm = TRUE))
 paper_count_years <- evaldata_numeric %>%
-  filter(conceptual == FALSE) %>%
-  filter(year != 2011) %>%
+  filter(`conceptual paper` == FALSE) %>%
   group_by(year) %>%
   summarise(`paper count` = n())
 
@@ -338,21 +301,17 @@ ggplot(evaldata_years_long, aes(year, value)) +
   stat_summary(fun.y = mean, geom = "line", linetype = "dotted", mapping = aes(group = 1))
 ```
 
-\newpage
-
 ## License & Metadata
 
 This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 All contained code is licensed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/).
+This document is versioned in a public [git](https://git-scm.com/) repository, [https://github.com/nuest/reproducible-research-at-giscience](https://github.com/nuest/reproducible-research-at-giscience).
 
 **Runtime environment description:**
 
 ```{r session_info, echo=FALSE}
 devtools::session_info(include_base = TRUE)
 ```
-
-This document is versioned in a public [git](https://git-scm.com/) repository, [https://github.com/nuest/reproducible-research-at-giscience](https://github.com/nuest/reproducible-research-at-giscience).
-
 
 ```{r upload_to_drive, eval=FALSE, include=FALSE}
 # upload the HTML file to the Reproducibility Committee shared folder

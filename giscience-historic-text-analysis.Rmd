@@ -1,10 +1,9 @@
 ---
-title: 'Text analysis of accepted full papers at GIScience conferences 2012, 2014, 2016, and 2018'
+title: 'Text analysis of accepted full papers at historic GIScience conferences'
 author: "Daniel Nüst, Opening Reproducible Research (o2r), Institute for Geoinformatics, University of Münster"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
-    df_print: paged
     toc: yes
 params:
   with_sp: FALSE
@@ -13,12 +12,6 @@ params:
 ## Introduction
 
 This document is an exploratory analysis of all accepted full papers, and posters at the [GIScience conference series](https://www.giscience.org/).
-
-- 2018: Tenth International Conference on Geographic Information Science, Melbourne, Australia
-- 2016: Ninth International Conference on Geographic Information Science, Sep 27, 2016 - Sep 30, 2016, 	Montreal, Canada
-- 2014: Eighth International Conference on Geographic Information Science, Sep 24, 2014 - Sep 26, 2014, 	Vienna, Austria
-- 2012: Seventh International Conference on Geographic Information Science, Sep 18, 2012 - Sep 21, 2012, Columbus, Ohio, USA
-
 The analysis is based on the text analysis published in _"Reproducible research and GIScience: an evaluation using AGILE conference papers"_ ([https://doi.org/10.7717/peerj.5072](https://doi.org/10.7717/peerj.5072)).
 
 ```{r load_libraries, message=FALSE, warning=FALSE, include=FALSE}
@@ -43,25 +36,29 @@ set.seed(nchar("International Conference on Geographic Information Science"))
 
 **List of proceedings**
 
-- Proceedings 10th International Conference on Geographic Information Science (GIScience 2018). 2018. In Winter, S., Griffin, A., Sester, M. (Eds.), LIPICS Vol. 114. ISBN 978-3-95977-083-5. http://www.dagstuhl.de/dagpub/978-3-95977-083-5
-- Geographic Information Science. 2016. In J. A. Miller, D. O’Sullivan, & N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-45738-3
-- Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
-- Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
+- Proceedings 10th International Conference on Geographic Information Science (GIScience 2018). 2018. Winter, S., Griffin, A., Sester, M. (Eds.), LIPICS Vol. 114. ISBN 978-3-95977-083-5. http://www.dagstuhl.de/dagpub/978-3-95977-083-5
+- Geographic Information Science. 2016. J. A. Miller, D. O’Sullivan, & N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-45738-3
+- Geographic Information Science. 2014. M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
+- Geographic Information Science. 2012. N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
+- Geographic Information Science. 2010. Fabrikant, S.I., Reichenbacher, T., Kreveld, M. van, Schlieder, C. (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-15300-6
+- Geographic Information Science. 2008. In Cova, T.J., Miller, H.J., Beard, K., Frank, A.U., Goodchild, M.F. (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-540-87473-7
+- Geographic Information Science. 2004. Egenhofer, M.J., Freksa, C., Miller, H.J. (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/b101397
+- Geographic Information Science. 2002. Egenhofer, M.J., Mark, D.M. (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/3-540-45799-2
+- Geographic Information Science. 2006. Raubal, M., Miller, H.J., Frank, A.U., Goodchild, M.F. (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/11863939
 
-See the full list of proceedings for 2016 and older at the publisher website: [https://link.springer.com/conference/giscience](https://link.springer.com/conference/giscience).
+LNCS proceedings are available at the publisher website: [https://link.springer.com/conference/giscience](https://link.springer.com/conference/giscience).
 
 **Note:** The 2018 proceedings include the short papers in the same document.
 For comparability, only the full papers are taken into account for the analysis below.
 
-```{r input_files, echo=FALSE, cache=TRUE}
-cat("Loading proceedigns from ", here::here())
+```{r input_files, echo=FALSE}
 data_path <- here::here("proceedings")
 proceedings <- c(
-  #"2002" = "geographic-information-science-2002.pdf",
-  #"2004" = "geographic-information-science-2004.pdf",
-  #"2006" = "geographic-information-science-2006.pdf",
-  #"2008" = "geographic-information-science-2008.pdf",
-  #"2010" = "geographic-information-science-2010.pdf",
+  "2002" = "geographic-information-science-2002.pdf",
+  "2004" = "geographic-information-science-2004.pdf",
+  "2006" = "geographic-information-science-2006.pdf",
+  "2008" = "geographic-information-science-2008.pdf",
+  "2010" = "geographic-information-science-2010.pdf",
   "2012" = "10.1007_978-3-642-33024-7.pdf",
   "2014" = "10.1007_978-3-319-11593-1.pdf",
   "2016" = "10.1007_978-3-319-45738-3.pdf",
@@ -99,7 +96,7 @@ The text is extracted from PDFs and it is processed to create a [tidy](https://w
 The stop words include specific words, such as `university`, which is included in many pages, abbreviations such as `e.g.`, and terms particular to scientific articles, such as `figure`.
 Also all numeric literas are removed from the word list.
 
-```{r load_files, echo=FALSE, cache=TRUE}
+```{r load_files, echo=FALSE}
 texts <- lapply(proceedings_files, pdftools::pdf_text)
 
 if(params$with_sp) {
@@ -107,6 +104,7 @@ if(params$with_sp) {
   proceedings_files <- c(proceedings_files, `2018-sp` = proceedings_files[[4]])
 }
 
+# don't include short papers in 2018 year
 texts[["2018"]] <- texts[["2018"]][c(1:282)]
 
 texts <- unlist(lapply(texts, stringr::str_c, collapse = TRUE))
@@ -155,7 +153,7 @@ after_cleanup = nrow(no_stop_words)
 ```
 
 About `r round(after_cleanup/total_words * 100)`&nbsp;% of the words are considered stop words.
-The following tables shows how many non-stop words each conference year has, sorted by number of non-stop words.
+The following tables shows how many non-stop words each conference year has, sorted by number of non-stop words (descending).
 
 ```{r stop_words, echo=FALSE, message=FALSE, warning=FALSE}
 nonstopwords_per_year <- no_stop_words %>%
@@ -179,23 +177,17 @@ dplyr::inner_join(nonstopwords_per_year, words_per_year, by = "year") %>%
   kableExtra::row_spec(nrow(nonstopwords_per_year) + 1, bold = TRUE)
 ```
 
-## Top wordstems and word clouds
+## Top wordstems and wordstem clouds
 
 ```{r params, include=FALSE}
 # chosen manually
-minimum_occurence <- 100
+minimum_occurence <- 99
 max_words <- 100
 ```
 
 The following table shows the number of occurence for the `r max_words` most occuring wordstems across all proceedings.
 
-```{r cloud_and_top_words, echo=FALSE}
-top_words <- no_stop_words %>%
-  dplyr::group_by(word) %>%
-  dplyr::tally() %>%
-  dplyr::arrange(desc(n)) %>%
-  head(20)
-
+```{r top_wordstems, echo=FALSE}
 wordstems <- no_stop_words %>%
   dplyr::mutate(wordstem = quanteda::char_wordstem(no_stop_words$word))
 
@@ -214,16 +206,12 @@ top_wordstems <- wordstems %>%
   dplyr::tally() %>%
   dplyr::arrange(desc(n)) %>%
   head(n = max_words) %>%
-  dplyr::mutate(`year w/ wordstem` = countYearsUsingWordstem(wordstem)) %>%
+  dplyr::mutate(`years w/ wordstem` = countYearsUsingWordstem(wordstem)) %>%
   tibble::add_column(place = c(1:nrow(.)), .before = 0)
 
-cloud_wordstems <- wordstems %>%
-  dplyr::group_by(year, wordstem) %>%
-  dplyr::tally() %>%
-  dplyr::arrange(desc(n))
+write.csv(top_wordstems, here::here("results/text_analysis_topwordstems.csv"), row.names = FALSE)
 
 top_wordstems %>%
-  head(n = max_words) %>%
   knitr::kable() %>%
   kableExtra::kable_styling("striped", full_width = FALSE) %>%
   kableExtra::scroll_box(height = "300px")
@@ -233,25 +221,51 @@ The following clouds and table are based on word stems extracted with a stemming
 Words must occur at least `r minimum_occurence` times to be included in the cloud.
 Each cloud has a maximum of `r max_words` words.
 
-```{r wordclouds, echo=FALSE, dpi=300, fig.width=12, fig.height=10, fig.cap="World clouds of full papers per conference year (clockwise starting top left: 2012, 2014, 2016, 2018)"}
-par(mfrow=c(3,3))
+```{r cloud_wordstems, echo=FALSE}
+cloud_wordstems <- wordstems %>%
+  dplyr::group_by(year, wordstem) %>%
+  dplyr::tally() %>%
+  dplyr::arrange(desc(n))
+```
 
+```{r wordclouds_create_plot, eval=FALSE, echo=FALSE}
+# FIXME: when running this as part of "Knit", then there is an error; interactively works though
+# Quitting from lines 234-255 (giscience-historic-text-analysis.Rmd) 
+# Error in strwidth(words[i], cex = size[i], ...) : invalid 'cex' value
+# Tried:
+# - https://stackoverflow.com/questions/12400305/wordcloud-package-get-error-in-strwidth-invalid-cex-value
+# - https://stackoverflow.com/questions/20343941/wordcloud-package-get-error-in-strwidth-invalid-cex-value
+# - https://stackoverflow.com/questions/28763389/how-does-the-removesparseterms-in-r-work
+png(filename = here::here("results/text_analysis_wordstemclouds.png"),
+    width = 1000,
+    height = 1000)
+
+par(mfrow = c(3,3))
 for (the_year in names(proceedings)) {
-  cloud_words <- cloud_wordstems %>%
+  year_cloud_wordstems <- cloud_wordstems %>%
     dplyr::filter(year == the_year) %>%
     dplyr::filter(n >= minimum_occurence) %>%
     head(n = max_words)
-  wordcloud(cloud_words$wordstem, cloud_words$n,
-            random.order = FALSE,
-            fixed.asp = FALSE,
-            rot.per = 0,
-            color = brewer.pal(8,"Dark2"))
+  #cat(str(year_cloud_wordstems))
+  
+  wordcloud::wordcloud(words = year_cloud_wordstems$wordstem,
+                       freq = year_cloud_wordstems$n,
+                       min.freq = 1,
+                       random.order = FALSE,
+                       fixed.asp = FALSE,
+                       rot.per = 0,
+                       color = brewer.pal(8, "Dark2"))
 }
+dev.off()
 ```
 
-## Reproducible research-related keywords in GIScience papers
+```{r wordclouds_include_plot, echo=FALSE, dpi=72, fig.cap=paste0("World clouds of full papers per conference year (rowwise, starting top left, from ", head(names(proceedings_files), n = 1), " to ", tail(names(proceedings_files), n = 1), ").")}
+knitr::include_graphics(here::here("results/text_analysis_wordstemclouds.png"))
+```
 
-The following tables lists how often terms related to reproducible research appear in each document.
+## Reproducible research-related keywordstems in GIScience papers
+
+The following tables lists how often wordstems of terms related to reproducible research appear in each document.
 The detection matches full words using regex option `\b`.
 
 - reproduc (`reproduc.*`, reproducibility, reproducible, reproduce, reproduction)
@@ -292,12 +306,16 @@ word_counts_sums <- rbind(word_counts,
                             dplyr::summarise_if(is.numeric, funs(sum)) %>%
                             tibble::add_column(year = "Total", .before = 0))
 
+write.csv(word_counts_sums, here::here("results/text_analysis_keywordstems.csv"), row.names = FALSE)
+
 word_counts_sums %>%
   knitr::kable() %>%
   kableExtra::kable_styling("striped", font_size = 10, bootstrap_options = "condensed")  %>%
   kableExtra::row_spec(0, font_size = "x-small", bold = T)  %>%
   kableExtra::row_spec(nrow(word_counts_sums), bold = T)
 ```
+
+**Note**: The high number for "code" in 2012 is largely due to a single paper about "land use codes".
 
 ## License & Metadata
 
@@ -314,7 +332,7 @@ devtools::session_info(include_base = TRUE)
 ```{r upload_to_drive, eval=FALSE, include=FALSE}
 # upload the HTML and Rmd file to the authoring team's shared folder
 library("googledrive")
-googledrive::drive_auth()
+googledrive::drive_auth(use_oob = TRUE)
 googledrive::drive_put("giscience-historic-text-analysis.Rmd", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA/")
 googledrive::drive_put("giscience-historic-text-analysis.html", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA/")
 ```

@@ -47,7 +47,9 @@ make
 ## Files in this repository
 
 - `paper/reproducible-research-at-giscience.Rmd`: The paper manuscript.
-- `paper_assessment.csv`: Results of manual paper evaluation.
+- `results/paper_assessment.csv`: Results of manual paper evaluation.
+- `results/text_analysis_{topwordstems,keywordstems}.csv`: Results of automated text analysis.
+- `results/figure_[...].{pdf,png}`: Figures and plots from text analysis and paper assessment.
 - `giscience-reproducibility-assessment.Rmd`: R Markdown document with the visualisations about the assessment of paper reproducibility.
 - `giscience-historic-text-analysis.Rmd`: R Markdown document with the text analysis of historic GIScience proceedings.
 - `Dockerfile`: A recipe for the computational environment using [Docker](https://en.wikipedia.org/wiki/Docker_(software)).

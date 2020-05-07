@@ -70,7 +70,11 @@ make
 
   - `paper/reproducible-research-at-giscience.Rmd`: The paper
     manuscript.
-  - `paper_assessment.csv`: Results of manual paper evaluation.
+  - `results/paper_assessment.csv`: Results of manual paper evaluation.
+  - `results/text_analysis_{topwordstems,keywordstems}.csv`: Results of
+    automated text analysis.
+  - `results/figure_[...].{pdf,png}`: Figures and plots from text
+    analysis and paper assessment.
   - `giscience-reproducibility-assessment.Rmd`: R Markdown document with
     the visualisations about the assessment of paper reproducibility.
   - `giscience-historic-text-analysis.Rmd`: R Markdown document with the
@@ -85,7 +89,8 @@ make
 This repository is archived on Zenodo: TODO
 
 The deposited archive was created based on the tag `TODO` (matching the
-Zenodo version) with the following commands:
+Zenodo version) with the following
+commands:
 
 ``` bash
 git clone https://github.com/nuest/reproducible-research-at-giscience.git

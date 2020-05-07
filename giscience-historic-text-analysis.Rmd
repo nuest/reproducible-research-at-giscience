@@ -48,6 +48,8 @@ set.seed(nchar("International Conference on Geographic Information Science"))
 - Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
 - Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
 
+See the full list of proceedings for 2016 and older at the publisher website: [https://link.springer.com/conference/giscience](https://link.springer.com/conference/giscience).
+
 **Note:** The 2018 proceedings include the short papers in the same document.
 For comparability, only the full papers are taken into account for the analysis below.
 

@@ -14,8 +14,7 @@ install.packages("quanteda")
 # not available (in required version) for R 3.6.0 > install tag from GitHub
 remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "never")
 remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")
-
-# https://github.com/rstudio/rticles/pull/288
+# needs development version from a fork, see https://github.com/rstudio/rticles/pull/288
 remotes::install_github("nuest/rticles", ref = "LIPIcs")
 
 # Install LaTeX packages

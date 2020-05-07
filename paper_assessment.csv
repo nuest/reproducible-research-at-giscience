@@ -1,43 +1,157 @@
 "","paper","year","authors","title","conceptual paper","reviewer 1","reviewer 2","input data","preprocessing","method/analysis/processing","computational environment","results","reviewer notes"
-"1","12018",2018,"Amores, David ; Vasardani, Maria ; Tanin, Egemen","Early Detection of Herding Behaviour during Emergency Evacuations","F","DN","FO",1,1,1,0,1,"DN: simulation data, open source tool > possible to make much more transparent!"
-"2","22018",2018,"Belussi, Alberto ; Carra, Damiano ; Migliorini, Sara ; Negri, Mauro ; Pelagatti, Giuseppe","What Makes Spatial Data Big? A Discussion on How to Partition Spatial Data","F","FO","MK",0,1,1,0,1,"MK: I couldn't find a description of the comp. environm. Did I miss it?
+"1","12018","2018","Amores, David ; Vasardani, Maria ; Tanin, Egemen","Early Detection of Herding Behaviour during Emergency Evacuations","F","DN","FO","1","NA","1","0","1","DN: simulation data, open source tool > possible to make much more transparent!"
+"2","22018","2018","Belussi, Alberto ; Carra, Damiano ; Migliorini, Sara ; Negri, Mauro ; Pelagatti, Giuseppe","What Makes Spatial Data Big? A Discussion on How to Partition Spatial Data","F","FO","MK","0","1","1","0","1","MK: I couldn't find a description of the comp. environm. Did I miss it?
 Frank checked and agreed."
-"3","32018",2018,"Fogliaroni, Paolo ; Bucher, Dominik ; Jankovic, Nikola ; Giannopoulos, Ioannis","Intersections of Our World","F","MK","DN",0,1,1,0,1,"DN: OSM data (whole planet), PostGIS, web application for exploring precomputed information > definetely could be made more reproducible! https://intersection.geo.tuwien.ac.at/# still functional!; software versions partly mentioned (PostGIS) but no code; polygons used for the cities to get the same results _with their web tool_ are missing
+"3","32018","2018","Fogliaroni, Paolo ; Bucher, Dominik ; Jankovic, Nikola ; Giannopoulos, Ioannis","Intersections of Our World","F","MK","DN","0","1","1","0","1","DN: OSM data (whole planet), PostGIS, web application for exploring precomputed information > definetely could be made more reproducible! https://intersection.geo.tuwien.ac.at/# still functional!; software versions partly mentioned (PostGIS) but no code; polygons used for the cities to get the same results _with their web tool_ are missing
 
 Decision: One of the two datasets (albeit the smaller one) is not recreatable data: 0;"
-"4","42018",2018,"Harvey, Francis","Considerations of Graphical Proximity and Geographical Nearness","F","CG","BH",0,0,1,0,1,"Borderline. Main aim is to propose a theory of geo-graphical nearness. Exploratory experiment
+"4","42018","2018","Harvey, Francis","Considerations of Graphical Proximity and Geographical Nearness","F","CG","BH","0","NA","1","0","1","Borderline. Main aim is to propose a theory of geo-graphical nearness. Exploratory experiment, computational analysis of human-subject survey data, but no preprocessing step;
 
 Experiment:
 - ""Data collected for the study comes from an online survey developed with the software suite Lime Survey"". 
 - ""[data] was analyzed using classical and Bayesian methods available in the open software package JASP"""
-"5","52018",2018,"Hu, Yingjie ; Janowicz, Krzysztof","An Empirical Study on the Names of Points of Interest and Their Changes with Geographic Distance","F","BH","CG",0,1,1,0,1,"Mentioning of a python script that is not provided; formulas used documented in the text; statistical measures provided as result; data from YELP dataset - available for download, but metadata on time of download missing"
-"6","62018",2018,"Jeong, Myeong-Hun ; Yin, Junjun ; Wang, Shaowen","Outlier Detection and Comparison of Origin-Destination Flows Using Data Depth","F","BH","DN",0,0,0,0,1,"BH: Data: taxi data from May-July 2014 in NY; unavailable / for other plots other taxi data dates are used; R is mentioned, but no code is provided; use of multiple cores mentioned - no further details provided; 
+"5","52018","2018","Hu, Yingjie ; Janowicz, Krzysztof","An Empirical Study on the Names of Points of Interest and Their Changes with Geographic Distance","F","BH","CG","0","1","1","0","1","Mentioning of a python script that is not provided; formulas used documented in the text; statistical measures provided as result; data from YELP dataset - available for download, but metadata on time of download missing"
+"6","62018","2018","Jeong, Myeong-Hun ; Yin, Junjun ; Wang, Shaowen","Outlier Detection and Comparison of Origin-Destination Flows Using Data Depth","F","BH","DN","0","0","0","0","1","BH: Data: taxi data from May-July 2014 in NY; unavailable / for other plots other taxi data dates are used; R is mentioned, but no code is provided; use of multiple cores mentioned - no further details provided; 
 
-DN: TAZ data is described, but that's only partial; Dates are mentioned clearly, but no URL where to get the data; ""Hadoop with Pig, AWS and the Bridger supercomputer""... not good enough - ""link to the code is available upon request"""
-"7","72018",2018,"Kattenbeck, Markus ; Nuhn, Eva ; Timpf, Sabine","Is Salience Robust? A Heterogeneity Analysis of Survey Ratings","F","CG","MK",1,1,1,0,1,"- ""[Collected data] will be accessible via Data in Brief https://www.journals.elsevier.com/data-in-brief by the end of 2018"". I checked. No paper yet
+DN: TAZ data is described, but that's only partial; Dates are mentioned clearly, but no URL where to get the data; ""Hadoop with Pig, AWS and the Bridger supercomputer""... not good enough - ""link to the code is available upon request""; ""data cleaning process"" is mentioned = preprocessing;"
+"7","72018","2018","Kattenbeck, Markus ; Nuhn, Eva ; Timpf, Sabine","Is Salience Robust? A Heterogeneity Analysis of Survey Ratings","F","CG","MK","1","1","1","0","1","- ""[Collected data] will be accessible via Data in Brief https://www.journals.elsevier.com/data-in-brief by the end of 2018"". I checked. No paper yet
 - ""the first author of this paper collected data throughout his PhD [19]. ""
 - ""A custom designed Android application facilitated the data collection in [19] and this application was reused for our study in Augsburg""
 - ""PLS Path modeling as a statistical method and as an adequate means of assessing measurement invariance"""
-"8","82018",2018,"Krumpe, Filip","Labeling Points of Interest in Dynamic Maps using Disk Labels","F","MK","FO",1,2,2,0,1,"FO: Not sure about the ""2""'s, difficult case because actual analysis code is not provided, but Github repository has the library
+"8","82018","2018","Krumpe, Filip","Labeling Points of Interest in Dynamic Maps using Disk Labels","F","MK","FO","1","2","2","0","1","FO: Not sure about the ""2""'s, difficult case because actual analysis code is not provided, but Github repository has the library
 MK: I am fine with the 2s but I couldn't find a description for the computational environment used to compute the table. So I gave it a 0
 Frank checked and agreed"
-"9","92018",2018,"Lafia, Sara ; Turner, Andrew ; Kuhn, Werner","Improving Discovery of Open Civic Data","T","BH","DN",0,0,1,0,1,"DN: I think there is data analysis happening here (Figure 7 & 8)! BH: I tried a quick assessment; requires a second opinion"
-"10","102018",2018,"Li, Yan ; Shekhar, Shashi","Local Co-location Pattern Detection: A Summary of Results","F","FO","CG",0,1,1,1,1,"""The platform for the simulation was Microsoft .NET Framework 4.5 on a computer with Intel(R) Core(TM) i7-4770 3.40 GHz CPU and 32 GB RAM"""
-"11","112018",2018,"Méneroux, Yann ; Kanasugi, Hiroshi ; Saint Pierre, Guillaume ; Le Guilcher, Arnaud ; Mustière, Sébastien ; Shibasaki, Ryosuke ; Kato, Yugo","Detection and Localization of Traffic Signals with GPS Floating Car Data and Random Forest","F","DN","BH",0,1,1,1,1,"DN: ""extract routable map from the national reference"" - is that redoable? But commercial floating car data; preprocessing described in text; processing algorithms cited and math given; hardware is described; R randomForest package mentioned but without version; BH: very strict to limit methods to 1 because of a missing verison of the R code - they do provide a reference to the package from the year 2002 but ok, that might not be enough. Agree on the data - also for OSM we would need more details"
-"12","122018",2018,"Murray, Alan T. ; Feng, Xin ; Shokoufandeh, Ali","Heterogeneous Skeleton for Summarizing Continuously Distributed Demand in a Region","F","DN","CG",0,0,1,0,1,"Only this: ""The models were implemented in the Python platform using arcpy, pysal and sympy libraries, amoung others, on a Windows 10 Enterprise server with an Intel Xeon E5-2650 v3 (2.3GHz) 64 bit CPU and 64 GB of RAM. ArcGIS was utilized for data creation, management, manipulation, analysis, and visualization""
+"9","92018","2018","Lafia, Sara ; Turner, Andrew ; Kuhn, Werner","Improving Discovery of Open Civic Data","F","BH","DN","0","NA","1","0","1","DN: I think there is data analysis happening here (Figure 7 & 8)!
 
-DN: no versions given, no code;"
-"13","132018",2018,"Niedermann, Benjamin ; Oehrlein, Johannes ; Lautenbach, Sven ; Haunert, Jan-Henrik","A Network Flow Model for the Analysis of Green Spaces in Urban Areas","F","FO","DN",1,1,1,1,1,"DN: extensive text description of the algorithm/model, but no code; link to data source broken (works without the www, i.e. https://land.copernicus.eu/ - how stupid (not of the authors)), data source probably reliable; Software with versions and hardware described; one used software (Gurobi) is commercial/not open; http://www2.geoinfo.uni-bonn.de/urbanarea/ still works, and is useful!
+BH: I tried a quick assessment; requires a second opinion
+
+Analsis of ArcGIS Hub query log data; onotology term expansion tool;  mentions triplestore but no versions; steps ""harvesting, validation, enrichment"" seem to be scripted; no identifiable preprocessing step;"
+"10","102018","2018","Li, Yan ; Shekhar, Shashi","Local Co-location Pattern Detection: A Summary of Results","F","FO","CG","0","1","1","1","1","""The platform for the simulation was Microsoft .NET Framework 4.5 on a computer with Intel(R) Core(TM) i7-4770 3.40 GHz CPU and 32 GB RAM"""
+"11","112018","2018","Méneroux, Yann ; Kanasugi, Hiroshi ; Saint Pierre, Guillaume ; Le Guilcher, Arnaud ; Mustière, Sébastien ; Shibasaki, Ryosuke ; Kato, Yugo","Detection and Localization of Traffic Signals with GPS Floating Car Data and Random Forest","F","DN","BH","0","1","1","1","1","DN: ""extract routable map from the national reference"" - is that redoable? But commercial floating car data; preprocessing described in text; processing algorithms cited and math given; hardware is described; R randomForest package mentioned but without version; BH: very strict to limit methods to 1 because of a missing verison of the R code - they do provide a reference to the package from the year 2002 but ok, that might not be enough. Agree on the data - also for OSM we would need more details"
+"12","122018","2018","Murray, Alan T. ; Feng, Xin ; Shokoufandeh, Ali","Heterogeneous Skeleton for Summarizing Continuously Distributed Demand in a Region","F","DN","CG","0","NA","1","0","1","Only this: ""The models were implemented in the Python platform using arcpy, pysal and sympy libraries, amoung others, on a Windows 10 Enterprise server with an Intel Xeon E5-2650 v3 (2.3GHz) 64 bit CPU and 64 GB of RAM. ArcGIS was utilized for data creation, management, manipulation, analysis, and visualization""
+
+DN: no versions given, no code; no mentioning where the study region is or comes from, or how the data was prepared for applying the described algorithm; no distinctive preprocessing step;"
+"13","132018","2018","Niedermann, Benjamin ; Oehrlein, Johannes ; Lautenbach, Sven ; Haunert, Jan-Henrik","A Network Flow Model for the Analysis of Green Spaces in Urban Areas","F","FO","DN","1","1","1","1","1","DN: extensive text description of the algorithm/model, but no code; link to data source broken (works without the www, i.e. https://land.copernicus.eu/ - how stupid (not of the authors)), data source probably reliable; Software with versions and hardware described; one used software (Gurobi) is commercial/not open; http://www2.geoinfo.uni-bonn.de/urbanarea/ still works, and is useful!
 
 Conflict FO/DN: the result visualisations are scripted, but we don't have access to the scripts or data;"
-"14","142018",2018,"Saha, Rudra Ranajee ; Hashem, Tanzima ; Shahriar, Tasmia ; Kulik, Lars","Continuous Obstructed Detour Queries","F","MK","BH",0,0,1,1,1,"BH: paper is way too mathematical for me to understand. Regarding data: I do not know what original data they refer to and the data they generated do not seem to be available; preprocessing not necessary - or do you refer to the generation of random POIs, Markus?
+"14","142018","2018","Saha, Rudra Ranajee ; Hashem, Tanzima ; Shahriar, Tasmia ; Kulik, Lars","Continuous Obstructed Detour Queries","F","MK","BH","0","0","1","1","1","BH: paper is way too mathematical for me to understand. Regarding data: I do not know what original data they refer to and the data they generated do not seem to be available; preprocessing not necessary - or do you refer to the generation of random POIs, Markus?
 MK: Regarding input data. There is some initial description but I agree this is not enough for 1, so I changed it to 0.
-Regarding Preprocessing: To me, the sections 5.2 and 5.3 read like there is some preprocessing going on though I do not understand what exactly they are doing. How about changing it to 0? 1 is too much, I would agree with that."
-"15","152018",2018,"Schito, Joram ; Wissen Hayek, Ulrike ; Raubal, Martin","Enhanced Multi Criteria Decision Analysis for Planning Power Transmission Lines","F","CG","FO",0,1,1,1,1,"- ""we explore the utility of a Cluster Analysis in combination with a Principal Component Analysis and a Multivariate Analysis of Variance""
+Regarding Preprocessing: To me, the sections 5.2 and 5.3 read like there is some preprocessing going on though I do not understand what exactly they are doing. How about changing it to 0? 1 is too much, I would agree with that.
+DN: for me, the ""generate synthetic POIs"" in section 6 definetely falls into preprocessing; mention CPU/Memory, but no software/versions"
+"15","152018","2018","Schito, Joram ; Wissen Hayek, Ulrike ; Raubal, Martin","Enhanced Multi Criteria Decision Analysis for Planning Power Transmission Lines","F","CG","FO","0","1","1","1","1","- ""we explore the utility of a Cluster Analysis in combination with a Principal Component Analysis and a Multivariate Analysis of Variance""
 
 FO: ""we collected the appropriate data from publicly accessible data portals and stored them in a database"""
-"16","162018",2018,"Shashidharan, Ashwin ; Vatsavai, Ranga Raju ; Van Berkel, Derek B. ; Meentemeyer, Ross K.","FUTURES-AMR: Towards an Adaptive Mesh Refinement Framework for Geosimulations","F","BH","MK",0,0,1,1,1,"BH: again, I do not see any specific preprocessing used?
-MK: I think there is some preprocessing going in section 4.1.1 and further described in 4.2 (""...policies specified as input to the simulation [...] policies serve as refinement and coarsing criteria for a simulation to perform refinement.""). What do you think about that?"
-"17","172018",2018,"Yan, Bo ; Janowicz, Krzysztof ; Mai, Gengchen ; Zhu, Rui","xNet+SC: Classifying Places Based on Images by Incorporating Spatial Contexts","F","BH","FO",0,1,1,1,1,"FO: very well described with sufficient information to replicate; however, I could not find any actual code or the exact input data (the images)
+"16","162018","2018","Shashidharan, Ashwin ; Vatsavai, Ranga Raju ; Van Berkel, Derek B. ; Meentemeyer, Ross K.","FUTURES-AMR: Towards an Adaptive Mesh Refinement Framework for Geosimulations","F","BH","MK","0","0","1","1","1","BH: again, I do not see any specific preprocessing used?
+MK: I think there is some preprocessing going in section 4.1.1 and further described in 4.2 (""...policies specified as input to the simulation [...] policies serve as refinement and coarsing criteria for a simulation to perform refinement.""). What do you think about that?
+DN: Re. sections pointed out by MK: these steps part of the algorithm that is developed, and therefore IMO not preprocessing; what I would consider preprocessing is in section 5 the creation of the varying input resolutions used for the experiment, which is still a 0 with the given information; re. input data, the paper only mentions year and location, but not sensor, source etc.;"
+"17","172018","2018","Yan, Bo ; Janowicz, Krzysztof ; Mai, Gengchen ; Zhu, Rui","xNet+SC: Classifying Places Based on Images by Incorporating Spatial Contexts","F","BH","FO","0","1","1","1","1","FO: very well described with sufficient information to replicate; however, I could not find any actual code or the exact input data (the images)
 
 BH: images not recreatable"
+"18","12016","2016","Cici Alexander, Lars Arge, Peder Klith Bøcher, Morten Revsbæk, Brody Sandel, Jens-Christian Svenning et al.","Computing River Floods Using Massive Terrain Data","F","DN","FO","FO: 2
+DN: 2","FO: 1","FO: 1","FO: 1
+DN: 1","FO: 1
+DN: 1","data link https://gst.dk/emner/frie-data/hvilke-data-er-omfattet/hvilke-data-er-frie/dhm-danmarks-hoejdemodel/ is broken, but certainly was at the time - it is not a 3 though; SRTM grid data and MODIS can probably be recreated;"
+"19","22016","2016","Jan-Henrik Haunert, Wouter Meulemans","Partitioning
+Polygons via Graph Augmentation","F","FO","CG","CG:0 FO:0","CG:N/A FO: N/A","CG:1 FO:1","CG:0 FO:0","CG:1 FO:1","FO: insufficient information to recreate the input data; no pre-processing needed"
+"20","32016","2016","Carson J. Q. Farmer, Carsten Keßler","Hierarchical
+Prism Trees for Scalable Time Geographic Analysis","F","CG","MK","CG:2
+MK: 2","CG:2
+MK: 2","CG:2
+MK: 2","CG:0
+MK: 0","CG:2
+MK: 2","MK: Everything inlcuded in one Jupyther Notebook, well done. Bu I could not find a description for the computational environment. CG: that's true. Computational environment set to 0"
+"21","42016","2016","Emre Eftelioglu, Yan Li, Xun Tang, Shashi Shekhar, James M. Kang, Christopher Farah","Mining
+Network Hotspots with Holes: A Summary of Results","F","MK","BH","BH:1
+MK: 1","BH:0
+MK: 0","BH:1
+MK: 1","BH:0
+MK: 0","BH:1
+MK: 1","BH: didn't find any mention of the computer used; links to open data repositories given; methods described in formulas; figures as graphs and with discussion
+MK: Agreed. Description of the input data is rather bad though, but it should be possible with lots of effort to replicate the data.
+DN: ""For both of the case studies, we matched activities to edges as counts."" > this is a clear preprocessing step for me, given the actual method; the ""Post-processing of the Output"" falls under""results""; preprocessing step is merging of the datasets, matching the incidents to the road network - not properly described with ""activities were matched and their counts on edges were aggregated"";"
+"22","52016","2016","KwangSoo Yang","Distance-Constrained
+k Spatial Sub-Networks: A Summary of Results","F","BH","DN","DN: 0, BH: 0","DN: 0; BH: 0","DN: 1, BH: 1","DN: 1, BH:1","DN: 1, BH:1","DN: case study shows computational costs can be reduced > there must be an implementation; data ""from OpenStreetMap""; crime data download links still work, but one requires a login; ""For simplicity, we mapped all incidents to the nearest edge;"" is a preprocessing step, which is not enough documentation IMO;
+
+BH: agree to your evaluation; preprocessing not described at all
+
+DN: preprocessing step is merging of the datasets, matching the incidents to the road network - not properly described with ""nearest edge"";"
+"23","62016","2016","Dipto Sarkar, Renee Sieber, Raja Sengupta","GIScience
+Considerations in Spatial Social Networks","T",NA,NA,NA,NA,NA,NA,NA,NA
+"24","72016","2016","Takeshi Shirabe","On
+Distortion of Raster-Based Least-Cost Corridors","F","DN","CG","CG: 0
+DN: 0","CG: 0
+DN: 0","CG:1
+DN: 1","CG:0
+DN: 0","CG:1
+DN: 1","""For numerical experiments, the algorithm reviewed in the previous section was implemented in Java adapting Dijkstra’s shortest path algorithm""; ""As for elongation, numerical experiments found some interesting pattern ..."" > DN: I don't find any mention of code or data; I see the creation of the cost surface as preprocessing, which is not even documented IMO;"
+"25","82016","2016","Joseph V. Tuccillo, Barbara P. Buttenfield","Model-Based
+Clustering of Social Vulnerability to Urban Extreme Heat Events","F","FO","MK","FO:1
+MK: 1","FO:1
+MK: 1","FO:1
+MK: 1","FO:0
+MK: 0","FO:1
+MK: 1","MK: I couldn't find a link to the input data. So I gave 1 for input: FO: agree, changed my score from 2 to 1"
+"26","92016","2016","Jiaoli Chen, Shih-Lung Shaw","Representing
+the Spatial Extent of Places Based on Flickr Photos with a
+Representativeness-Weighted Kernel Density Estimation","F","CG","BH","CG:1, BH:1","CG:1, BH:1","CG:1, BH:1","CG:0, BH:0","CG:1, bh.1","Flickr data - they described which Flickr data their downloaded; what I do not know is whether the Flickr database remains stable over years or pictures get deleted by users -I doubt that it is possible to download the exact same dataset a couple of years later"
+"27","102016","2016","Tuhin Paul, Kevin Stanley, Nathaniel Osgood, Scott Bell, Nazeem Muhajarine","Scaling
+Behavior of Human Mobility Distributions","F","MK","BH","BH:0
+MK: 0","BH:1
+MK: 1","BH:1
+MK: 1","BH:1
+MK: 1","BH:1
+MK: 1","Data sources are referenced, but I have the impression that not all GPS data collections are openly accessible. Preprocessing steps listed in the text - reproducibility possible with effort.
+MK: Agreed"
+"28","112016","2016","Ashwin Shashidharan, Derek B. van Berkel, Ranga Raju Vatsavai, Ross K. Meentemeyer","pFUTURES:
+A Parallel Framework for Cellular Automaton Based Urban Growth Models","F","BH","FO","FO:0, BH:0","FO:0 BH:0","FO:1, BH:1","FO:1, BH:1","FO:1, BH:1","BH: I rechecked the preprocessing aspects of the paper: they are part of the workflow and include data partitioning among 'workers'. However, for the experiments it is not described how this is acutally done. could be 0 as well."
+"29","122016","2016","Qinghan Liang, Silvia Nittel, Torsten Hahmann","From Data
+Streams to Fields: Extending Stream Data Models with Field Data Types","T",NA,NA,NA,NA,NA,NA,NA,NA
+"30","132016","2016","Joshua A. Lewis, Max J. Egenhofer","Point
+Partitions: A Qualitative Representation for Region-Based Spatial Scenes in R2","T",NA,NA,NA,NA,NA,NA,NA,NA
+"31","142016","2016","Xiaoxiao Liu, Stefania Bertazzon","Fine
+Scale Spatio-Temporal Modelling of Urban Air Pollution","F","DN","MK","DN: 0
+MK: 0","DN: 1
+MK: 1","DN: 1
+MK: 1","DN: 0
+MK: 0","DN: 1
+MK: 1","AEMERA data services seem offline: airdata.aemera.org
+Data acquisition, model selection, and other details are published elsewhere [24]"", but ref 24 does not help me finding the data, but has model description
+MK: I find it difficult to give 0 for results, which actually means that the paper has no results and does not make any sense at all. And I think there is a description of the results. > DN's assessment adjusted to 1."
+"32","152016","2016","Matt Duckham, Marc van Kreveld, Ross Purves, Bettina Speckmann, Yaguang Tao, Kevin Verbeek et al.","Modeling
+Checkpoint-Based Movement with the Earth Mover’s Distance","F","FO","CG","FO:2; CG:2","FO:1; CG:1","FO:1; CG:1","FO:0; CG:","FO:1; CG:1","FO: input data is not available anymore, but was at the time of the publication; since this is four years ago, I would still give it a ""2"""
+"33","162016","2016","Benjamin Adams, Mark Gahegan","Exploratory
+Chronotopic Data Analysis","F","CG","DN","CG:1
+DN: 1","CG:1
+DN: 1","CG:1
+DN: 1","CG:0
+DN: 0","CG:1
+DN: 1","Input data: ""we used the August 8, 2015 dump of the English Wikipedia, which consists of 7,131,349 articles of which 4,659,056 are actual article pages"". CG: I've  assigned a level of 2 acording to https://en.wikipedia.org/wiki/Wikipedia:Database_download DN: I don't see any chance to access a dump from 2015 easily, could possibly recreate the 2015 data dump with scripting or re-run workflow with current data dump;
+
+""We leveraged existing open source tools to accomplish this task, but due to the large size of the data, custom analytic scripts were developed to explore the results.""; mention HPC cluster with 3000 cores;"
+"34","172016","2016","Christopher Allen, Thomas Hervey, Sara Lafia, Daniel W. Phillips, Behzad Vahedi, Werner Kuhn","Exploring
+the Notion of Spatial Lenses","F","MK","FO","FO:1
+MK: 1","FO:1
+MK: 1","FO:1
+MK: 1","FO:0
+MK: 0","FO:1
+MK: 1","FO: this is a difficult case, because it has 5 case studies, each of which goes farther in trying to assure reproducibility than most other papers, with URLs to various data sources, and also links to tools being used; however, when applying the rule to assign the lowest score, the paper only gets a ""1"" 
+MK: I would give a 1 for the preprocessing described in 3.1 and 3.2
+ FO: agree, changed my score from 0 to 1"
+"35","182016","2016","Krzysztof Janowicz, Yingjie Hu, Grant McKenzie, Song Gao, Blake Regalia, Gengchen Mai et al.","Moon
+Landing or Safari? A Study of Systematic Errors and Their Causes in Geographic
+Linked Data","F","FO (was: BH)","CG","CG:1 FO:1","CG:0 FO:0","CG:1 FO:1","CG:0 FO:0","CG:1 FO:1","FO: much of the analysis is based on single, exemplary queries that are given; however, the underlying data set is not available, as is the procedure to produce the initial map that guides the remainder of the analysis"
+"36","192016","2016","Arthur van Goethem, Marc van Kreveld, Bettina Speckmann","Circles
+in the Water: Towards Island Group Labeling","F","DN","MK","DN: 0
+MK: 0","DN: NA
+MK: NA","DN: 1
+MK: 1","DN: 0
+MK: 0","DN: 1
+MK: 1","""We use digitized island groups from several atlases together with their respective labels.""
+""To ensure we obtained realistic solutions we computed label positions having the same height as the original manual label."" > so there is code, even more for the Comparison, but not mentioned.
+MK: Section 2 (particularly 2.1) sounds like preprocessing, since they speak about reducing the complexity..."
+"37","202016","2016","Benjamin Niedermann, Martin Nöllenburg","An
+Algorithmic Framework for Labeling Road Maps","F","FO","DN","DN: 2 FO:2","DN: 1 FO:1","DN: 1 FO:1","DN: 1 :FO1","DN: 2 FO:2","""As proof of concept we implemented the core of the framework only taking the most important cartographic criteria into account.""
+
+https://i11www.iti.kit.edu/roadlabeling/berlin/compare.html does not work anymore because of JavaScript problem; no license, personal website"
+"38","212016","2016","Peter Kiefer, Ioannis Giannopoulos, Andrew Duchowski, Martin Raubal","Measuring
+Cognitive Load for Map Tasks Through Pupil Diameter","F","CG","FO","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1",NA

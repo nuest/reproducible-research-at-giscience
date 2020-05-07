@@ -182,12 +182,9 @@ The majority of articles provide some information, but not to the degree require
 In \cite{nust_reproducible_2018} we describe concrete recommendations for individuals and organisations to improve the reproducibility.
 All these recommendations are directly transferable to the GIScience conference series, most importantly
 (a) a promotion of outstanding reproducible work, e.g., with awards or badges,
-(b) recognition of the efforts to achieve reproducibility, e.g., with a special track for reproducible papers, reproducibility reviewers, open educational resources, and helpful author guidelines including data and software citation requirements, and
-(c) an institutional commitment and roadmap, e.g., with a specific GIScience data/software repository and a timeline towards a year, say 2024, when GIScience starts to only accept computationally reproducible submissions.
-The AGILE reproducible paper guidelines \cite{agile_guidelines}, which were first used this year, are "ready to use" but also ready to be adopted towards a common understanding of good reproducibility practices in GIScience. 
-Such a discourse would be beneficial for all members of the community, whether their work is more towards the conceptual, the computational, or the applied direction of GIScience.
-To support this discourse, an author survey as conducted for AGILE \cite{nust_reproducible_2018} to identify specific hindering circumstances for and special requirements of the GIScience conference community is seen as useful future work.
-
-Concepts challenges and benefits \cite{kray_reproducible_2019}
-But accessibility policies are not enough \cite{stodden_empirical_2018}, so need better review \cite{eglen_codecheck_2019}
-
+(b) recognition of the efforts to achieve reproducibility, e.g., with a special track for reproducible papers, a role of reproducibility reviewer, open educational resources, and helpful author guidelines including data and software citation requirements and a specific data/software repository, and
+(c) an institutional commitment to a shift in policies going beyond mere accessibility \cite{stodden_empirical_2018}.
+These changes require a roadmap and clear year, say 2024, when GIScience starts to only accept computationally reproducible submissions and reproducibility is checked before acceptance of papers.
+The AGILE reproducible paper guidelines \cite{agile_guidelines} and community code review systems such as CODECHECK \cite{eglen_codecheck_2019} are open and "ready to use", but also can be adopted for suitable reproducibility practices for the GIScience conferences.
+The discourse around these recommendations would be beneficial for all members of the community, whether their work is more towards the conceptual, the computational, or the applied direction of GIScience.
+An survey for authors, as conducted for AGILE \cite{nust_reproducible_2018}, can help to identify specific hindering circumstances for and special requirements of the GIScience conference community and is useful future work.

@@ -59,7 +59,12 @@ If you have [`repo2docker`](https://repo2docker.readthedocs.io), you can
 also run `repo2docker .` and use the `--editable` option to edit the
 workflows. *The `repo2docker` option is the only way the original
 authors worked on the analysis to ensure the computing environment is
-properly managed.*
+properly managed.* You can most easily achieve it using the included
+`Makefile`, just run
+
+``` bash
+make
+```
 
 ## Files in this repository
 

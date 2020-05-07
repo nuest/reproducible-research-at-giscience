@@ -36,7 +36,13 @@ The `Dockerfile` uses the Rocker image [`rocker/binder:3.6.0`](https://hub.docke
 
 Download the project files, open a command line in the root directory (where this file is), and run the commands as documented at the end of the `Dockerfile`.
 
-If you have [`repo2docker`](https://repo2docker.readthedocs.io), you can also run `repo2docker .` and use the `--editable` option to edit the workflows. _The `repo2docker` option is the only way the original authors worked on the analysis to ensure the computing environment is properly managed._
+If you have [`repo2docker`](https://repo2docker.readthedocs.io), you can also run `repo2docker .` and use the `--editable` option to edit the workflows.
+_The `repo2docker` option is the only way the original authors worked on the analysis to ensure the computing environment is properly managed._
+You can most easily achieve it using the included `Makefile`, just run
+
+```bash
+make
+```
 
 ## Files in this repository
 

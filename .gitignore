@@ -63,3 +63,5 @@ paper/reproducible-research-at-giscience.pdf
 paper/reproducible-research-at-giscience.tex
 
 paper/reproducible-research-at-giscience.vtc
+
+.venv/

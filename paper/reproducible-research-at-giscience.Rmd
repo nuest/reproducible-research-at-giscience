@@ -42,7 +42,12 @@ author:
     email: m.konkol@uni-muenster.de
     funding: "_Opening Reproducible Research_ ([o2r](https://www.uni-muenster.de/forschungaz/project/12343)), German Research Foundation project number [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837)."
 abstract: |
-  Authors of papers at the GIScience conference face challenges of computational reproducibility just like any other discipline using computers to analyse data. In this work, we apply a rubric for assessing the reproducibility to XX conference papers published at the GIScience conference series in years 20XX-2018. The rubric was originally developed for an assessment of publications at the AGILE conference. The results of the GIScience paper assessment are in line with previous findings. The description of workflows and publication of data and software used in most papers suffice to explain the presented work, but are far from enabling a reproduction by a third party with reasonable effort. We summarise and adapt previous recommendations for improving this dire picture and invite the GIScience community to start a broad discussion on reusability, quality, and openness of its research. All material and code of this work is published openly under TODO: Zenodo DOI.
+  Authors of papers at the GIScience conference face challenges of computational reproducibility just like any other discipline using computers to analyse data.
+  In this work, we apply a rubric for assessing the reproducibility to XX conference papers published at the GIScience conference series in years 20XX-2018.
+  The rubric was originally developed for an assessment of publications at the AGILE conference.
+  The results of the GIScience paper assessment are in line with previous findings.
+  The description of workflows and publication of data and software used in most papers suffice to explain the presented work, but are far from enabling a reproduction by a third party with reasonable effort.
+  We summarise and adapt previous recommendations for improving this dire picture and invite the GIScience community to start a broad discussion on reusability, quality, and openness of its research.
 bibliography: bibliography
 authorrunning: "TODO when order fixed" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
 # A "thin space" character, ' ' or &thinsp;, is used between the two first names.
@@ -57,7 +62,10 @@ keywords: "reproducible research, open science, reproducibility, GIScience"
 #category: "Invited paper"
 #relatedversion: "A full version of the paper is available at https://..." # optional, e.g. full version hosted on arXiv, HAL, or other respository/website
 # optional, e.g. related research data, source code, ... hosted on a repository like zenodo, figshare, GitHub, ...
-supplement: "The raw data for this work are the full texts of conference GIScience conference proceedings [REF, REF, REF, REF]. Only the 2018 proceedings are publicly available under an open license, the other years require a subscription to SpringerLink. The results of the paper assessment and all code to generate the figures included in this work are published on GitHub at https://github.com/nuest/reproducible-research-at-giscience and archived on Zenodo at TODO ADD URL. The assessment data is published in a plain text CSV file and the text analysis and figures are conducted in R Markdown notebooks. The computing environment is archived in a Docker container using R 3.6.0 and packages from July 5th 2019 using MRAN’s CRAN Time Machine. The repository’s README provides instructions for local and online reproduction using Binder (https://mybinder.org/)."
+supplement: |
+  The raw data for this work are the full texts of conference GIScience conference proceedings \cite{giscienceproceedings2018,giscienceproceedings2016}.
+  The paper assessment results and source code of figures are published at [https://github.com/nuest/reproducible-research-at-giscience](github.com/nuest/reproducible-research-at-giscience) and archived at TODO ZENODO URL.
+  The used computing environment is [containerised with Docker and Binder-ready using R&nbsp;3.6.0](https://github.com/rocker-org/binder/) and an [MRAN snapshot](https://mran.microsoft.com/timemachine) of July 5th 2019.
 nolinenumbers: false # disable line numbering
 hideLIPIcs: false # remove references to LIPIcs series (logo, DOI, ...), e.g. when preparing a pre-final version to be uploaded to arXiv or another public repository
 # appendix _after_ the bibliography
@@ -66,6 +74,7 @@ output:
   # xelatex needed for 'thin space' Unicode character (see authorrunning);
   rticles::lipics_article:
     latex_engine: xelatex
+    keep_tex: TRUE
 ---
 
 # Introduction

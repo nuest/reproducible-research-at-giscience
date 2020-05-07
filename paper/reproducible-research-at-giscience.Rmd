@@ -42,7 +42,7 @@ author:
     email: m.konkol@uni-muenster.de
     funding: "_Opening Reproducible Research_ ([o2r](https://www.uni-muenster.de/forschungaz/project/12343)), German Research Foundation project number [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837)."
 abstract: |
-  Authors of papers at the GIScience conference face challenges of computational reproducibility just like any other discipline using computers to analyse data. In this work, we apply a rubric for assessing the reproducibility to XX conference papers published at the GIScience conference series in years 20XX-2018. The rubric was originally developed for an assessment of publications at the AGILE conference. The results of the GIScience paper assessment are in line with previous findings. The description of workflows and publication of data and software used in most papers suffice to explain the presented work, but are far from enabling a reproduction by a third party with reasonable effort. We summarise and adapt previous recommendations for improving this dire picture and invite the GIScience community to start a broad discussion on reusability, quality, and openness of its research. All material and code of this work is published openly under Zenodo DOI here.
+  Authors of papers at the GIScience conference face challenges of computational reproducibility just like any other discipline using computers to analyse data. In this work, we apply a rubric for assessing the reproducibility to XX conference papers published at the GIScience conference series in years 20XX-2018. The rubric was originally developed for an assessment of publications at the AGILE conference. The results of the GIScience paper assessment are in line with previous findings. The description of workflows and publication of data and software used in most papers suffice to explain the presented work, but are far from enabling a reproduction by a third party with reasonable effort. We summarise and adapt previous recommendations for improving this dire picture and invite the GIScience community to start a broad discussion on reusability, quality, and openness of its research. All material and code of this work is published openly under TODO: Zenodo DOI.
 bibliography: bibliography
 authorrunning: "TODO when order fixed" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
 # A "thin space" character, ' ' or &thinsp;, is used between the two first names.
@@ -56,7 +56,8 @@ keywords: "reproducible research, open science, reproducibility, GIScience"
 #acknowledgements: "I want to thank \\dots"
 #category: "Invited paper"
 #relatedversion: "A full version of the paper is available at https://..." # optional, e.g. full version hosted on arXiv, HAL, or other respository/website
-supplement: "TODO See code at https://github.com/.. and data at https://doi.org/..." # optional, e.g. related research data, source code, ... hosted on a repository like zenodo, figshare, GitHub, ...
+# optional, e.g. related research data, source code, ... hosted on a repository like zenodo, figshare, GitHub, ...
+supplement: "The raw data for this work are the full texts of conference GIScience conference proceedings [REF, REF, REF, REF]. Only the 2018 proceedings are publicly available under an open license, the other years require a subscription to SpringerLink. The results of the paper assessment and all code to generate the figures included in this work are published on GitHub at https://github.com/nuest/reproducible-research-at-giscience and archived on Zenodo at TODO ADD URL. The assessment data is published in a plain text CSV file and the text analysis and figures are conducted in R Markdown notebooks. The computing environment is archived in a Docker container using R 3.6.0 and packages from July 5th 2019 using MRAN’s CRAN Time Machine. The repository’s README provides instructions for local and online reproduction using Binder (https://mybinder.org/)."
 nolinenumbers: false # disable line numbering
 hideLIPIcs: false # remove references to LIPIcs series (logo, DOI, ...), e.g. when preparing a pre-final version to be uploaded to arXiv or another public repository
 # appendix _after_ the bibliography
@@ -67,10 +68,117 @@ output:
     latex_engine: xelatex
 ---
 
-# Introductions
+# Introduction
 
-\cite{nust_reproducible_2018} rocks.
+A large proportion of GIScience research today uses software to analyse data on computers.
+This makes a considerable share of the articles published in the context of the GIScience conference series[^giscience] fall into the categories of data science or computational research.
+Thereby these articles are exposed to challenges of transparency and reproducibility in the sense of the Claerbout/Donoho/Peng terminology \cite{barba_terminologies_2018}, where reproduction means a recreation of the same results using the same input data and workflow as the original authors.
+In previous work \cite{nust_reproducible_2018} we assessed the reproducibility of full and short papers of the AGILE conference series[^agile], a community conference closely related to GIScience. 
+Using a rubric for reproducible research, we found that the majority of articles did not provide sufficient information for a reviewer to evaluate code and data and attempt a reproduction, and neither enough material for readers to reuse or extend the workflows.
+This is corroborated by research in related disciplines such as quantitative geography \cite{brunsdon_quantitative_2016}, qualitative GIS \cite{muenchow_reviewing_2019}, geoscience \cite{konkol_computational_2018}, and computer science [TODO REF].
+The problems identified in these related research areas are directly transferable to GIScience, which operates at the intersections of aforementioned fields \cite{Goodchild1992}.
+In any case, observations on lack of reproducibility in all scientific fields are contrasted by clear advantages and benefits  of open and reproducible research both for individuals and for academia as a whole (cf. for example \cite{donoho_invitation_2010,markowetz_five_2015,kray_reproducible_2019,Colavizza2020}).
+
+To illustrate the relevance of computational methods in GIScience conference papers, we have conducted a simple text analysis of the proceedings.
+Table 1 shows the occurrence of reproducibility-related keywords in GIScience proceedings for the last four conferences based on word stems.
+The word stems include general terms such as software or data, specific platforms such as GitHub or GitLab, and concrete terms such as words starting with "reproduc".
+The take away message here is that algorithms, processing, and data play a large role in GIScience publications, but only little mentioning of code repositories or reproduction material could be identified.
+Therefore, a more detailed manual assessment of the reproducibility of these publications is necessary.
+
+**TODO add table**
+
+Table 1: Counts of reproducibility-related word stems in papers from the GIScience conference[^highcount], 2012 to 2018; see file `giscience-historic-text-analysis.Rmd` for details.
+
+[^highcount]: Note: The high number for "code" in 2012 is largely due to a single paper about "land use codes".
+
+The AGILE and GIScience conference series are two conference series that share a common discipline, and have significant overlap in audience. <!-- TODO: quantify overlap -->
+Nevertheless, based on our own experience with these two conference series, we postulate that there are also significant differences in terms of topic focus and methods applied, that preclude the simplistic assumption that the findings for AGILE apply to GIScience as well, and instead warrant an investigation. 
+The main contribution of this work addresses two objectives:
+First, to apply the assessment procedure used for AGILE conference papers (presented in the next section) to the papers of the GIScience conference, to check whether it is generic enough to allow replication with a different dataset.
+This transfer solidifies the methodology and yields important findings for the discussion of reproducibility within the GIScience conference community and the broader GIScience discipline at large. Second, to broaden our knowledge base about reproducibility in GIScience in general, and learn more about the situation in the GIScience conference series.
+Only then can a fruitful discussion take place on ways to improve reproducibility (if necessary) for the GIScience conference series, and whether the recent steps taken at AGILE \cite{reproducible_agile} could be an inspiration for GIScience conferences as well.
+We discuss these findings and present our conclusions in the final two sections.
+
+[^giscience]: [https://www.giscience.org/](https://www.giscience.org/)
+[^agile]: [https://agile-online.org/conference](https://agile-online.org/conference)
+
+# Reproducibility Assessment
+
+## Criteria
+
+The overall approach to assessing the reproducibility of GIScience papers is similar to the assessment of AGILE papers \cite{nust_reproducible_2018}:
+Two members of the author team reviewed each GIScience paper along three main criteria, assigning one of four reproducibility levels to each criterion.
+The three assessment criteria are Input Data, Methods, and Results. 
+Input Data comprises all datasets that the computational analysis uses.
+Methods encompasses the entire computational analysis that generates the results.
+Since Methods is difficult to evaluate as a whole, we split this criterion into three subcategories:
+Preprocessing includes the steps to prepare the Input data before analysis; Methods, analysis, processing is the actual analysis; 
+Computational environment addresses the description of the hard- and software used by the analysts of the paper.
+Finally, the criterion Results refers to the output of analysis, for example, figures, tables, and numbers. 
+For each of these (sub)categories, we assigned one of four levels: (Level 0) Unavailable means that it is not possible to access the paper’s data, methods, or results, and that it is impossible to recreate them based on the description in the paper.
+(Level 1) Documented indicates that the paper still does not provide access to datasets, methods, or results, but that there is sufficient description to recreate them closely enough for an evaluation, yet often a recreation is unlikely due to huge efforts needed.
+(Level 2) Available is assigned if the paper provides direct access to the materials (e.g., through a personal or institutional website), but not in the form of an open and permanent identifier, such as a DOI. 
+The gold standard, (Level 3) Available and open, requires open and permanent access to the materials (e.g., through public online repositories).
+
+**TODO Add the criteria figure?**
+
+## Paper Corpus
+
+<!-- TODO add numbers -->
+X papers from the conferences in 2018, 2016, 20XX, and 20XX were assessed. X papers across all years were identified as conceptual papers[^conceptual] and were not included in the corpus.
+
+[^conceptual]: See \cite{nust_reproducible_2018} for a definition of "conceptual".
+
+## Process
+
+Process similar to AGILE etc.
+
+- Since there is no preselection, we looked at all GIScience papers, starting at 2018 and then iterating backwards until 20XX
+- 5 assessors, all of which participated in the AGILE assessment
+- We seem to have gotten stricter and applied “0” in cases where we previously might have used “NA” > reevaluation of the preprocessing category resulted in a few 0s being switched to NAs instead
+- Should we write down how we _now_ understand _pre_processing?
+- In “input data”, we clarified that “available” must have been the case once, but might not be now, e.g., if the given URL of an official site has changed
+- Anecdotally, the papers seem to have more formulas
+- How did we handle human subject experiments > needed to update the common understanding of the categories
+- Note: this work is qualitative, and therefore not reproducible, so we try to be as transparent as possible
+
+## Results
+
+- Figure X shows the distribution of the reproducibility levels for each criterion.
+- No `0` for results shows that peer review catches these papers.
+
+**TODO: add Table 2**
+
+**TODO: add figure**
 
 # Discussion
 
-# Conclusions
+Rubric worked, but faced similar challenges (category classes not equidistant!)
+Publication years similar to assessment of AGILE papers, so we think results are comparable in the sense of what methods and tools would have been available for authors
+<!-- TODO add numbers -->
+Proportion of conceptual papers is X out of Y.
+AGILE had 5 out of 32.
+...
+
+# Conclusions and outlook
+
+In this work we investigated the reproducibility of several years of GIScience conference publications.
+The paper corpus is large enough for a representative sample.
+The corpus size is comparable to the one used for the AGILE study, but the corporas have different time windows.
+It was never the intention of this study to rate the papers, or engage in a comparison of AGILE vs. GIScience conference quality.
+We do not question that the research presented in these papers is sound and relevant, since they were accepted for publication at a reputable conference.
+Instead, we investigated the papers along a single desirable quality dimension, reproducibility.
+Assuming a similar high bar for reproducibility as in the earlier study, the results clearly show a lot of room for improvement, as none of the presented articles was readily reproducible.
+The majority of articles provide some information, but not to the degree required to facilitate a change for more open, more transparent, and, most relevantly, reusable research.
+In \cite{nust_reproducible_2018} we describe concrete recommendations for individuals and organisations to improve the reproducibility.
+All these recommendations are directly transferable to the GIScience conference series, most importantly
+(a) a promotion of outstanding reproducible work, e.g., with awards or badges,
+(b) recognition of the efforts to achieve reproducibility, e.g., with a special track for reproducible papers, reproducibility reviewers, open educational resources, and helpful author guidelines including data and software citation requirements, and
+(c) an institutional commitment and roadmap, e.g., with a specific GIScience data/software repository and a timeline towards a year, say 2024, when GIScience starts to only accept computationally reproducible submissions.
+The AGILE reproducible paper guidelines \cite{agile_guidelines}, which were first used this year, are "ready to use" but also ready to be adopted towards a common understanding of good reproducibility practices in GIScience. 
+Such a discourse would be beneficial for all members of the community, whether their work is more towards the conceptual, the computational, or the applied direction of GIScience.
+To support this discourse, an author survey as conducted for AGILE \cite{nust_reproducible_2018} to identify specific hindering circumstances for and special requirements of the GIScience conference community is seen as useful future work.
+
+Concepts challenges and benefits \cite{kray_reproducible_2019}
+But accessibility policies are not enough \cite{stodden_empirical_2018}, so need better review \cite{eglen_codecheck_2019}
+

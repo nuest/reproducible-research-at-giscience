@@ -33,7 +33,7 @@ The analysis is based on the assessment first published in _"Reproducible resear
 To create the assessment result data and figures based on this document you can run the following commands in a new R session after completing the prerequisites with the original paper corpus data.
 If you have problems rendering the document you can execute each chunk independently in [RStudio](https://rstudio.com/products/rstudio/).
 
-```{r render_with_rmarkdown,eval=FALSE}
+```{r render_with_rmarkdown, eval=FALSE}
 require("knitr")
 require("rmarkdown")
 rmarkdown::render("giscience-reproducibility-assessment.Rmd")
@@ -52,7 +52,7 @@ source("install.R")
 The plots and tables of survey data and evaluation use the packages [`ggplot2`](http://ggplot2.tidyverse.org/), [`knitr::kable()`](https://yihui.name/knitr/), [`huxtable`](https://hughjonesd.github.io/huxtable/), and [`kableExtra`](https://cran.r-project.org/package=kableExtra).
 Required libraries and runtime environment description are as follows.
 
-```{r load_libraries, echo=TRUE, message=FALSE, warning=FALSE}
+```{r load_libraries, echo=TRUE, message=FALSE}
 library("tidyverse")
 library("readr")
 library("ggplot2")
@@ -70,7 +70,7 @@ library("googlesheets4")
 ## Reproduciblity assessment
 
 ```{r evaldata_file}
-assessment_file <- "paper_assessment.csv"
+assessment_file <- here::here("results/paper_assessment.csv")
 ```
 
 ```{r googlesheets_auth, echo=FALSE, eval=FALSE}
@@ -87,12 +87,12 @@ assessment_sheet <- googlesheets4::read_sheet(
   range = googlesheets4::cell_rows(1:39) # only 2018 + 2016
 )
 
-write.csv(assessment_sheet, file = here::here(assessment_file))
+write.csv(assessment_sheet, file = assessment_file)
 ```
 
 The following plots are based on the file `r assessment_file`, the result from the manual reproducibility assessment.
 
-```{r load_evaldata,warning=FALSE}
+```{r load_evaldata}
 category_levels <- c("0", "1", "2", "3")
 paper_evaluation <- readr::read_csv(assessment_file, 
     col_types = readr::cols(
@@ -121,27 +121,6 @@ knitr::kable(paper_evaluation %>%
                              "'-' is category not available")) %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
-
-### Conceptual papers
-
-```{r conceptual_papers,warning=FALSE}
-count_conceptual <- nrow(paper_evaluation %>% 
-                           dplyr::filter(`conceptual paper` == TRUE))
-count_mixed <- nrow(paper_evaluation %>% 
-                      filter(is.na(`input data`) 
-                             | is.na(preprocessing) 
-                             | is.na(`method/analysis/processing`) 
-                             | is.na(`computational environment`) 
-                             | is.na(results)))
-```
-
-`r count_conceptual` papers are purely conceptual (all categories have value `NA`).
-These are not included in the following statistics.
-
-`r count_mixed` papers are partically conceptual (at least one category has a value of `NA`).
-These are evaluated.
-
-`r paper_evaluation %>% filter(is.na(preprocessing)) %>% count() %>% .$n` papers are not applicable for preprocessing criterion.
 
 ### Table: Statistics of reproducibility levels per criterion
 

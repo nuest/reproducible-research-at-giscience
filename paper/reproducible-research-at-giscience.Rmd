@@ -1,6 +1,6 @@
 ---
 title: "Reproducible Research and GIScience: an evaluation using GIScience conference papers"
-titlerunning: "Reprocuible GIScience"
+titlerunning: "Reproducible GIScience"
 format: "a4paper"
 hyphenation: "UKenglish"
 authorcolumns: false
@@ -28,7 +28,7 @@ author:
     affiliation: "Institute for Geoinformatics, University of Münster, Münster, Germany"
     orcid: "https://orcid.org/0000-0002-0024-5046"
     email: daniel.nuest@uni-muenster.de
-    funding: "_Opening Reproducible Research_ ([o2r](https://www.uni-muenster.de/forschungaz/project/12343)), German Research Foundation project number [PE&nbsp;1632/17-1](https://gepris.dfg.de/gepris/projekt/415851837)."
+    funding: "Project [_o2r_](https://www.uni-muenster.de/forschungaz/project/12343), German Research Foundation, grant number [PE&nbsp;1632/17-1](https://gepris.dfg.de/gepris/projekt/415851837)."
   - name: Frank Ostermann
     #footnote: Optional footnote, e.g. to mark corresponding author
     affiliation: "Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente, Enschede, The Netherlands"
@@ -40,7 +40,7 @@ author:
     affiliation: "Institute for Geoinformatics, University of Münster, Münster, Germany"
     orcid: "https://orcid.org/0000-0001-6651-0976"
     email: m.konkol@uni-muenster.de
-    funding: "_Opening Reproducible Research_ ([o2r](https://www.uni-muenster.de/forschungaz/project/12343)), German Research Foundation project number [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837)."
+    funding: "Project [_o2r_](https://www.uni-muenster.de/forschungaz/project/12343), German Research Foundation, grant number [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837)."
 abstract: |
   Authors of papers at the GIScience conference face challenges of computational reproducibility just like any other discipline using computers to analyse data.
   In this work, we apply a rubric for assessing the reproducibility to XX conference papers published at the GIScience conference series in years 20XX-2018.
@@ -49,9 +49,9 @@ abstract: |
   The description of workflows and publication of data and software used in most papers suffice to explain the presented work, but are far from enabling a reproduction by a third party with reasonable effort.
   We summarise and adapt previous recommendations for improving this dire picture and invite the GIScience community to start a broad discussion on reusability, quality, and openness of its research.
 bibliography: bibliography
-authorrunning: "TODO when order fixed" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
+authorrunning: "TODO authorrunning when order fixed" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
 # A "thin space" character, ' ' or &thinsp;, is used between the two first names.
-copyright: "TODO when order fixed, John Q. Public and Joan R. Public" # mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
+copyright: "TODO copyright when order fixed, John Q. Public and Joan R. Public" # mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
 ccdesc:
   # Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm
   concept_significance: "500"
@@ -72,7 +72,8 @@ hideLIPIcs: false # remove references to LIPIcs series (logo, DOI, ...), e.g. wh
 #appendix: |
 output:
   # xelatex needed for 'thin space' Unicode character (see authorrunning);
-  rticles::lipics_article:
+  bookdown::pdf_book:
+    base_format: rticles::lipics_article
     latex_engine: xelatex
     keep_tex: TRUE
 ---
@@ -88,20 +89,14 @@ This is corroborated by research in related disciplines such as quantitative geo
 The problems identified in these related research areas are directly transferable to GIScience, which operates at the intersections of aforementioned fields \cite{Goodchild1992}.
 In any case, observations on lack of reproducibility in all scientific fields are contrasted by clear advantages and benefits  of open and reproducible research both for individuals and for academia as a whole (cf. for example \cite{donoho_invitation_2010,markowetz_five_2015,kray_reproducible_2019,Colavizza2020}).
 
-To illustrate the relevance of computational methods in GIScience conference papers, we have conducted a simple text analysis of the proceedings.
-Table 1 shows the occurrence of reproducibility-related keywords in GIScience proceedings for the last four conferences based on word stems.
-The word stems include general terms such as software or data, specific platforms such as GitHub or GitLab, and concrete terms such as words starting with "reproduc".
-The take away message here is that algorithms, processing, and data play a large role in GIScience publications, but only little mentioning of code repositories or reproduction material could be identified.
+We have conducted a simple text analysis of the proceedings[^textanalysis] to evaluate the relevance of computational methods in GIScience conference papers.
+The analysis finds wordstems related to reproducibility: generic words, e.g., "data", "software", or "process", specific platforms, e.g., "GitHub", and concrete terms, e.g., words starting with "reproduc".
+The take away message from the text analysis that algorithms, processing, and data play a large role in GIScience publications, but only little mentioning of code repositories or reproduction material could be identified.
 Therefore, a more detailed manual assessment of the reproducibility of these publications is necessary.
+The AGILE and GIScience conference series are conference series that share a common discipline, and have significant overlap in audience.
+<!-- TODO: quantify overlap -->
+Nevertheless, based on our own experience with these two events, we postulate that there are also significant differences in terms of topic focus and methods applied, that preclude the simplistic assumption that the findings for AGILE apply to GIScience as well, and instead warrant an investigation. 
 
-**TODO add table**
-
-Table 1: Counts of reproducibility-related word stems in papers from the GIScience conference[^highcount], 2012 to 2018; see file `giscience-historic-text-analysis.Rmd` for details.
-
-[^highcount]: Note: The high number for "code" in 2012 is largely due to a single paper about "land use codes".
-
-The AGILE and GIScience conference series are two conference series that share a common discipline, and have significant overlap in audience. <!-- TODO: quantify overlap -->
-Nevertheless, based on our own experience with these two conference series, we postulate that there are also significant differences in terms of topic focus and methods applied, that preclude the simplistic assumption that the findings for AGILE apply to GIScience as well, and instead warrant an investigation. 
 The main contribution of this work addresses two objectives:
 First, to apply the assessment procedure used for AGILE conference papers (presented in the next section) to the papers of the GIScience conference, to check whether it is generic enough to allow replication with a different dataset.
 This transfer solidifies the methodology and yields important findings for the discussion of reproducibility within the GIScience conference community and the broader GIScience discipline at large. Second, to broaden our knowledge base about reproducibility in GIScience in general, and learn more about the situation in the GIScience conference series.
@@ -110,6 +105,7 @@ We discuss these findings and present our conclusions in the final two sections.
 
 [^giscience]: [https://www.giscience.org/](https://www.giscience.org/)
 [^agile]: [https://agile-online.org/conference](https://agile-online.org/conference)
+[^textanalysis]: The full text analysis results is available in this paper's repository: [`giscience-historic-text-analysis.Rmd`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/giscience-historic-text-analysis.Rmd) contains the analysis code and the result files are [`text_analysis_topwordstems.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/text_analysis_topwordstems.csv) and [`text_analysis_keywordstems.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/text_analysis_keywordstems.csv).
 
 # Reproducibility Assessment
 
@@ -117,26 +113,58 @@ We discuss these findings and present our conclusions in the final two sections.
 
 The overall approach to assessing the reproducibility of GIScience papers is similar to the assessment of AGILE papers \cite{nust_reproducible_2018}:
 Two members of the author team reviewed each GIScience paper along three main criteria, assigning one of four reproducibility levels to each criterion.
-The three assessment criteria are Input Data, Methods, and Results. 
-Input Data comprises all datasets that the computational analysis uses.
-Methods encompasses the entire computational analysis that generates the results.
-Since Methods is difficult to evaluate as a whole, we split this criterion into three subcategories:
-Preprocessing includes the steps to prepare the Input data before analysis; Methods, analysis, processing is the actual analysis; 
-Computational environment addresses the description of the hard- and software used by the analysts of the paper.
-Finally, the criterion Results refers to the output of analysis, for example, figures, tables, and numbers. 
-For each of these (sub)categories, we assigned one of four levels: (Level 0) Unavailable means that it is not possible to access the paper’s data, methods, or results, and that it is impossible to recreate them based on the description in the paper.
-(Level 1) Documented indicates that the paper still does not provide access to datasets, methods, or results, but that there is sufficient description to recreate them closely enough for an evaluation, yet often a recreation is unlikely due to huge efforts needed.
-(Level 2) Available is assigned if the paper provides direct access to the materials (e.g., through a personal or institutional website), but not in the form of an open and permanent identifier, such as a DOI. 
-The gold standard, (Level 3) Available and open, requires open and permanent access to the materials (e.g., through public online repositories).
-
-**TODO Add the criteria figure?**
+The three assessment criteria are _Input Data_, _Methods_, and _Results_. 
+_Input Data_ comprises all datasets that the computational analysis uses.
+_Methods_ encompasses the entire computational analysis that generates the results.
+Since _Methods_ is difficult to evaluate as a whole, we split this criterion into three subcategories:
+_Preprocessing_ includes the steps to prepare the _Input Data_ before main analysis;
+_Methods, Analysis, Processing_ is the actual analysis; 
+_Computational Environment_ addresses the description of the hard- and software.
+Finally, the criterion _Results_ refers to the output of analysis, for example, figures, tables, and numbers. 
+For each of these (sub)categories, we assigned one of four levels:
+_(Level 0) Unavailable_ means that it is not possible to access the paper’s data, methods, or results, and that it is impossible to recreate them based on the description in the paper.
+_(Level 1) Documented_ indicates that the paper still does not provide access to datasets, methods, or results, but that there is sufficient description to recreate them closely enough for an evaluation, yet often a recreation is unlikely due to huge efforts needed.
+_(Level 2) Available_ is assigned if the paper provides direct access to the materials (e.g., through a personal or institutional website), but not in the form of an open and permanent identifier, such as a DOI. 
+The gold standard, _(Level 3) Available and open_, requires open and permanent access to the materials (e.g., through public online repositories).
 
 ## Paper Corpus
 
-<!-- TODO add numbers -->
-X papers from the conferences in 2018, 2016, 20XX, and 20XX were assessed. X papers across all years were identified as conceptual papers[^conceptual] and were not included in the corpus.
+```{r load_data, echo=FALSE, message=FALSE, warning=FALSE}
+library("here")
 
-[^conceptual]: See \cite{nust_reproducible_2018} for a definition of "conceptual".
+assessment_file <- here::here("results/paper_assessment.csv")
+
+category_levels <- c("0", "1", "2", "3")
+categoryColumns <- c("input data", 
+                     "preprocessing",
+                     "method/analysis/processing",
+                     "computational environment",
+                     "results")
+
+paper_evaluation <- readr::read_csv(assessment_file, 
+    col_types = readr::cols(
+      `conceptual paper` = readr::col_logical(),
+      `computational environment` = readr::col_factor(levels = category_levels),
+      `input data` = readr::col_factor(levels = category_levels),
+      `method/analysis/processing` = readr::col_factor(levels = category_levels),
+      preprocessing = readr::col_factor(levels = category_levels),
+      results = readr::col_factor(levels = category_levels)
+      ),
+    na = "NA")
+```
+
+```{r count_papers, echo=FALSE, message=FALSE, warning=FALSE}
+library("dplyr")
+
+count_conceptual <- nrow(paper_evaluation %>% 
+                           dplyr::filter(`conceptual paper` == TRUE))
+count_mixed <- nrow(paper_evaluation %>% 
+                      dplyr::filter(is.na(`input data`) 
+                             | is.na(preprocessing) 
+                             | is.na(`method/analysis/processing`) 
+                             | is.na(`computational environment`) 
+                             | is.na(results)))
+```
 
 ## Process
 
@@ -153,21 +181,68 @@ Process similar to AGILE etc.
 
 ## Results
 
-- Figure X shows the distribution of the reproducibility levels for each criterion.
+- `r nrow(paper_evaluation)` papers from the conferences in `r paste(sort(unique(paper_evaluation$year)), collapse = ", ")` were assessed.
+- `r count_conceptual` papers across all years were identified as conceptual papers[^conceptual] and were not included in the corpus.
+AGILE had 5 conceptual out of 32.
+- `r paper_evaluation %>% filter(is.na(preprocessing)) %>% count() %>% .$n` papers are not applicable for preprocessing criterion.
+- Table&nbsp;\@ref(tab:summary-evaldata) shows aggregated values for the assessed reproducibility levels.
+- Figure&nbsp;\@ref(fig:assessment-results) shows the distribution of the reproducibility levels for each criterion.
 - No `0` for results shows that peer review catches these papers.
+- The full assessment table in the paper repository is at [`paper_assessment.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/paper_assessment.csv) 
 
-**TODO: add Table 2**
+```{r summary-evaldata, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%'}
+library("knitr")
+library("kableExtra")
 
-**TODO: add figure**
+evaldata_numeric <- paper_evaluation %>%
+  # must convert factors to numbers to calculate the mean and median
+  dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
+
+# apply summary independently to format as table
+summaries <- sapply(evaldata_numeric[,categoryColumns], summary)
+exclude_values_summary <- c("1st Qu.", "3rd Qu.")
+kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 
+      digits = 1,
+      col.names = c("input data", "preproc.", "method/analysis/proc.",
+                    "comp. env.", "results"),
+      caption = "Statistics of reproducibility levels per criterion (rounded to one decimal place)")
+```
+
+```{r assessment-results, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Barplots of reproducibility assessment results; levels range from 0 (leftmost bar) to 'not applicable' (rightmost bar)."}
+# match the colours to time series plot below
+colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
+level_names <- c("0", "1", "2", "3", "NA")
+
+criteriaBarplot = function(data, main, colour) {
+  barplot(table(data, useNA = "always"), 
+          main = main,
+          xlab = "Level",
+          ylim = c(0,nrow(paper_evaluation)),
+          names.arg = level_names, col = colours[colour])
+}
+
+par(mfrow = c(1,length(categoryColumns)),
+    cex = 0.5,
+    cex.axis = 0.9)
+criteriaBarplot(paper_evaluation$`input data`,
+                main = "Input data", colour = 1)
+criteriaBarplot(paper_evaluation$`preprocessing`, 
+                main = "Preprocessing", colour = 2)
+criteriaBarplot(paper_evaluation$`method/analysis/processing`,
+                main = "Methods/Analysis/\nProcessing", colour = 3)
+criteriaBarplot(paper_evaluation$`computational environment`,
+                main = "Computational\nEnvironment", colour = 4)
+criteriaBarplot(paper_evaluation$results,
+                main = "Results", colour = 5)
+```
+
+[^conceptual]: See \cite{nust_reproducible_2018} for a definition of "conceptual".
 
 # Discussion
 
-Rubric worked, but faced similar challenges (category classes not equidistant!)
-Publication years similar to assessment of AGILE papers, so we think results are comparable in the sense of what methods and tools would have been available for authors
-<!-- TODO add numbers -->
-Proportion of conceptual papers is X out of Y.
-AGILE had 5 out of 32.
-...
+- Rubric worked, but faced similar challenges (category classes not equidistant!)
+- Publication years similar to assessment of AGILE papers, so we think results are comparable in the sense of what methods and tools would have been available for authors.
+- comparision to AGILE?
 
 # Conclusions and outlook
 

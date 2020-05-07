@@ -67,7 +67,7 @@ library("here")
 library("googlesheets4")
 ```
 
-## Reproduciblity assessment
+## Load data
 
 ```{r evaldata_file}
 assessment_file <- here::here("results/paper_assessment.csv")
@@ -122,7 +122,7 @@ knitr::kable(paper_evaluation %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
-### Table: Statistics of reproducibility levels per criterion
+## Table: Statistics of reproducibility levels per criterion
 
 ```{r summary_evaldata}
 evaldata_numeric <- paper_evaluation %>%
@@ -136,14 +136,13 @@ kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)),
       digits = 1,
       col.names = c("input data", "preproc.", "method/analysis/proc.",
                     "comp. env.", "results"),
-      caption = paste0("\\label{tab:levels_statistics}Statistics of ",
-                       "reproducibility levels per criterion (rounded to one decimal place)")) %>%
+      caption = "Statistics of reproducibility levels per criterion (rounded to one decimal place)") %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
 The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, with `0` and `1` around the "middle" resulting in a fraction as the median.
 
-### Figure: Results of reproducibility assessment
+## Figure: Results of reproducibility assessment
 
 ```{r fig_assessment_results,fig.width=12}
 # match the colours to time series plot below
@@ -160,15 +159,15 @@ criteriaBarplot = function(data, main, colour) {
 
 par(mfrow = c(1,length(categoryColumns)))
 criteriaBarplot(paper_evaluation$`input data`,
-                main = "A: Input data", colour = 1)
+                main = "Input data", colour = 1)
 criteriaBarplot(paper_evaluation$`preprocessing`, 
-                main = "B: Preprocessing", colour = 2)
+                main = "Preprocessing", colour = 2)
 criteriaBarplot(paper_evaluation$`method/analysis/processing`,
-                main = "C: Methods/Analysis/\nProcessing", colour = 3)
+                main = "Methods/Analysis/\nProcessing", colour = 3)
 criteriaBarplot(paper_evaluation$`computational environment`,
-                main = "D: Computational\nEnvironment", colour = 4)
+                main = "Computational\nEnvironment", colour = 4)
 criteriaBarplot(paper_evaluation$results,
-                main = "E: Results", colour = 5)
+                main = "Results", colour = 5)
 ```
 
 ```{r criteria_numbers}
@@ -195,7 +194,7 @@ methods_and_results_eq_one <- evaldata_numeric %>%
 
 `r methods_and_results_eq_one` papers have level `1` in both methods and results criterion.
 
-### Table: Mean levels per criterion for full and short papers
+## Table: Mean levels per criterion for full and short papers
 
 ```{r summary_evaldata_grouped}
 summaries <- sapply(evaldata_numeric %>%
@@ -210,7 +209,7 @@ kable(means,
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
-### Extra table: Mean levels averaged across criteria over time
+## Table: Mean levels averaged across criteria over time
 
 ```{r evaldata_summary_by_year_mean}
 means_years <- evaldata_numeric %>%
@@ -237,7 +236,7 @@ kable(means_years_table,
   kableExtra::kable_styling("striped", full_width = TRUE)
 ```
 
-### Figure: Mean reproducibility levels per category over time
+## Figure: Mean reproducibility levels per category over time
 
 ```{r Fig4,fig.height=4,dpi=300}
 evaldata_years <- evaldata_numeric %>%

@@ -47,30 +47,17 @@ DN: Re. sections pointed out by MK: these steps part of the algorithm that is de
 "17","172018","2018","Yan, Bo ; Janowicz, Krzysztof ; Mai, Gengchen ; Zhu, Rui","xNet+SC: Classifying Places Based on Images by Incorporating Spatial Contexts","F","BH","FO","0","1","1","1","1","FO: very well described with sufficient information to replicate; however, I could not find any actual code or the exact input data (the images)
 
 BH: images not recreatable"
-"18","12016","2016","Cici Alexander, Lars Arge, Peder Klith Bøcher, Morten Revsbæk, Brody Sandel, Jens-Christian Svenning et al.","Computing River Floods Using Massive Terrain Data","F","DN","FO","FO: 2
-DN: 2","FO: 1","FO: 1","FO: 1
-DN: 1","FO: 1
-DN: 1","data link https://gst.dk/emner/frie-data/hvilke-data-er-omfattet/hvilke-data-er-frie/dhm-danmarks-hoejdemodel/ is broken, but certainly was at the time - it is not a 3 though; SRTM grid data and MODIS can probably be recreated;"
+"18","12016","2016","Cici Alexander, Lars Arge, Peder Klith Bøcher, Morten Revsbæk, Brody Sandel, Jens-Christian Svenning et al.","Computing River Floods Using Massive Terrain Data","F","DN","FO","2","1","1","1","1","data link https://gst.dk/emner/frie-data/hvilke-data-er-omfattet/hvilke-data-er-frie/dhm-danmarks-hoejdemodel/ is broken, but certainly was at the time - it is not a 3 though; SRTM grid data and MODIS can probably be recreated;"
 "19","22016","2016","Jan-Henrik Haunert, Wouter Meulemans","Partitioning
-Polygons via Graph Augmentation","F","FO","CG","CG:0 FO:0","CG:N/A FO: N/A","CG:1 FO:1","CG:0 FO:0","CG:1 FO:1","FO: insufficient information to recreate the input data; no pre-processing needed"
+Polygons via Graph Augmentation","F","FO","CG","0","NA","1","0","1","FO: insufficient information to recreate the input data; no pre-processing needed"
 "20","32016","2016","Carson J. Q. Farmer, Carsten Keßler","Hierarchical
-Prism Trees for Scalable Time Geographic Analysis","F","CG","MK","CG:2
-MK: 2","CG:2
-MK: 2","CG:2
-MK: 2","CG:0
-MK: 0","CG:2
-MK: 2","MK: Everything inlcuded in one Jupyther Notebook, well done. Bu I could not find a description for the computational environment. CG: that's true. Computational environment set to 0"
+Prism Trees for Scalable Time Geographic Analysis","F","CG","MK","2","2","2","0","2","MK: Everything inlcuded in one Jupyther Notebook, well done. Bu I could not find a description for the computational environment. CG: that's true. Computational environment set to 0"
 "21","42016","2016","Emre Eftelioglu, Yan Li, Xun Tang, Shashi Shekhar, James M. Kang, Christopher Farah","Mining
-Network Hotspots with Holes: A Summary of Results","F","MK","BH","BH:1
-MK: 1","BH:0
-MK: 0","BH:1
-MK: 1","BH:0
-MK: 0","BH:1
-MK: 1","BH: didn't find any mention of the computer used; links to open data repositories given; methods described in formulas; figures as graphs and with discussion
+Network Hotspots with Holes: A Summary of Results","F","MK","BH","1","0","1","0","1","BH: didn't find any mention of the computer used; links to open data repositories given; methods described in formulas; figures as graphs and with discussion
 MK: Agreed. Description of the input data is rather bad though, but it should be possible with lots of effort to replicate the data.
 DN: ""For both of the case studies, we matched activities to edges as counts."" > this is a clear preprocessing step for me, given the actual method; the ""Post-processing of the Output"" falls under""results""; preprocessing step is merging of the datasets, matching the incidents to the road network - not properly described with ""activities were matched and their counts on edges were aggregated"";"
 "22","52016","2016","KwangSoo Yang","Distance-Constrained
-k Spatial Sub-Networks: A Summary of Results","F","BH","DN","DN: 0, BH: 0","DN: 0; BH: 0","DN: 1, BH: 1","DN: 1, BH:1","DN: 1, BH:1","DN: case study shows computational costs can be reduced > there must be an implementation; data ""from OpenStreetMap""; crime data download links still work, but one requires a login; ""For simplicity, we mapped all incidents to the nearest edge;"" is a preprocessing step, which is not enough documentation IMO;
+k Spatial Sub-Networks: A Summary of Results","F","BH","DN","0","0","1","1","1","DN: case study shows computational costs can be reduced > there must be an implementation; data ""from OpenStreetMap""; crime data download links still work, but one requires a login; ""For simplicity, we mapped all incidents to the nearest edge;"" is a preprocessing step, which is not enough documentation IMO;
 
 BH: agree to your evaluation; preprocessing not described at all
 
@@ -78,80 +65,45 @@ DN: preprocessing step is merging of the datasets, matching the incidents to the
 "23","62016","2016","Dipto Sarkar, Renee Sieber, Raja Sengupta","GIScience
 Considerations in Spatial Social Networks","T",NA,NA,NA,NA,NA,NA,NA,NA
 "24","72016","2016","Takeshi Shirabe","On
-Distortion of Raster-Based Least-Cost Corridors","F","DN","CG","CG: 0
-DN: 0","CG: 0
-DN: 0","CG:1
-DN: 1","CG:0
-DN: 0","CG:1
-DN: 1","""For numerical experiments, the algorithm reviewed in the previous section was implemented in Java adapting Dijkstra’s shortest path algorithm""; ""As for elongation, numerical experiments found some interesting pattern ..."" > DN: I don't find any mention of code or data; I see the creation of the cost surface as preprocessing, which is not even documented IMO;"
+Distortion of Raster-Based Least-Cost Corridors","F","DN","CG","0","0","1","0","1","""For numerical experiments, the algorithm reviewed in the previous section was implemented in Java adapting Dijkstra’s shortest path algorithm""; ""As for elongation, numerical experiments found some interesting pattern ..."" > DN: I don't find any mention of code or data; I see the creation of the cost surface as preprocessing, which is not even documented IMO;"
 "25","82016","2016","Joseph V. Tuccillo, Barbara P. Buttenfield","Model-Based
-Clustering of Social Vulnerability to Urban Extreme Heat Events","F","FO","MK","FO:1
-MK: 1","FO:1
-MK: 1","FO:1
-MK: 1","FO:0
-MK: 0","FO:1
-MK: 1","MK: I couldn't find a link to the input data. So I gave 1 for input: FO: agree, changed my score from 2 to 1"
+Clustering of Social Vulnerability to Urban Extreme Heat Events","F","FO","MK","1","1","1","0","1","MK: I couldn't find a link to the input data. So I gave 1 for input: FO: agree, changed my score from 2 to 1"
 "26","92016","2016","Jiaoli Chen, Shih-Lung Shaw","Representing
 the Spatial Extent of Places Based on Flickr Photos with a
-Representativeness-Weighted Kernel Density Estimation","F","CG","BH","CG:1, BH:1","CG:1, BH:1","CG:1, BH:1","CG:0, BH:0","CG:1, bh.1","Flickr data - they described which Flickr data their downloaded; what I do not know is whether the Flickr database remains stable over years or pictures get deleted by users -I doubt that it is possible to download the exact same dataset a couple of years later"
+Representativeness-Weighted Kernel Density Estimation","F","CG","BH","1","1","1","0","1","Flickr data - they described which Flickr data their downloaded; what I do not know is whether the Flickr database remains stable over years or pictures get deleted by users -I doubt that it is possible to download the exact same dataset a couple of years later"
 "27","102016","2016","Tuhin Paul, Kevin Stanley, Nathaniel Osgood, Scott Bell, Nazeem Muhajarine","Scaling
-Behavior of Human Mobility Distributions","F","MK","BH","BH:0
-MK: 0","BH:1
-MK: 1","BH:1
-MK: 1","BH:1
-MK: 1","BH:1
-MK: 1","Data sources are referenced, but I have the impression that not all GPS data collections are openly accessible. Preprocessing steps listed in the text - reproducibility possible with effort.
+Behavior of Human Mobility Distributions","F","MK","BH","0","1","1","1","1","Data sources are referenced, but I have the impression that not all GPS data collections are openly accessible. Preprocessing steps listed in the text - reproducibility possible with effort.
 MK: Agreed"
 "28","112016","2016","Ashwin Shashidharan, Derek B. van Berkel, Ranga Raju Vatsavai, Ross K. Meentemeyer","pFUTURES:
-A Parallel Framework for Cellular Automaton Based Urban Growth Models","F","BH","FO","FO:0, BH:0","FO:0 BH:0","FO:1, BH:1","FO:1, BH:1","FO:1, BH:1","BH: I rechecked the preprocessing aspects of the paper: they are part of the workflow and include data partitioning among 'workers'. However, for the experiments it is not described how this is acutally done. could be 0 as well."
+A Parallel Framework for Cellular Automaton Based Urban Growth Models","F","BH","FO","0","0","1","1","1","BH: I rechecked the preprocessing aspects of the paper: they are part of the workflow and include data partitioning among 'workers'. However, for the experiments it is not described how this is acutally done. could be 0 as well."
 "29","122016","2016","Qinghan Liang, Silvia Nittel, Torsten Hahmann","From Data
 Streams to Fields: Extending Stream Data Models with Field Data Types","T",NA,NA,NA,NA,NA,NA,NA,NA
 "30","132016","2016","Joshua A. Lewis, Max J. Egenhofer","Point
 Partitions: A Qualitative Representation for Region-Based Spatial Scenes in R2","T",NA,NA,NA,NA,NA,NA,NA,NA
 "31","142016","2016","Xiaoxiao Liu, Stefania Bertazzon","Fine
-Scale Spatio-Temporal Modelling of Urban Air Pollution","F","DN","MK","DN: 0
-MK: 0","DN: 1
-MK: 1","DN: 1
-MK: 1","DN: 0
-MK: 0","DN: 1
-MK: 1","AEMERA data services seem offline: airdata.aemera.org
+Scale Spatio-Temporal Modelling of Urban Air Pollution","F","DN","MK","0","1","1","0","1","AEMERA data services seem offline: airdata.aemera.org
 Data acquisition, model selection, and other details are published elsewhere [24]"", but ref 24 does not help me finding the data, but has model description
 MK: I find it difficult to give 0 for results, which actually means that the paper has no results and does not make any sense at all. And I think there is a description of the results. > DN's assessment adjusted to 1."
 "32","152016","2016","Matt Duckham, Marc van Kreveld, Ross Purves, Bettina Speckmann, Yaguang Tao, Kevin Verbeek et al.","Modeling
-Checkpoint-Based Movement with the Earth Mover’s Distance","F","FO","CG","FO:2; CG:2","FO:1; CG:1","FO:1; CG:1","FO:0; CG:","FO:1; CG:1","FO: input data is not available anymore, but was at the time of the publication; since this is four years ago, I would still give it a ""2"""
+Checkpoint-Based Movement with the Earth Mover’s Distance","F","FO","CG","2","1","1","0","1","FO: input data is not available anymore, but was at the time of the publication; since this is four years ago, I would still give it a ""2"""
 "33","162016","2016","Benjamin Adams, Mark Gahegan","Exploratory
-Chronotopic Data Analysis","F","CG","DN","CG:1
-DN: 1","CG:1
-DN: 1","CG:1
-DN: 1","CG:0
-DN: 0","CG:1
-DN: 1","Input data: ""we used the August 8, 2015 dump of the English Wikipedia, which consists of 7,131,349 articles of which 4,659,056 are actual article pages"". CG: I've  assigned a level of 2 acording to https://en.wikipedia.org/wiki/Wikipedia:Database_download DN: I don't see any chance to access a dump from 2015 easily, could possibly recreate the 2015 data dump with scripting or re-run workflow with current data dump;
+Chronotopic Data Analysis","F","CG","DN","1","1","1","0","1","Input data: ""we used the August 8, 2015 dump of the English Wikipedia, which consists of 7,131,349 articles of which 4,659,056 are actual article pages"". CG: I've  assigned a level of 2 acording to https://en.wikipedia.org/wiki/Wikipedia:Database_download DN: I don't see any chance to access a dump from 2015 easily, could possibly recreate the 2015 data dump with scripting or re-run workflow with current data dump;
 
 ""We leveraged existing open source tools to accomplish this task, but due to the large size of the data, custom analytic scripts were developed to explore the results.""; mention HPC cluster with 3000 cores;"
 "34","172016","2016","Christopher Allen, Thomas Hervey, Sara Lafia, Daniel W. Phillips, Behzad Vahedi, Werner Kuhn","Exploring
-the Notion of Spatial Lenses","F","MK","FO","FO:1
-MK: 1","FO:1
-MK: 1","FO:1
-MK: 1","FO:0
-MK: 0","FO:1
-MK: 1","FO: this is a difficult case, because it has 5 case studies, each of which goes farther in trying to assure reproducibility than most other papers, with URLs to various data sources, and also links to tools being used; however, when applying the rule to assign the lowest score, the paper only gets a ""1"" 
+the Notion of Spatial Lenses","F","MK","FO","1","1","1","0","1","FO: this is a difficult case, because it has 5 case studies, each of which goes farther in trying to assure reproducibility than most other papers, with URLs to various data sources, and also links to tools being used; however, when applying the rule to assign the lowest score, the paper only gets a ""1"" 
 MK: I would give a 1 for the preprocessing described in 3.1 and 3.2
  FO: agree, changed my score from 0 to 1"
 "35","182016","2016","Krzysztof Janowicz, Yingjie Hu, Grant McKenzie, Song Gao, Blake Regalia, Gengchen Mai et al.","Moon
 Landing or Safari? A Study of Systematic Errors and Their Causes in Geographic
-Linked Data","F","FO (was: BH)","CG","CG:1 FO:1","CG:0 FO:0","CG:1 FO:1","CG:0 FO:0","CG:1 FO:1","FO: much of the analysis is based on single, exemplary queries that are given; however, the underlying data set is not available, as is the procedure to produce the initial map that guides the remainder of the analysis"
+Linked Data","F","FO (was: BH)","CG","1","0","1","0","1","FO: much of the analysis is based on single, exemplary queries that are given; however, the underlying data set is not available, as is the procedure to produce the initial map that guides the remainder of the analysis"
 "36","192016","2016","Arthur van Goethem, Marc van Kreveld, Bettina Speckmann","Circles
-in the Water: Towards Island Group Labeling","F","DN","MK","DN: 0
-MK: 0","DN: NA
-MK: NA","DN: 1
-MK: 1","DN: 0
-MK: 0","DN: 1
-MK: 1","""We use digitized island groups from several atlases together with their respective labels.""
+in the Water: Towards Island Group Labeling","F","DN","MK","0","NA","1","0","1","""We use digitized island groups from several atlases together with their respective labels.""
 ""To ensure we obtained realistic solutions we computed label positions having the same height as the original manual label."" > so there is code, even more for the Comparison, but not mentioned.
 MK: Section 2 (particularly 2.1) sounds like preprocessing, since they speak about reducing the complexity..."
 "37","202016","2016","Benjamin Niedermann, Martin Nöllenburg","An
-Algorithmic Framework for Labeling Road Maps","F","FO","DN","DN: 2 FO:2","DN: 1 FO:1","DN: 1 FO:1","DN: 1 :FO1","DN: 2 FO:2","""As proof of concept we implemented the core of the framework only taking the most important cartographic criteria into account.""
+Algorithmic Framework for Labeling Road Maps","F","FO","DN","2","1","1","1","2","""As proof of concept we implemented the core of the framework only taking the most important cartographic criteria into account.""
 
 https://i11www.iti.kit.edu/roadlabeling/berlin/compare.html does not work anymore because of JavaScript problem; no license, personal website"
 "38","212016","2016","Peter Kiefer, Ioannis Giannopoulos, Andrew Duchowski, Martin Raubal","Measuring
-Cognitive Load for Map Tasks Through Pupil Diameter","F","CG","FO","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1",NA
+Cognitive Load for Map Tasks Through Pupil Diameter","F","CG","FO","1","1","1","1","1",NA

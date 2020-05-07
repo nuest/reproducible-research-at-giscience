@@ -7,9 +7,6 @@ output:
     df_print: paged
     toc: yes
 urlcolor: blue
-# add lscape package to support kableExtra::landscape() for PDF output
-header-includes: |
-  \usepackage{lscape}
 ---
 
 This document visualises the expert assessment for accepted full papers at the [GIScience conference series](https://www.giscience.org/) for the following conferences and proceedings.
@@ -18,26 +15,28 @@ This document visualises the expert assessment for accepted full papers at the [
   
   _Proceedings 10th International Conference on Geographic Information Science (GIScience 2018). 2018. In Winter, S., Griffin, A., Sester, M. (Eds.), LIPICS Vol. 114. ISBN 978-3-95977-083-5. http://www.dagstuhl.de/dagpub/978-3-95977-083-5 _
 
-<!--
 - 2016: Ninth International Conference on Geographic Information Science, Sep 27, 2016 - Sep 30, 2016, 	Montreal, Canada
-  > Geographic Information Science. 2016. In J. A. Miller, D. O’Sullivan, & N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-45738-3
+  
+  _Geographic Information Science. 2016. In J. A. Miller, D. O’Sullivan, & N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-45738-3 _
+  
+<!--
 - 2014: Eighth International Conference on Geographic Information Science, Sep 24, 2014 - Sep 26, 2014, 	Vienna, Austria
   > Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
 - 2012: Seventh International Conference on Geographic Information Science, Sep 18, 2012 - Sep 21, 2012, Columbus, Ohio, USA
   > Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
 -->
 
-The analysis is based on the text analysis published in _"Reproducible research and GIScience: an evaluation using AGILE conference papers"_ ([https://doi.org/10.7717/peerj.5072](https://doi.org/10.7717/peerj.5072)), see [https://github.com/nuest/reproducible-research-and-giscience](https://github.com/nuest/reproducible-research-and-giscience).
+The analysis is based on the assessment first published in _"Reproducible research and GIScience: an evaluation using AGILE conference papers"_ ([https://doi.org/10.7717/peerj.5072](https://doi.org/10.7717/peerj.5072)), see [https://github.com/nuest/reproducible-research-and-giscience](https://github.com/nuest/reproducible-research-and-giscience).
 
 ## Reproduce paper
 
-To create the PDF of the reproducibility package based on this document you can run the following commands in a new R session after completing the prerequisites with the original paper corpus data.
-If you have problems rendering the PDF you can execute each chunk independently in [RStudio](https://rstudio.com/products/rstudio/).
+To create the assessment result data and figures based on this document you can run the following commands in a new R session after completing the prerequisites with the original paper corpus data.
+If you have problems rendering the document you can execute each chunk independently in [RStudio](https://rstudio.com/products/rstudio/).
 
 ```{r render_with_rmarkdown,eval=FALSE}
 require("knitr")
 require("rmarkdown")
-rmarkdown::render("giscience-paper-reproducibility.Rmd", output_format = "pdf_document")
+rmarkdown::render("giscience-reproducibility-assessment.Rmd")
 ```
 
 ## Software dependencies and code
@@ -68,25 +67,25 @@ library("here")
 library("googlesheets4")
 ```
 
-```{r set_seed}
-# for deterministic rendering of the wordcloud
-set.seed(nchar("International Conference on Geographic Information Science"))
-```
-
 ## Reproduciblity assessment
 
 ```{r evaldata_file}
 assessment_file <- "paper_assessment.csv"
 ```
 
+```{r googlesheets_auth, echo=FALSE, eval=FALSE}
+# run once
+googlesheets4::sheets_auth(use_oob = TRUE)
+```
+
 ```{r evaldata_download, echo=FALSE, eval=FALSE}
-# TODO fix that this cell also works from Docker container
-assessment_sheet <- googlesheets4::read_sheet(ss = "https://docs.google.com/spreadsheets/d/1Df0zX5yqDuDSCzHHVaucNtThseHL5L32U2sWTPhyl0I/edit#gid=0",
-                                              sheet = "assessment",
-                                              range = cell_rows(1:18) # only 2018
-                                              )
-assessment_sheet$paper <- as.character(assessment_sheet$paper)
-#assessment_sheet <- assessment_sheet %>%
+assessment_sheet <- googlesheets4::read_sheet(
+  ss = "https://docs.google.com/spreadsheets/d/1Df0zX5yqDuDSCzHHVaucNtThseHL5L32U2sWTPhyl0I/edit#gid=0",
+  sheet = "assessment",
+  # fix type for downloading data: turn all data into character strings; type set later in load
+  col_types = "c",
+  range = googlesheets4::cell_rows(1:39) # only 2018 + 2016
+)
 
 write.csv(assessment_sheet, file = here::here(assessment_file))
 ```
@@ -112,16 +111,15 @@ categoryColumns <- c("input data",
                      "results")
 ```
 
-```{r corpus_table_with_small_font_for_latex}
+```{r corpus_table}
 options(knitr.kable.NA = '-')
 knitr::kable(paper_evaluation %>% 
                dplyr::select(-matches("X1|reviewer|conceptual|authors")),
-            format = "latex", # change output format to "html" when running the chunk manually
-            #format = "html",
+            format = "html",
             booktabs = TRUE,
             caption = paste0("Reproducibility levels for paper corpus; ",
                              "'-' is category not available")) %>%
-  kableExtra::kable_styling(latex_options = "scale_down")
+  kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
 ### Conceptual papers
@@ -151,7 +149,6 @@ These are evaluated.
 evaldata_numeric <- paper_evaluation %>%
   # must convert factors to numbers to calculate the mean and median
   dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
-#summary(evaldata_numeric[,categoryColumns])
 
 # apply summary independently to format as table
 summaries <- sapply(evaldata_numeric[,categoryColumns], summary)
@@ -161,14 +158,15 @@ kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)),
       col.names = c("input data", "preproc.", "method/analysis/proc.",
                     "comp. env.", "results"),
       caption = paste0("\\label{tab:levels_statistics}Statistics of ",
-                       "reproducibility levels per criterion (rounded to one decimal place)"))
+                       "reproducibility levels per criterion (rounded to one decimal place)")) %>%
+  kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
 The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, with `0` and `1` around the "middle" resulting in a fraction as the median.
 
 ### Figure: Results of reproducibility assessment
 
-```{r Fig3,fig.width=10}
+```{r fig_assessment_results,fig.width=12}
 # match the colours to time series plot below
 colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
 level_names <- c("0", "1", "2", "3", "NA")
@@ -177,7 +175,7 @@ criteriaBarplot = function(data, main, colour) {
   barplot(table(data, useNA = "always"), 
           main = main,
           xlab = "Level", 
-          ylim = c(0,25),
+          ylim = c(0,nrow(paper_evaluation)),
           names.arg = level_names,col = colours[colour])
 }
 
@@ -225,16 +223,12 @@ summaries <- sapply(evaldata_numeric %>%
                                  select(categoryColumns), summary)
 means <- subset(summaries, rownames(summaries) %in% c("Mean"))
 rownames(means) <- c("Full papers")
-```
 
-\small
-
-```{r summary_evaldata_grouped_smallfont_latex}
 kable(means,
       digits = 2,
       col.names = c("input data", "preproc.", "method/analysis/proc.", "comp. env.", "results"),
-      caption = paste0("\\label{tab:mean_full_vs_short}",
-                       "Mean levels per criterion for full and short papers"))
+      caption = "Mean levels per criterion for full and short papers") %>%
+  kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
 ### Extra table: Mean levels averaged across criteria over time
@@ -255,21 +249,18 @@ means_years_table <- means_years %>%
         mutate(mean = round(mean, 2), 
                `paper count` = as.character(`paper count`)) %>%
         mutate(labels = str_c(year, " (n = ", `paper count`, ")")) %>%
-        #column_to_rownames("labels") %>%
+        column_to_rownames("labels") %>%
         select(mean) %>%
         t()
-```
 
-\small
-
-```{r summary_by_year_smallfont_latex}
 kable(means_years_table,
-      caption = "Summarised mean values over all criteria over time")
+      caption = "Summarised mean values over all criteria over time") %>%
+  kableExtra::kable_styling("striped", full_width = TRUE)
 ```
 
 ### Figure: Mean reproducibility levels per category over time
 
-```{r Fig4,fig.width=10,dpi=300}
+```{r Fig4,fig.height=4,dpi=300}
 evaldata_years <- evaldata_numeric %>%
   filter(`conceptual paper` == FALSE) %>%
   group_by(year) %>%

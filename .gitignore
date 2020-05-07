@@ -65,3 +65,5 @@ paper/reproducible-research-at-giscience.tex
 paper/reproducible-research-at-giscience.vtc
 
 .venv/
+
+giscience-reproducibility-assessment.html

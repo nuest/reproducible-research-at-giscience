@@ -52,12 +52,19 @@ set.seed(nchar("International Conference on Geographic Information Science"))
 For comparability, only the full papers are taken into account for the analysis below.
 
 ```{r input_files, echo=FALSE, cache=TRUE}
-cat(here::here())
+cat("Loading proceedigns from ", here::here())
 data_path <- here::here("proceedings")
-proceedings <- c("2012" = "10.1007_978-3-642-33024-7.pdf",
-                 "2014" = "10.1007_978-3-319-11593-1.pdf",
-                 "2016" = "10.1007_978-3-319-45738-3.pdf",
-                 "2018" = "lipics-vol114-giscience2018-complete.pdf")
+proceedings <- c(
+  #"2002" = "geographic-information-science-2002.pdf",
+  #"2004" = "geographic-information-science-2004.pdf",
+  #"2006" = "geographic-information-science-2006.pdf",
+  #"2008" = "geographic-information-science-2008.pdf",
+  #"2010" = "geographic-information-science-2010.pdf",
+  "2012" = "10.1007_978-3-642-33024-7.pdf",
+  "2014" = "10.1007_978-3-319-11593-1.pdf",
+  "2016" = "10.1007_978-3-319-45738-3.pdf",
+  "2018" = "lipics-vol114-giscience2018-complete.pdf"
+)
 proceedings_files <- file.path(data_path, proceedings)
 names(proceedings_files) <- names(proceedings)
 ```
@@ -128,7 +135,7 @@ my_stop_words <- tibble::tibble(
     "university",
     "table"
   ),
-  lexicon = "agile"
+  lexicon = "giscience"
 )
 
 all_stop_words <- stop_words %>%
@@ -225,7 +232,7 @@ Words must occur at least `r minimum_occurence` times to be included in the clou
 Each cloud has a maximum of `r max_words` words.
 
 ```{r wordclouds, echo=FALSE, dpi=300, fig.width=12, fig.height=10, fig.cap="World clouds of full papers per conference year (clockwise starting top left: 2012, 2014, 2016, 2018)"}
-par(mfrow=c(2,2))
+par(mfrow=c(3,3))
 
 for (the_year in names(proceedings)) {
   cloud_words <- cloud_wordstems %>%

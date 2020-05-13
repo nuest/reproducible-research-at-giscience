@@ -187,6 +187,9 @@ AGILE had 5 conceptual out of 32.
 - `r paper_evaluation %>% filter(is.na(preprocessing)) %>% count() %>% .$n` papers are not applicable for preprocessing criterion.
 - Table&nbsp;\@ref(tab:summary-evaldata) shows aggregated values for the assessed reproducibility levels.
 - Figure&nbsp;\@ref(fig:assessment-results) shows the distribution of the reproducibility levels for each criterion.
+    - Given that we are exhaustive (all conference papers rather than a selection like in AGILE), describe level counts here. Any temporal trend? 
+    - Which topics (keywords?) are more suitable to have high reproducible levels? 
+    - Are there authors that have papers above average reproducible levels? Worth to highlight them?
 - No `0` for results shows that peer review catches these papers.
 - The full assessment table in the paper repository is at [`paper_assessment.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/paper_assessment.csv) 
 

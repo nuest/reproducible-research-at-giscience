@@ -11,6 +11,7 @@ install.packages("gridExtra")
 install.packages("reshape2")
 install.packages("wordcloud")
 install.packages("quanteda")
+install.packages("GGally")
 # not available (in required version) for R 3.6.0 > install tag from GitHub
 remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "never")
 remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")

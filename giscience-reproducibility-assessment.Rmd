@@ -194,6 +194,58 @@ methods_and_results_eq_one <- evaldata_numeric %>%
 
 `r methods_and_results_eq_one` papers have level `1` in both methods and results criterion.
 
+```{r results_lineplot}
+# https://ggobi.github.io/ggally/reference/ggparcoord.html
+library("GGally")
+
+#paper_evaluation %>%
+#  select(paper,
+#         `Input data` = `input data`,
+#         preprocessing,
+#         `method/analysis/processing`,
+#         `computational environment`,
+#          results) %>%
+#  mutate(id = 1:nrow(paper_evaluation)) %>%
+
+  #mutate(preprocessing = as.numeric(preprocessing)) %>%
+  #group_by(paper) %>% 
+  #mutate(preprocessing_jitter = preprocessing + (preprocessing[1] - jitter(preprocessing[1], amount=.5)))
+
+paper_evaluation %>%
+  mutate_if(is.factor, forcats::fct_explicit_na, na_level = "5") %>%
+  group_by(`input data`,
+         preprocessing,
+         `method/analysis/processing`,
+         `computational environment`,
+          results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       preprocessing,
+                       `method/analysis/processing`,
+                       `computational environment`,
+                       results)) %>%
+  select(`input data`,
+         preprocessing,
+         `method/analysis/processing`,
+         `computational environment`,
+          results,
+         code,
+         n) %>%
+  GGally::ggparcoord(columns = c(1:5), groupColumn = 6,
+                     scale = "globalminmax",
+                     showPoints = TRUE,
+                     alphaLines = 0.8,
+                     mapping = ggplot2::aes(size = 1)) +
+  ggplot2::scale_size_identity()
+  
+#tibble(paper = c("a", "b", "c", "a", "b", "c"),
+#       category = c("first", "second", "first", "second", "first", "second"),
+#       value = c(1,2,3,2,2,1)) %>%
+#  ggplot(aes(x = category, y = value, group = paper, color = paper)) +
+#  geom_line()
+```
+
+
 ## Table: Mean levels per criterion for full and short papers
 
 ```{r summary_evaldata_grouped}

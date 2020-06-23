@@ -73,6 +73,11 @@ library("googlesheets4")
 assessment_file <- here::here("results/paper_assessment.csv")
 ```
 
+The data is loaded from a collaborative spreadsheet using the `googlesheets4` package.
+After a year is completed by all assessors, a [named version] of the spreadsheet is created.
+Then the data file `r assessment_file` is updated from the online spreadsheet and committed to the git history.
+Afterwards the individual assessments are manually merged in the online spreadsheet and the data file is updated and comitted once more.
+
 ```{r googlesheets_auth, echo=FALSE, eval=FALSE}
 # run once
 googlesheets4::sheets_auth(use_oob = TRUE)
@@ -84,7 +89,7 @@ assessment_sheet <- googlesheets4::read_sheet(
   sheet = "assessment",
   # fix type for downloading data: turn all data into character strings; type set later in load
   col_types = "c",
-  range = googlesheets4::cell_rows(1:39) # only 2018 + 2016
+  range = googlesheets4::cell_rows(1:62) # 2018, 2016, 2014
 )
 
 write.csv(assessment_sheet, file = assessment_file)
@@ -132,6 +137,7 @@ evaldata_numeric <- paper_evaluation %>%
 # apply summary independently to format as table
 summaries <- sapply(evaldata_numeric[,categoryColumns], summary)
 exclude_values_summary <- c("1st Qu.", "3rd Qu.")
+
 kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 
       digits = 1,
       col.names = c("input data", "preproc.", "method/analysis/proc.",
@@ -257,7 +263,7 @@ rownames(means) <- c("Full papers")
 kable(means,
       digits = 2,
       col.names = c("input data", "preproc.", "method/analysis/proc.", "comp. env.", "results"),
-      caption = "Mean levels per criterion for full and short papers") %>%
+      caption = "Mean levels per criterion for papers") %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
@@ -337,6 +343,7 @@ devtools::session_info(include_base = TRUE)
 ```{r upload_to_drive, eval=FALSE, include=FALSE}
 # upload the HTML file to the Reproducibility Committee shared folder
 # upload the HTML file and source code to the Reproducibility Committee shared folder
-drive_put("giscience-paper-reproducibility.html", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
-drive_put("giscience-paper-reproducibility.Rmd", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
+googledrive::drive_auth(use_oob = TRUE)
+googledrive::drive_put("giscience-reproducibility-assessment.html", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
+googledrive::drive_put("giscience-reproducibility-assessment.Rmd", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
 ```

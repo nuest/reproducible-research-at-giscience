@@ -166,41 +166,46 @@ The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, wi
 colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
 level_names <- c("0", "1", "2", "3", "NA")
 
+
+paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` == FALSE)
+
 criteriaBarplot = function(data, main, colour) {
   barplot(table(data, useNA = "always"), 
           main = main,
           xlab = "Level", 
-          ylim = c(0,nrow(paper_evaluation)),
+          ylim = c(0,nrow(paper_evaluation_wo_conceptual)),
           names.arg = level_names,col = colours[colour])
 }
 
+
+
 par(mfrow = c(1,length(categoryColumns)))
-criteriaBarplot(paper_evaluation$`input data`,
+criteriaBarplot(paper_evaluation_wo_conceptual$`input data`,
                 main = "Input data", colour = 1)
-criteriaBarplot(paper_evaluation$`preprocessing`, 
+criteriaBarplot(paper_evaluation_wo_conceptual$`preprocessing`, 
                 main = "Preprocessing", colour = 2)
-criteriaBarplot(paper_evaluation$`method/analysis/processing`,
+criteriaBarplot(paper_evaluation_wo_conceptual$`method/analysis/processing`,
                 main = "Methods/Analysis/\nProcessing", colour = 3)
-criteriaBarplot(paper_evaluation$`computational environment`,
+criteriaBarplot(paper_evaluation_wo_conceptual$`computational environment`,
                 main = "Computational\nEnvironment", colour = 4)
-criteriaBarplot(paper_evaluation$results,
+criteriaBarplot(paper_evaluation_wo_conceptual$results,
                 main = "Results", colour = 5)
 ```
 
 ```{r criteria_numbers}
-data_level_zero <- paper_evaluation %>% 
+data_level_zero <- paper_evaluation_wo_conceptual %>% 
   filter(`input data` == 0) %>% 
   count() %>% .$n
 
-data_level_two <- paper_evaluation %>% 
+data_level_two <- paper_evaluation_wo_conceptual %>% 
   filter(`input data` == 2) %>% 
   count() %>% .$n
 
-preprocessing_included <- paper_evaluation %>% 
+preprocessing_included <- paper_evaluation_wo_conceptual %>% 
   filter(!is.na(preprocessing)) %>% 
   count() %>% .$n
 
-methods_and_results_eq_one <- evaldata_numeric %>% 
+methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>% 
   filter(`method/analysis/processing` == 1 & results == 1) %>% 
   count() %>% .$n
 ```

@@ -131,11 +131,22 @@ knitr::kable(paper_evaluation %>%
 
 ```{r summary_evaldata}
 evaldata_numeric <- paper_evaluation %>%
+  dplyr::filter(`conceptual paper` == FALSE) %>%
   # must convert factors to numbers to calculate the mean and median
   dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
 
+# https://stackoverflow.com/questions/32011873/force-summary-to-report-the-number-of-nas-even-if-none
+summaryna <- function (v) {
+  if(!any(is.na(v))){
+    res <- c(summary(v),"NA's"=0)
+  } else{
+    res <- summary(v)
+  }
+  return(res)
+} 
+
 # apply summary independently to format as table
-summaries <- sapply(evaldata_numeric[,categoryColumns], summary)
+summaries <- sapply(evaldata_numeric[,categoryColumns], summaryna)
 exclude_values_summary <- c("1st Qu.", "3rd Qu.")
 
 kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 

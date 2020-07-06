@@ -109,6 +109,9 @@ paper_evaluation <- readr::read_csv(assessment_file,
       results = readr::col_factor(levels = category_levels)
       ),
     na = "NA")
+
+paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` == FALSE)
+
 categoryColumns <- c("input data", 
                      "preprocessing",
                      "method/analysis/processing",
@@ -127,10 +130,10 @@ knitr::kable(paper_evaluation %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
-## Table: Statistics of reproducibility levels per criterion
+## Table: Statistics of reproducibility levels per criterion for non-conceptual papers
 
 ```{r summary_evaldata}
-evaldata_numeric <- paper_evaluation %>%
+evaldata_numeric <- paper_evaluation_wo_conceptual %>%
   dplyr::filter(`conceptual paper` == FALSE) %>%
   # must convert factors to numbers to calculate the mean and median
   dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
@@ -159,15 +162,12 @@ kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)),
 
 The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, with `0` and `1` around the "middle" resulting in a fraction as the median.
 
-## Figure: Results of reproducibility assessment
+## Figure: Results of reproducibility assessment for non-conceptual papers
 
 ```{r fig_assessment_results,fig.width=12}
 # match the colours to time series plot below
 colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
 level_names <- c("0", "1", "2", "3", "NA")
-
-
-paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` == FALSE)
 
 criteriaBarplot = function(data, main, colour) {
   barplot(table(data, useNA = "always"), 
@@ -176,8 +176,6 @@ criteriaBarplot = function(data, main, colour) {
           ylim = c(0,nrow(paper_evaluation_wo_conceptual)),
           names.arg = level_names,col = colours[colour])
 }
-
-
 
 par(mfrow = c(1,length(categoryColumns)))
 criteriaBarplot(paper_evaluation_wo_conceptual$`input data`,
@@ -268,22 +266,23 @@ paper_evaluation %>%
 ```
 
 
-## Table: Mean levels per criterion for full and short papers
+## Table: Mean levels per criterion for non-conceptual papers
 
 ```{r summary_evaldata_grouped}
-summaries <- sapply(evaldata_numeric %>%
-                                 select(categoryColumns), summary)
-means <- subset(summaries, rownames(summaries) %in% c("Mean"))
-rownames(means) <- c("Full papers")
+means <- lapply(evaldata_numeric %>%
+                      select(categoryColumns),
+                    summary) %>%
+    lapply(`[[`, "Mean") %>%
+    as.data.frame()
 
 kable(means,
       digits = 2,
       col.names = c("input data", "preproc.", "method/analysis/proc.", "comp. env.", "results"),
-      caption = "Mean levels per criterion for papers") %>%
+      caption = "Mean levels per criterion for non-conceptual papers") %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
-## Table: Mean levels averaged across criteria over time
+## Table: Mean levels averaged across criteria over time for non-conceptual papers
 
 ```{r evaldata_summary_by_year_mean}
 means_years <- evaldata_numeric %>%
@@ -306,11 +305,11 @@ means_years_table <- means_years %>%
         t()
 
 kable(means_years_table,
-      caption = "Summarised mean values over all criteria over time") %>%
+      caption = "Summarised mean values over all criteria over time (non-conceptual papers)") %>%
   kableExtra::kable_styling("striped", full_width = TRUE)
 ```
 
-## Figure: Mean reproducibility levels per category over time
+## Figure: Mean reproducibility levels per category over time for non-conceptual papers
 
 ```{r Fig4,fig.height=4,dpi=300}
 evaldata_years <- evaldata_numeric %>%

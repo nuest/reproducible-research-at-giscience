@@ -285,6 +285,8 @@ paper_evaluation %>%
 
 TODO: maybe an alluvial plot works better? https://www.datalorax.com/post/alluvial-plots-with-ggforce/ and https://ggforce.data-imaginist.com/
 
+Other package: https://corybrunson.github.io/ggalluvial/
+
 ## Table: Mean levels per criterion for non-conceptual papers
 
 ```{r summary_evaldata_grouped}

@@ -9,6 +9,25 @@ output:
 urlcolor: blue
 ---
 
+<style type="text/css">
+/* https://gist.github.com/Pakillo/8b46a48ea806572566d9 and
+   https://stackoverflow.com/questions/36845178/width-of-r-code-chunk-output-in-rmarkdown-files-knitr-ed-to-html#36846864 */
+/*body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 12px;
+}*/
+pre {
+  font-size: 12px
+  overflow-x: auto;
+}
+pre code {
+  word-wrap: normal;
+  white-space: pre;
+}
+</style>
+
 This document visualises the expert assessment for accepted full papers at the [GIScience conference series](https://www.giscience.org/) for the following conferences and proceedings.
 
 - 2018: Tenth International Conference on Geographic Information Science, Melbourne, Australia
@@ -18,13 +37,12 @@ This document visualises the expert assessment for accepted full papers at the [
 - 2016: Ninth International Conference on Geographic Information Science, Sep 27, 2016 - Sep 30, 2016, 	Montreal, Canada
   
   _Geographic Information Science. 2016. In J. A. Miller, D. O’Sullivan, & N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-45738-3 _
-  
-<!--
+
 - 2014: Eighth International Conference on Geographic Information Science, Sep 24, 2014 - Sep 26, 2014, 	Vienna, Austria
   > Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
+
 - 2012: Seventh International Conference on Geographic Information Science, Sep 18, 2012 - Sep 21, 2012, Columbus, Ohio, USA
   > Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
--->
 
 The analysis is based on the assessment first published in _"Reproducible research and GIScience: an evaluation using AGILE conference papers"_ ([https://doi.org/10.7717/peerj.5072](https://doi.org/10.7717/peerj.5072)), see [https://github.com/nuest/reproducible-research-and-giscience](https://github.com/nuest/reproducible-research-and-giscience).
 
@@ -76,7 +94,7 @@ assessment_file <- here::here("results/paper_assessment.csv")
 The data is loaded from a collaborative spreadsheet using the `googlesheets4` package.
 After a year is completed by all assessors, a [named version] of the spreadsheet is created.
 Then the data file `r assessment_file` is updated from the online spreadsheet and committed to the git history.
-Afterwards the individual assessments are manually merged in the online spreadsheet and the data file is updated and comitted once more.
+Afterwards the individual assessments are manually merged in the online spreadsheet and the data file is updated and committed once more.
 
 ```{r googlesheets_auth, echo=FALSE, eval=FALSE}
 # run once
@@ -265,6 +283,7 @@ paper_evaluation %>%
 #  geom_line()
 ```
 
+TODO: maybe an alluvial plot works better? https://www.datalorax.com/post/alluvial-plots-with-ggforce/ and https://ggforce.data-imaginist.com/
 
 ## Table: Mean levels per criterion for non-conceptual papers
 
@@ -343,7 +362,11 @@ ggplot(evaldata_years_long, aes(year, value)) +
   stat_summary(fun.y = mean, geom = "line", linetype = "dotted", mapping = aes(group = 1))
 ```
 
-## License & Metadata
+## Figure: Stacked bars of levels per category over time
+
+TODO
+
+## Colophon
 
 This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 All contained code is licensed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/).
@@ -352,6 +375,7 @@ This document is versioned in a public [git](https://git-scm.com/) repository, [
 **Runtime environment description:**
 
 ```{r session_info, echo=FALSE}
+options(width = 100)
 devtools::session_info(include_base = TRUE)
 ```
 

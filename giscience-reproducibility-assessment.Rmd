@@ -1,6 +1,6 @@
 ---
 title: 'Reproducibility assessment data analysis for "Reproducible research and GIScience: an evaluation using GIScience conference papers"'
-author: "Daniel Nüst"
+author: "Daniel Nüst, Carlos Granell"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:

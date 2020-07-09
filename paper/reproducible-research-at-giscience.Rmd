@@ -107,6 +107,10 @@ We discuss these findings and present our conclusions in the final two sections.
 [^agile]: [https://agile-online.org/conference](https://agile-online.org/conference)
 [^textanalysis]: The full text analysis results is available in this paper's repository: [`giscience-historic-text-analysis.Rmd`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/giscience-historic-text-analysis.Rmd) contains the analysis code and the result files are [`text_analysis_topwordstems.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/text_analysis_topwordstems.csv) and [`text_analysis_keywordstems.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/text_analysis_keywordstems.csv).
 
+# Related work
+
+- https://www.nature.com/articles/sdata201930
+
 # Reproducibility Assessment
 
 ## Criteria
@@ -156,21 +160,28 @@ paper_evaluation <- readr::read_csv(assessment_file,
 ```{r count_papers, echo=FALSE, message=FALSE, warning=FALSE}
 library("dplyr")
 
+count_papers <- nrow(paper_evaluation)
+
 count_conceptual <- nrow(paper_evaluation %>% 
                            dplyr::filter(`conceptual paper` == TRUE))
+                           
 count_mixed <- nrow(paper_evaluation %>% 
                       dplyr::filter(is.na(`input data`) 
                              | is.na(preprocessing) 
                              | is.na(`method/analysis/processing`) 
                              | is.na(`computational environment`) 
                              | is.na(results)))
+
+paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` == FALSE)
+
+count_n <- nrow(paper_evaluation_wo_conceptual)
 ```
 
 ## Process
 
 Process similar to AGILE etc.
 
-- Since there is no preselection, we looked at all GIScience papers, starting at 2018 and then iterating backwards until 20XX
+- Since there is no pre-selection, we looked at all GIScience papers, starting at 2018 and then iterating backwards until 20XX
 - 5 assessors, all of which participated in the AGILE assessment
 - We seem to have gotten stricter and applied “0” in cases where we previously might have used “NA” > reevaluation of the preprocessing category resulted in a few 0s being switched to NAs instead
 - Should we write down how we _now_ understand _pre_processing?
@@ -178,31 +189,84 @@ Process similar to AGILE etc.
 - Anecdotally, the papers seem to have more formulas
 - How did we handle human subject experiments > needed to update the common understanding of the categories
 - Note: this work is qualitative, and therefore not reproducible, so we try to be as transparent as possible
+- human-studies were rated as 1 if sufficiently documented (though "original sources" or recreatable in the strict sense does not fit)
+- mention that "11111" is a "classical" paper that is fully understandable?
+- using a PDF reader with multiple highlights can be useful, words e.g. "data, software, code, download, contribution, script, workflow"
 
 ## Results
 
-- `r nrow(paper_evaluation)` papers from the conferences in `r paste(sort(unique(paper_evaluation$year)), collapse = ", ")` were assessed.
-- `r count_conceptual` papers across all years were identified as conceptual papers[^conceptual] and were not included in the corpus.
-AGILE had 5 conceptual out of 32.
-- `r paper_evaluation %>% filter(is.na(preprocessing)) %>% count() %>% .$n` papers are not applicable for preprocessing criterion.
-- Table&nbsp;\@ref(tab:summary-evaldata) shows aggregated values for the assessed reproducibility levels.
-- Figure&nbsp;\@ref(fig:assessment-results) shows the distribution of the reproducibility levels for each criterion.
-    - Given that we are exhaustive (all conference papers rather than a selection like in AGILE), describe level counts here. Any temporal trend? 
-    - Which topics (keywords?) are more suitable to have high reproducible levels? 
-    - Are there authors that have papers above average reproducible levels? Worth to highlight them?
-- No `0` for results shows that peer review catches these papers.
-- The full assessment table in the paper repository is at [`paper_assessment.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/paper_assessment.csv) 
+
+### Quantitative results
+
+- `r count_papers` papers from the conferences in `r paste(sort(unique(paper_evaluation$year)), collapse = ", ")` were assessed.
+- `r count_conceptual` papers across all years were identified as conceptual papers[^conceptual] and were not included in the corpus. This results in `paste0(round(count_conceptual / count_papers * 100, 0), "%")` out the corpus. For comparison, AGILE had 5 conceptual out of 32 (`paste0(round(5 / 32 * 100, 0), "%"`).
+- Anecdotally, the number of conceptual papers in GIScience conferences has steadily decreased over the analised years. `r paper_evaluation %>% filter(``conceptual paper`` == TRUE) %>% group_by(year) %>% summarise(n= n())`, resulting in no conceptual papers in the last year's proceedings (`max(unique(paper_evaluation$year))`).
+- In total, `r count_n` are assessed according to the reproducibility criteria. 
+
+### Assessment of reproducibility levels
+ 
+Table&nbsp;\@ref(tab:summary-evaldata) shows aggregated values for the assessed reproducibility levels. **NOTE CARLOS: I would remove conceptual papers (8) from the table. This will impact only on the totals of NA's, being 0 for all but "preproc." with 13 NA's. I've updated the code accordingly**.
+    
+- `r paper_evaluation_wo_conceptual %>% filter(is.na(preprocessing)) %>% count() %>% .$n` papers are not applicable for preprocessing criterion. This can be explained because the boundary between the preprocessing criterion and the methods/analysis/processing criterion is not always clear in a given paper and is therefore subject to the reader's interpretation. This does not mean that the papers that did not qualify for the preprocessing criteron are not reproducible at all. Simply, in these cases, either no preprocessing is required or has been integrated into the main analysis. Obviously, the ability to repeudede a paper is seriously limited if data preprocessing is needed but is not indicated in the paper. 
+- If we look at the median values of the five criteria, a typical GIScience paper scores `11101`. This rubric translates in practical terms into a paper that's sufficiently documented to claim that reproduction could be attempted. Nevertheless, an acceptable level of pre-reproducibility does not guaranttee actual reproduction. If we had to reproduce such a typical paper, we would require a lot of effort, technical skills and time to both gather, recreate, and/or analyse all the necessary resources (data, code, etc), and to recreate the specific computational environment of the paper, if the latter were possible after all since it is not specified on average (note the value "0" in `11101`).
+
+```{r criteria_numbers, echo=FALSE, message=FALSE, warning=FALSE}
+
+data_level_zero <- paper_evaluation_wo_conceptual %>% 
+  filter(`input data` == 0) %>% 
+  count() %>% .$n
+
+data_level_two <- paper_evaluation_wo_conceptual %>% 
+  filter(`input data` == 2) %>% 
+  count() %>% .$n
+
+preprocessing_included <- paper_evaluation_wo_conceptual %>% 
+  filter(!is.na(preprocessing)) %>% 
+  count() %>% .$n
+
+preprocessing_level_one <- paper_evaluation_wo_conceptual %>% 
+  filter(preprocessing == 1) %>% 
+  count() %>% .$n
+
+methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>% 
+  filter(`method/analysis/processing` == 1 & results == 1) %>% 
+  count() %>% .$n
+  
+compenv_level_zero <- paper_evaluation_wo_conceptual %>% 
+  filter(`computational environment` == 0) %>% 
+  count() %>% .$n
+  
+```
+
+Figure&nbsp;\@ref(fig:assessment-results) shows the distribution of the reproducibility levels for each criterion. None of the papers reach the highest level of reproducibility in any criterion. 
+- Only `r data_level_two` papers reach level 2 in the data criterion, which is still the highest number of that level across all criteria. Similar to previous results \cite{nust_reproducible_2018}, the number of papers with level 0 for data is especially high (`r data_level_zero`, `r paste0(round(data_level_zero / count_n * 100, 0), "%")`), which is a heavy barrier to reproduction since input data is not only unavailable, but cannot be recreated from the information in the paper.
+- Data preprocessing applies to `r preprocessing_included` publications, and the levels are generally low (0,1), being level 2 almost residual.
+- Methods and results criteria show a pretty similar distribution (Figure&nbsp;\@ref(fig:assessment-results). Indeed, `r methods_and_results_eq_one` publications have level 1 in both criteria, which represents `r paste0(round(methods_and_results_eq_one / count_n * 100, 0), "%")` of the papers assessed. Note that levels are ordinal numbers that  can be compared (3 is higher than 2), but absolute differences between numbers must not be interpreted as equals. Moving one level up from 0 to 1 is not the same as from 1 to 2. While reaching 1 is fairly straightforward, jumping to level 2 means to almost have a truly reproducible paper. In this sense, most of the assessed papers fall below the minimum standard for reproduction as regards the methods and results criteria. No `0` for results shows that peer review worked as expected for these papers. In other words, the authors are concerned with making the results understandable to the reviewers, which is not always the case for the rest of the criteria. More generally, this aspect raises the question of whether peer review should stop in the absence of minimal evidence of the input data, analysis, and computational environment used in a paper. Without an explicit justification (confidential data, privacy concerns, etc), should a paper with level 0 (or NA) for the data criterion get accepted for a conference? 
+- Finally, the computational environment criterion obtains the worst results. `r compenv_level_zero` (`r paste0(round(compenv_level_zero / count_n * 100, 0), "%")`) publications are level 0, which means that no clues are provided in the paper about the computing environment, tools and libraries used in the reported research and/or analysis. The computational environment criterion and the input data criterion account for a considerable number of `0s`, which clearly signals a serious impediment to reproduction.
+
+
+The full assessment table in the paper repository is at [`paper_assessment.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/paper_assessment.csv) 
 
 ```{r summary-evaldata, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%'}
 library("knitr")
 library("kableExtra")
 
-evaldata_numeric <- paper_evaluation %>%
+evaldata_numeric <- paper_evaluation_wo_conceptual %>%
   # must convert factors to numbers to calculate the mean and median
   dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
 
+summaryna <- function (v) {
+  if(!any(is.na(v))){
+    res <- c(summary(v),"NA's"=0)
+  } else{
+    res <- summary(v)
+  }
+  return(res)
+} 
+
+
 # apply summary independently to format as table
-summaries <- sapply(evaldata_numeric[,categoryColumns], summary)
+summaries <- sapply(evaldata_numeric[,categoryColumns], summaryna)
 exclude_values_summary <- c("1st Qu.", "3rd Qu.")
 kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 
       digits = 1,
@@ -220,32 +284,56 @@ criteriaBarplot = function(data, main, colour) {
   barplot(table(data, useNA = "always"), 
           main = main,
           xlab = "Level",
-          ylim = c(0,nrow(paper_evaluation)),
+          ylim = c(0,nrow(paper_evaluation_wo_conceptual)),
           names.arg = level_names, col = colours[colour])
 }
 
 par(mfrow = c(1,length(categoryColumns)),
     cex = 0.5,
     cex.axis = 0.9)
-criteriaBarplot(paper_evaluation$`input data`,
+criteriaBarplot(paper_evaluation_wo_conceptual$`input data`,
                 main = "Input data", colour = 1)
-criteriaBarplot(paper_evaluation$`preprocessing`, 
+criteriaBarplot(paper_evaluation_wo_conceptual$`preprocessing`, 
                 main = "Preprocessing", colour = 2)
-criteriaBarplot(paper_evaluation$`method/analysis/processing`,
+criteriaBarplot(paper_evaluation_wo_conceptual$`method/analysis/processing`,
                 main = "Methods/Analysis/\nProcessing", colour = 3)
-criteriaBarplot(paper_evaluation$`computational environment`,
+criteriaBarplot(paper_evaluation_wo_conceptual$`computational environment`,
                 main = "Computational\nEnvironment", colour = 4)
-criteriaBarplot(paper_evaluation$results,
+criteriaBarplot(paper_evaluation_wo_conceptual$results,
                 main = "Results", colour = 5)
 ```
 
 [^conceptual]: See \cite{nust_reproducible_2018} for a definition of "conceptual".
+
+### A look on the papers with highest reproducible levels?
+
+- Does it make sense to pay attention to papers with one or more `2`? Attempt a reproduction? 
+
+# Preliminary results of AGILE Guidelines
+<!-- could become part of results and discussion section -->
+
+- because we could not reproduce most of the papers, these did not reach "2" > not much of an improvement?
+- because we could reproduce at least n papers, the situation was better than in the past
+    - step from 1 to 2 is critical, but what makes things really reproducible
+    - **pro assessment**: assess the ones that were reproduced, to see if they are mostly 2s or 3s
+    - 3 is important for personal interest, would allow reproduction in 5 years time
+- there were no "best paper candidates" so we cannot add this year's papers to the AGILE dataset
+- the successfully reproduced papers might have been the nominees - we do not know!
+- ...
+
 
 # Discussion
 
 - Rubric worked, but faced similar challenges (category classes not equidistant!)
 - Publication years similar to assessment of AGILE papers, so we think results are comparable in the sense of what methods and tools would have been available for authors.
 - comparision to AGILE?
+- A recurrent issue found in the analysis is the inability to access input data (today) based on the information provided in the paper. Most of the links and pointers to datasets reported at the time of publications were either broken (e.g. inexistent resourse - 404 error, invalid URL sintax) or not available anymore (URL works but website/resource specified in the paper no loger exists). In these cases, a level of 2 in the input data criterion was well deserved at the time of publciaiton. However, when evaluating the level of reproducibility some time later (this paper), level 2 is no longer acceptable for those papers from the point of view of reproducibility since input data is not accessible anymore unless contacting directly with the authors, which is equivalent in practical terms to the statement "available upon request" (level 0). A basic principle to enable reproducibility is that accessibility to input data used in a paper should not degrade over time. Simple methods and techniques can be easily considered to maintain this principle for the ensuing years, and even decades (see Tenopir's trilogy about "data sharing'  https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1). Instrad of  short-lived URL like a personal website or a project website, authors should archive input data used in a paper in permanent repositories. Consecuently, footnotes with URLs are not suitable for citing data, but as a citation by itself like any other resource or paper included in the bibliography section.
+- A paper with "all 1s" is a regular paper - nothing wrong with it using current standards, but that's a shortcoming of the current standard
+- No 0s in the results is a very good thing (papers pass the bar of peer review)
+- The overall picture matches a (troublesome) focus on results in science, and less care about publishing the full process
+- The many 0s for input data are _worrysome_!
+- 0s in preprocessing are less a concern, because there are some problems with the criterion
+- We analyse the history, and no incentives to push these aspects in the past > practice is starting to change now
 
 # Conclusions and outlook
 

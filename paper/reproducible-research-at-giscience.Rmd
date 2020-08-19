@@ -107,9 +107,15 @@ We discuss these findings and present our conclusions in the final two sections.
 [^agile]: [https://agile-online.org/conference](https://agile-online.org/conference)
 [^textanalysis]: The full text analysis results is available in this paper's repository: [`giscience-historic-text-analysis.Rmd`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/giscience-historic-text-analysis.Rmd) contains the analysis code and the result files are [`text_analysis_topwordstems.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/text_analysis_topwordstems.csv) and [`text_analysis_keywordstems.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/text_analysis_keywordstems.csv).
 
-# Related work
+# Related work [Daniel, then Barbara + Carlos]
 
 - https://www.nature.com/articles/sdata201930
+- “Computational Reproducibility in The Wildlife Society's Flagship Journals” https://doi.org/10.1002/jwmg.21855 (also use a kind of rating scheme)
+- Opening practice: supporting reproducibility and critical spatial data science > https://link.springer.com/article/10.1007/s10109-020-00334-2
+- Reproducibility and replicability: opportunities and challenges for geospatial research > https://www.tandfonline.com/doi/abs/10.1080/13658816.2020.1802032
+<!-- TODO: ... -->
+
+Reproducibility and replicability: opportunities and challenges for geospatial research
 
 # Reproducibility Assessment
 
@@ -177,7 +183,7 @@ paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` ==
 count_n <- nrow(paper_evaluation_wo_conceptual)
 ```
 
-## Process
+## Process [Barbara]
 
 Process similar to AGILE etc.
 
@@ -185,16 +191,19 @@ Process similar to AGILE etc.
 - 5 assessors, all of which participated in the AGILE assessment
 - We seem to have gotten stricter and applied “0” in cases where we previously might have used “NA” > reevaluation of the preprocessing category resulted in a few 0s being switched to NAs instead
 - Should we write down how we _now_ understand _pre_processing?
-- In “input data”, we clarified that “available” must have been the case once, but might not be now, e.g., if the given URL of an official site has changed
+- If the authors use an extra section for some steps of the workflow, that is a hint at preprocessing
+- In “input data”, we clarified that “available” must have been the case once, but might not be now, e.g., if the given URL of an official site has changed; we gave the authors the benefit of the doubt and assume the data was accessible in the months after the conference/paper publication; we don't give it an arbitrary number, and these papers do not get a 3 (which includes permanency)
 - Anecdotally, the papers seem to have more formulas
 - How did we handle human subject experiments > needed to update the common understanding of the categories
 - Note: this work is qualitative, and therefore not reproducible, so we try to be as transparent as possible
 - human-studies were rated as 1 if sufficiently documented (though "original sources" or recreatable in the strict sense does not fit)
 - mention that "11111" is a "classical" paper that is fully understandable?
 - using a PDF reader with multiple highlights can be useful, words e.g. "data, software, code, download, contribution, script, workflow"
+- for simulation data, we used "data NA" and considered these parameters a part of "analysis" > can be clarified in assessment examples
+- need clear guidance on human subject studies and surveys, see 152014 and 162014, just to be on the same page
+
 
 ## Results
-
 
 ### Quantitative results
 
@@ -308,19 +317,6 @@ criteriaBarplot(paper_evaluation_wo_conceptual$results,
 ### A look on the papers with highest reproducible levels?
 
 - Does it make sense to pay attention to papers with one or more `2`? Attempt a reproduction? 
-
-# Preliminary results of AGILE Guidelines
-<!-- could become part of results and discussion section -->
-
-- because we could not reproduce most of the papers, these did not reach "2" > not much of an improvement?
-- because we could reproduce at least n papers, the situation was better than in the past
-    - step from 1 to 2 is critical, but what makes things really reproducible
-    - **pro assessment**: assess the ones that were reproduced, to see if they are mostly 2s or 3s
-    - 3 is important for personal interest, would allow reproduction in 5 years time
-- there were no "best paper candidates" so we cannot add this year's papers to the AGILE dataset
-- the successfully reproduced papers might have been the nominees - we do not know!
-- ...
-
 
 # Discussion
 

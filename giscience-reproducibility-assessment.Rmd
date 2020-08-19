@@ -83,6 +83,7 @@ library("kableExtra")
 library("huxtable")
 library("here")
 library("googlesheets4")
+library("patchwork")
 ```
 
 ## Load data
@@ -180,33 +181,7 @@ kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)),
 
 The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, with `0` and `1` around the "middle" resulting in a fraction as the median.
 
-## Figure: Results of reproducibility assessment for non-conceptual papers
-
-```{r fig_assessment_results,fig.width=12}
-# match the colours to time series plot below
-colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
-level_names <- c("0", "1", "2", "3", "NA")
-
-criteriaBarplot = function(data, main, colour) {
-  barplot(table(data, useNA = "always"), 
-          main = main,
-          xlab = "Level", 
-          ylim = c(0,nrow(paper_evaluation_wo_conceptual)),
-          names.arg = level_names,col = colours[colour])
-}
-
-par(mfrow = c(1,length(categoryColumns)))
-criteriaBarplot(paper_evaluation_wo_conceptual$`input data`,
-                main = "Input data", colour = 1)
-criteriaBarplot(paper_evaluation_wo_conceptual$`preprocessing`, 
-                main = "Preprocessing", colour = 2)
-criteriaBarplot(paper_evaluation_wo_conceptual$`method/analysis/processing`,
-                main = "Methods/Analysis/\nProcessing", colour = 3)
-criteriaBarplot(paper_evaluation_wo_conceptual$`computational environment`,
-                main = "Computational\nEnvironment", colour = 4)
-criteriaBarplot(paper_evaluation_wo_conceptual$results,
-                main = "Results", colour = 5)
-```
+## Data points for text
 
 ```{r criteria_numbers}
 data_level_zero <- paper_evaluation_wo_conceptual %>% 
@@ -232,25 +207,53 @@ methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>%
 
 `r methods_and_results_eq_one` papers have level `1` in both methods and results criterion.
 
-```{r results_lineplot}
-# https://ggobi.github.io/ggally/reference/ggparcoord.html
-library("GGally")
+## Figure: Results of reproducibility assessment for non-conceptual papers
 
-#paper_evaluation %>%
-#  select(paper,
-#         `Input data` = `input data`,
-#         preprocessing,
-#         `method/analysis/processing`,
-#         `computational environment`,
-#          results) %>%
-#  mutate(id = 1:nrow(paper_evaluation)) %>%
+### Barplot
 
-  #mutate(preprocessing = as.numeric(preprocessing)) %>%
-  #group_by(paper) %>% 
-  #mutate(preprocessing_jitter = preprocessing + (preprocessing[1] - jitter(preprocessing[1], amount=.5)))
+```{r fig_assessment_results,fig.width=12}
+# match the colours to time series plot below
+colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
+level_names <- c("0", "1", "2", "3", NA)
+breaks <- seq(from = 0, to = nrow(paper_evaluation_wo_conceptual), by = 10)
 
-paper_evaluation %>%
-  mutate_if(is.factor, forcats::fct_explicit_na, na_level = "5") %>%
+criteriaBarplot = function(category, main, colour) {
+  cat <- enquo(category)
+  ggplot2::ggplot(data = paper_evaluation_wo_conceptual,
+                aes(!!cat),
+                show.legend = FALSE) +
+    ggplot2::geom_bar(fill = colours[colour], color = "black") +
+    ggplot2::ggtitle(main) +
+    ggplot2::xlab("Level") +
+    ggplot2::xlim(level_names) +
+    #ggplot2::scale_x_discrete(limits = level_names,
+    #                          na.translate = TRUE, na.value = "NA") +
+    ggplot2::ylab("") +
+    ggplot2::scale_y_continuous(breaks = breaks,
+                                limits = range(breaks)) +
+    #ggplot2::guides(fill = FALSE) + # remove legend
+    theme_tufte(base_size = 12) + theme(axis.ticks.x = element_blank())
+}
+
+patchwork::wrap_plots(
+  ncol = 5,
+  criteriaBarplot(`input data`,    main = "Input data",    colour = 1),
+  criteriaBarplot(`preprocessing`, main = "Preprocessing", colour = 2),
+  criteriaBarplot(`method/analysis/processing`,
+                  main = "Methods/Analysis/\nProcessing",  colour = 3),
+  criteriaBarplot(`computational environment`,
+                  main = "Computational\nEnvironment", colour = 4),
+  criteriaBarplot(results,         main = "Results", colour = 5)
+)
+```
+
+### [WIP] Alluvial plot
+
+Based on package [`ggalluvial`](https://corybrunson.github.io/ggalluvial/).
+
+```{r fig_alluvial}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
   group_by(`input data`,
          preprocessing,
          `method/analysis/processing`,
@@ -261,31 +264,25 @@ paper_evaluation %>%
                        preprocessing,
                        `method/analysis/processing`,
                        `computational environment`,
-                       results)) %>%
-  select(`input data`,
-         preprocessing,
-         `method/analysis/processing`,
-         `computational environment`,
-          results,
-         code,
-         n) %>%
-  GGally::ggparcoord(columns = c(1:5), groupColumn = 6,
-                     scale = "globalminmax",
-                     showPoints = TRUE,
-                     alphaLines = 0.8,
-                     mapping = ggplot2::aes(size = 1)) +
-  ggplot2::scale_size_identity()
-  
-#tibble(paper = c("a", "b", "c", "a", "b", "c"),
-#       category = c("first", "second", "first", "second", "first", "second"),
-#       value = c(1,2,3,2,2,1)) %>%
-#  ggplot(aes(x = category, y = value, group = paper, color = paper)) +
-#  geom_line()
+                       results))
+
+library("ggalluvial")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`, axis2 = preprocessing,
+           axis3 = `method/analysis/processing`,
+           axis4 = `computational environment`,
+           axis5 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data", "Preprocessing", "Methods/\nAnalysis/\nProcessing", "Computational\nEnvironment", "Results"), expand = c(.2, .05)) +
+  xlab("Category") +
+  geom_alluvium(aes(fill = code)) +
+  geom_stratum() +
+  scale_color_brewer(type = "qual", palette = "Set1") +
+  #geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  theme_minimal()
 ```
 
-TODO: maybe an alluvial plot works better? https://www.datalorax.com/post/alluvial-plots-with-ggforce/ and https://ggforce.data-imaginist.com/
-
-Other package: https://corybrunson.github.io/ggalluvial/
 
 ## Table: Mean levels per criterion for non-conceptual papers
 

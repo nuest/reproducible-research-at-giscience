@@ -17,6 +17,8 @@ remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "neve
 remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")
 # needs development version from a fork, see https://github.com/rstudio/rticles/pull/288
 remotes::install_github("nuest/rticles", ref = "LIPIcs")
+remotes::install_github("thomasp85/patchwork")
+install.packages("ggalluvial")
 
 # Install LaTeX packages
 tinytex::tlmgr_install("siunitx")

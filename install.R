@@ -19,6 +19,10 @@ remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "ne
 remotes::install_github("nuest/rticles", ref = "LIPIcs")
 remotes::install_github("thomasp85/patchwork")
 install.packages("ggalluvial")
+# https://github.com/clauswilke/colorblindr for checking the figures
+remotes::install_github("wilkelab/cowplot")
+install.packages("colorspace", repos = "http://R-Forge.R-project.org")
+remotes::install_github("clauswilke/colorblindr")
 
 # Install LaTeX packages
 tinytex::tlmgr_install("siunitx")

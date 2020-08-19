@@ -346,6 +346,9 @@ paper_count_years <- evaldata_numeric %>%
 evaldata_years_long <- melt(evaldata_years, id.vars = c("year"))
 fig_mean_over_time <- ggplot(evaldata_years_long, aes(year, value)) +
   geom_bar(aes(fill = variable), position = "dodge", stat = "identity") +
+  #geom_errorbar(stat = "summary", fun.data = "mean_sdl", 
+  #                fun.args = list(mult = 1),
+  #                position =  position_dodge(width = 0.9)) +
   ylab("mean value of criterion level") + 
   scale_x_continuous(breaks = evaldata_years$year,
                      labels = paste0(paper_count_years$year, 

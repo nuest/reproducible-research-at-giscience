@@ -235,7 +235,7 @@ criteriaBarplot = function(category, main, colour) {
     theme_tufte(base_size = 12) + theme(axis.ticks.x = element_blank())
 }
 
-patchwork::wrap_plots(
+fig_barplot <- patchwork::wrap_plots(
   ncol = 5,
   criteriaBarplot(`input data`,    main = "Input data",    colour = 1),
   criteriaBarplot(`preprocessing`, main = "Preprocessing", colour = 2),
@@ -245,6 +245,8 @@ patchwork::wrap_plots(
                   main = "Computational\nEnvironment", colour = 4),
   criteriaBarplot(results,         main = "Results", colour = 5)
 )
+
+fig_barplot
 ```
 
 ### [WIP] Alluvial plot
@@ -280,7 +282,7 @@ ggplot(data = papers_wide,
   geom_stratum() +
   scale_color_brewer(type = "qual", palette = "Set1") +
   #geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
-  theme_minimal()
+  theme_tufte()
 ```
 
 
@@ -378,7 +380,7 @@ _NOTE:_ The following code chunk is not executed by default and is mainly for ev
 library("colorblindr")
 
 colorblindr::cvd_grid(fig_mean_over_time)
-
+colorblindr::cvd_grid(fig_barplot)
 ```
 
 

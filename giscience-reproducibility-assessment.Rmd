@@ -108,7 +108,7 @@ assessment_sheet <- googlesheets4::read_sheet(
   sheet = "assessment",
   # fix type for downloading data: turn all data into character strings; type set later in load
   col_types = "c",
-  range = googlesheets4::cell_rows(1:62) # 2018, 2016, 2014
+  range = googlesheets4::cell_rows(1:88) # 2018, 2016, 2014, 2012
 )
 
 write.csv(assessment_sheet, file = assessment_file)

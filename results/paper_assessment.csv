@@ -134,3 +134,96 @@ DN: new algorithm for GNN detection, safer and faster, including data exchange p
 "59","212014","2014","Frank Kammer, Maarten Löffler, Paul Mutser, Frank Staals","Practical Approaches to Partially Guarding a Polyhedral Terrain","F","DN","FO","1","NA","1","0","1","DN: new algorithm for placing points with viewsheds on a polyhedral terrain (DEM); experimentally validate their main observations/practical greedy algorithms/lower bound of complexity; algorithms as pseudo-code in text; implemented approaches; precomputing is part of one workflow (not preprocessing in our categories); mention data source but not precise locations (only names); coarse and fine variants of data is preprocessing;"
 "60","222014","2014","Joshua A. Lewis, Max J. Egenhofer","Oriented Regions for Linearly Conceptualized Features","T",NA,NA,NA,NA,NA,NA,NA,NA
 "61","232014","2014","Eliseo Clementini, Anthony G. Cohn","RCC*-9 and CBM*","T",NA,NA,NA,NA,NA,NA,NA,NA
+"62","12012","2012","Amin Abdalla, Andrew U. Frank","Combining Trip and Task Planning: How to Get from A to Passport","T",NA,NA,NA,NA,NA,NA,NA,NA
+"63","22012","2012","Chris Anderson-Tarver, Mike Gleason, Barbara Buttenfield, Larry Stanislawski","Automated Centerline Delineation to Enrich the National Hydrography Dataset","F","FO","DN","FO:2
+DN:2","FO:1
+DN:NA","FO:1
+DN:1","FO:1
+DN:1","FO:1
+DN:1","DN: paper presents revised algorithm for national dataset (should be openly available) and show results for six study areas, showing perfomance; direct data URL is redirected, but NHD (and validation dataset NHDPlus MR) can still be found and searching for the ""Subbasin ID"" also yields useful results (https://www.sciencebase.gov/catalog/item/5a58a428e4b00b291cd684c2) (even if not from 2012); USGS should be almost permanent, but policies can changes so I stuck to level 2; implementation in Python with ArcPy for ArcGIS 10; provide runtime results and used hardware;"
+"64","32012","2012","Kevin Buchin, Bettina Speckmann, Sander Verdonschot","Evolution Strategies for Optimizing Rectangular Cartograms","F","CG","FO","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1","CG:1 FO:1","CG: regular edge labelings (REL) can be viewed as prepocessing. On page 34, it's said ""To create a cartogram from an REL we follow the iterative linear programming method"". So, cartogram creation can be the analysis part. Data: some links are broken. Sw libraries/OS mentioned. FO: I gave data a 2, because they provide links to the portals with good descriptions what they used; it is not a full 2 according to our criteria, but they did it much better than many 1 scores, so I think that it should be 'rewarded'; DN: general guidelines is to award the lower (see PeerJ paper)"
+"65","42012","2012","Maike Buchin, Somayeh Dodge, Bettina Speckmann","Context-Aware Similarity of Trajectories","F","MK","CG","CG:2
+MK:2","CG:1
+MK:1","CG:1
+MK:1","CG:0
+MK:0","CG:1
+MK:1",NA
+"66","52012","2012","Yao-Yi Chiang, Craig A. Knoblock","Generating Named Road Vector Data from Raster Maps","F","BH","MK","MK:1; BH: 1","MK:NA","MK:1, BH:1","MK:0, BH:0","MK:1, BH: 1","MK: I think there is no explicit reprocessing going on. Imo everything is part of the algorithm; BH: unless we see the previous algorithmes to extract roads and text as the preprocessing for joining the two as described in this paper; overall a rather generously evaluated paper"
+"67","62012","2012","Matthew P. Dube, Max J. Egenhofer","An Ordering of Convex Topological Relations","T",NA,NA,NA,NA,NA,NA,NA,NA
+"68","72012","2012","Julien Gaffuri","Toward Web Mapping with Vector Data","F","DN","FO","FO:0
+DN:0","FO:NA
+DN:NA","FO:1
+DN:1","FO:0
+DN:0","FO:1
+DN:1","FO: I am tempted to classify this as conceptual paper; the experimental part is really small (just one page) and crucial for the paper's objectives. 
+
+DN: fixing performance issue of vector web maps, framework with specific formats, tiling, spacial index > implemented prototype; the described platform is mostly defined via requirements and references, but no technical details that would help me to reimplement the prototype; http://www.opencarto.goldzoneweb.info/ is offline, but it did exist, see https://web.archive.org/web/20111002213548/http://www.opencarto.goldzoneweb.info/, and the sourceforge code hosting is also offline; I agree this borders on a conceptual paper ""requirements for web mapping w/ vector data"", but there is a prototype; with considerable effort, something close enough could be re-implemented;"
+"69","82012","2012","Carsten Keßler, Krzysztof Janowicz, Tomi Kauppinen","spatial@linkedscience – Exploring the Research Field of GIScience with Linked Data","F","FO","CG","CG: 2 FO:2","CG: 1 FO:1","CG:1 FO:1","CG: 1 FO:1","CG: 2 FO:2","CG: Web site http://spatial.linkedscience.org/ is no longer available FO: the problem here is that from their description, lots of analysis etc. was available on that website, but we can't check now; I am inclined to give them the benefit of the doubt and give them scores of 2, but I realize that I am too biased b/c of Carsten; needs group discussion"
+"70","92012","2012","Nicolas Maisonneuve, Bastien Chopard","Crowdsourcing Satellite Imagery Analysis: Study of Parallel and Iterative Models","F","CG","MK","CG: 0
+MK: 0","CG: 0
+MK: 0","CG: 1
+MK: 1","CG: 0
+MK: 0","CG: 1
+MK: 1","CG: No acces to data generated by participants. Preprocesssing is done by participants through Amazon Mechanical Turk.
+MK: I couldn't find info on preprocessing"
+"71","102012","2012","Pradeep Mohan, Xun Zhou, Shashi Shekhar","Quantifying Resolution Sensitivity of Spatial Autocorrelation: A Resolution Correlogram Approach","F","MK","BH","MK: 0; BH: 0","DN: 1; BH: 1","MK: 1, BH: 1","MK: 1. BH: 1","MK: 1, BH: 1","MK: Enough info on comp. env. for a 1? Could not find the referenced data; BH: couldn't find data either, but might be easy for someone working with climate data; preprocessing is the generation of different resolutions of the raster images, no? that is documented; comp. env - couldn't find details on that
+
+DN: RSA algorithm is not part of their work, I agree this is preprocessing"
+"72","112012","2012","Silvia Nittel, Christopher Dorr, John C. Whittier","LocalAlert: Simulating Decentralized Ad-Hoc Collaboration in Emergency Situations","F","BH","DN","DN: NA, BH: NA","DN: NA, BH: NA","DN: 2, BH: 2","DN: 1, BH: 1","DN: 1, BH: 1","DN: present open source agent simulation framework; text describes model ""space"" and abilities/behaviours of agents, and the different tested strategies; examples for available framework parameters are given; implementation based on NetLogo (version not mentioned), code is still archived at https://code.google.com/archive/p/gaem/source/default/source; sadly no README, a NetLogo user could possibly run this; the frame.nlogo seems to configure ""experiments"" that could match the evaluation variants described in the paper; output data not ""saved"" but potentially recreatable; BH: data = described parameters for agents defined in the simulation?
+
+FO/CG: configuration is part of analysis"
+"73","122012","2012","Avinash Rude, Kate Beard","High-Level Event Detection in Spatially Distributed Time Series","F","DN","CG","CG:0
+DN:0","CG:1
+DN:1","CG:1
+DN:1","CG:0
+DN:0","CG:1
+DN:1","CG: barometric data smooth --> preprocessing. Regarding input data, it only mentions the GOMOOS system (pretty much the same as 'available upon request')
+
+DN: approach illustrated with simulated time series data, then with real data of an ocean observing system, compared agains NCDC reported events; no information about how simlated data was generated, also not available, just a Figure with the plotted data; GoMOOS data not sufficiently described (time yes, but not which buoys, though with some digging one might infer them from the maps...); data smoothing with low-pass filter is preprocessing; NCDC storm database still available (under different URL), so a partial ""1"" for data; results are shown with plots/maps;"
+"74","132012","2012","Thiago Luís Lopes Siqueira, Cristina Dutra de Aguiar Ciferri, Valéria Cesário Times, Ricardo Rodrigues Ciferri","Towards Vague Geographic Data Warehouses","F","MK","FO","FO:0
+MK:0","FO:NA
+MK:NA","FO:2
+MK:2","FO:0
+MK:0","FO:2
+MK:2","FO: Difficult case; I gave the scores of 2 because of the link, and the 0 because I could not find any information on the input data nor how it was preprocessed (if at all); they give us reproducible details on a case study DB without the actual data... 
+MK: Not sure if there is any preprocessing going on. I couldn't find information on comp. env."
+"75","142012","2012","Guibo Sun, Hui Lin, Rongrong Li","Measuring the Influence of Built Environment on Walking Behavior: An Accessibility Approach","F","FO","MK","FO:1
+MK:1","FO:1
+MK: 1","FO:1
+MK:1","FO:0
+MK:0","FO:1
+MK:1","FO: I was tempted for 0 for data, because I could not find any information on the DEM; however, a DEM for that area is certainly easily available, so I guess a 1 is okay
+MK: I couldn't find information on comp. env."
+"76","152012","2012","Guillaume Touya","Social Welfare to Assess the Global Legibility of a Generalized Map","F","CG","BH","CG:0, BH: 0","CG:NA, BH: NA","CG:1, BH: 1","CG:0; BH: 0","CG:1; BH: 1",NA
+"77","162012","2012","Jan Oliver Wallgrün, Jinlong Yang, Alexander Klippel, Frank Dylla","Investigations into the Cognitive Conceptualization and Similarity Assessment of Spatial Scenes","F","MK","DN","DN: 1
+MK: 1","DN: NA
+MK: NA","DN: 1
+MK: 1","DN: 1
+MK: 1","DN: 1
+MK: 1","DN: three human experiments; icon sets could be provided, especially the ones after manual selection; describe hardware and software (CatScan, with paper ref) in text;
+
+MK: I coud not find info on comp. env."
+"78","172012","2012","Lisa A. Walton, Michael Worboys","A Qualitative Bigraph Model for Indoor Space","T",NA,NA,NA,NA,NA,NA,NA,NA
+"79","182012","2012","Toyohide Watanabe, Kosuke Yamamoto","Dynamic Refuse Collection Strategy Based on Adjacency Relationship between Euler Cycles","F","BH","FO","BH: 2 FO:2","BH: NA FO:NA","BH: 1 FO:1","BH: 0 FO:0","BH: 1 FO:1","FO: pdf has three blank pages where the simulation would be; can't assess it; BH: I have no issues with the document; link to data could be restored; comp. env. not specified SOLVED"
+"80","192012","2012","Ting Wei, Scott Bell","Impact of Indoor Location Information Reliability on Users’ Trust of an Indoor Positioning System","F","DN","MK","DN: 1
+MK: 1","DN: NA
+MK: NA","DN: 1
+MK: 1","DN: 0
+MK: 0","DN: 1
+MK: 1","DN: human subject study; SaskEPS software; created data should be shared;"
+"81","202012","2012","Nancy Wiegand","Ontology for the Engineering of Geospatial Systems","F","FO","BH","FO:1, BH: 1","FO: NA; BH: NA","FO:1, BH: 1","FO:0; BH: 0","FO:1; BH:1","BH: they say that they used Twinkle - is that sufficient as description of the comp. eng?  http://semanticweb.org/ontologies/2010/3/9/Ontology1270863566125.owl   FO:Agree"
+"82","212012","2012","Nancy Wiegand","Preserving Detail in a Combined Land Use Ontology","F","CG","DN","DN: 1; CG: 1","DN: 1; CG: 1","DN: 1; CG: 1","DN: 0; CG: 0","DN: 0; CG: 0","DN: ""custom Java code"" already mentioned in the abstract :-); ""established once then myriad uses""; indented bullet lists in Word as database, manual work; https://ontohub.org/socop/WisLandUseCodes///symbols?kind=Class; CG: I see prepocessing as the manual process of creating the ontology"
+"83","222012","2012","Michael Worboys","The Maptree: A Fine-Grained Formal Representation of Space","T",NA,NA,NA,NA,NA,NA,NA,NA
+"84","232012","2012","Hui Yang, Gefei Feng","Automatic Creation of Crosswalk for Geospatial Metadata Standard Interoperability","F","MK","FO","FO:1
+MK: 1","FO:0
+MK: 0","FO:1
+MK: 1","FO:0
+MK: 0","FO:1
+MK: 1","MK: I am fine with the results. Not sure if preprocessing is happening"
+"85","242012","2012","KwangSoo Yang, Venkata M. V. Gunturi, Shashi Shekhar","A Dartboard Network Cut Based Approach to Evacuation Route Planning: A Summary of Results","F","BH","CG","CG: 2; BH:2","CG: NA; BH: NA","CG: 1, BH:1","CG: 1, BH:1","CG: 1, BH:1","CG: link to data is broken; however, US Census/Tiger is a well-respected source, so it is essy to get the input data; BH: data are available, but have been updated in the meantime - but that is ok, I suppose"
+"86","252012","2012","Eman M. G. Younis, Christopher B. Jones, Vlad Tanasescu, Alia I. Abdelmoty","Hybrid Geo-spatial Query Methods on the Semantic Web with a Spatially-Enhanced Index of DBpedia","F","DN","BH","DN: 1; BH: 1","DN: NA; BH: NA","DN: 1; BH: 1","DN: 0; BH: 0","DN: 1; BH: 1","DN: ""filtered manually"", instructions are detailed, could potentially, with a lot of effort, recreate dataset somehow close to the original _for today_; Ordenance Survey and DBpedia still exist..."
+"87","262012","2012","Yihong Yuan, Martin Raubal","Extracting Dynamic Urban Mobility Patterns from Mobile Phone Data","F","FO","DN","DN: 0 FO:0","DN: 1 FO:1","DN: 1 FO:1","DN: 0 FO:0","DN: 1 FO:1","DN: they could have provided the voronoi poloygons with aggregated data; all processing is ""documented as text"" in section 3.2.1;
+
+FO: the steps described in 3.2 could be considered steps of the main method
+
+The authors distinguish between 3.2.1 and 3.2.2 (main method), so they also see the Voronoi polygon creation as preprocessing."

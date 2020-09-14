@@ -11,12 +11,18 @@ install.packages("gridExtra")
 install.packages("reshape2")
 install.packages("wordcloud")
 install.packages("quanteda")
-install.packages("GGally")
+install.packages("Hmisc")
 # not available (in required version) for R 3.6.0 > install tag from GitHub
 remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "never")
 remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")
 # needs development version from a fork, see https://github.com/rstudio/rticles/pull/288
 remotes::install_github("nuest/rticles", ref = "LIPIcs")
+remotes::install_github("thomasp85/patchwork")
+install.packages("ggalluvial")
+# https://github.com/clauswilke/colorblindr for checking the figures
+remotes::install_github("wilkelab/cowplot")
+install.packages("colorspace", repos = "http://R-Forge.R-project.org")
+remotes::install_github("clauswilke/colorblindr")
 
 # Install LaTeX packages
 tinytex::tlmgr_install("siunitx")

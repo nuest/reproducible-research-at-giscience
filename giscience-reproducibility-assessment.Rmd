@@ -1,6 +1,6 @@
 ---
 title: 'Reproducibility assessment data analysis for "Reproducible research and GIScience: an evaluation using GIScience conference papers"'
-author: "Daniel Nüst"
+author: "Daniel Nüst, Carlos Granell"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -8,6 +8,25 @@ output:
     toc: yes
 urlcolor: blue
 ---
+
+<style type="text/css">
+/* https://gist.github.com/Pakillo/8b46a48ea806572566d9 and
+   https://stackoverflow.com/questions/36845178/width-of-r-code-chunk-output-in-rmarkdown-files-knitr-ed-to-html#36846864 */
+/*body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 12px;
+}*/
+pre {
+  font-size: 12px
+  overflow-x: auto;
+}
+pre code {
+  word-wrap: normal;
+  white-space: pre;
+}
+</style>
 
 This document visualises the expert assessment for accepted full papers at the [GIScience conference series](https://www.giscience.org/) for the following conferences and proceedings.
 
@@ -18,13 +37,12 @@ This document visualises the expert assessment for accepted full papers at the [
 - 2016: Ninth International Conference on Geographic Information Science, Sep 27, 2016 - Sep 30, 2016, 	Montreal, Canada
   
   _Geographic Information Science. 2016. In J. A. Miller, D. O’Sullivan, & N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-45738-3 _
-  
-<!--
+
 - 2014: Eighth International Conference on Geographic Information Science, Sep 24, 2014 - Sep 26, 2014, 	Vienna, Austria
   > Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, & A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. https://doi.org/10.1007/978-3-319-11593-1
+
 - 2012: Seventh International Conference on Geographic Information Science, Sep 18, 2012 - Sep 21, 2012, Columbus, Ohio, USA
   > Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, & S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-642-33024-7
--->
 
 The analysis is based on the assessment first published in _"Reproducible research and GIScience: an evaluation using AGILE conference papers"_ ([https://doi.org/10.7717/peerj.5072](https://doi.org/10.7717/peerj.5072)), see [https://github.com/nuest/reproducible-research-and-giscience](https://github.com/nuest/reproducible-research-and-giscience).
 
@@ -65,6 +83,7 @@ library("kableExtra")
 library("huxtable")
 library("here")
 library("googlesheets4")
+library("patchwork")
 ```
 
 ## Load data
@@ -76,7 +95,7 @@ assessment_file <- here::here("results/paper_assessment.csv")
 The data is loaded from a collaborative spreadsheet using the `googlesheets4` package.
 After a year is completed by all assessors, a [named version] of the spreadsheet is created.
 Then the data file `r assessment_file` is updated from the online spreadsheet and committed to the git history.
-Afterwards the individual assessments are manually merged in the online spreadsheet and the data file is updated and comitted once more.
+Afterwards the individual assessments are manually merged in the online spreadsheet and the data file is updated and committed once more.
 
 ```{r googlesheets_auth, echo=FALSE, eval=FALSE}
 # run once
@@ -89,7 +108,7 @@ assessment_sheet <- googlesheets4::read_sheet(
   sheet = "assessment",
   # fix type for downloading data: turn all data into character strings; type set later in load
   col_types = "c",
-  range = googlesheets4::cell_rows(1:62) # 2018, 2016, 2014
+  range = googlesheets4::cell_rows(1:88) # 2018, 2016, 2014, 2012
 )
 
 write.csv(assessment_sheet, file = assessment_file)
@@ -109,6 +128,9 @@ paper_evaluation <- readr::read_csv(assessment_file,
       results = readr::col_factor(levels = category_levels)
       ),
     na = "NA")
+
+paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` == FALSE)
+
 categoryColumns <- c("input data", 
                      "preprocessing",
                      "method/analysis/processing",
@@ -127,10 +149,10 @@ knitr::kable(paper_evaluation %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
-## Table: Statistics of reproducibility levels per criterion
+## Table: Statistics of reproducibility levels per criterion for non-conceptual papers
 
 ```{r summary_evaldata}
-evaldata_numeric <- paper_evaluation %>%
+evaldata_numeric <- paper_evaluation_wo_conceptual %>%
   dplyr::filter(`conceptual paper` == FALSE) %>%
   # must convert factors to numbers to calculate the mean and median
   dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
@@ -159,38 +181,7 @@ kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)),
 
 The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, with `0` and `1` around the "middle" resulting in a fraction as the median.
 
-## Figure: Results of reproducibility assessment
-
-```{r fig_assessment_results,fig.width=12}
-# match the colours to time series plot below
-colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
-level_names <- c("0", "1", "2", "3", "NA")
-
-
-paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` == FALSE)
-
-criteriaBarplot = function(data, main, colour) {
-  barplot(table(data, useNA = "always"), 
-          main = main,
-          xlab = "Level", 
-          ylim = c(0,nrow(paper_evaluation_wo_conceptual)),
-          names.arg = level_names,col = colours[colour])
-}
-
-
-
-par(mfrow = c(1,length(categoryColumns)))
-criteriaBarplot(paper_evaluation_wo_conceptual$`input data`,
-                main = "Input data", colour = 1)
-criteriaBarplot(paper_evaluation_wo_conceptual$`preprocessing`, 
-                main = "Preprocessing", colour = 2)
-criteriaBarplot(paper_evaluation_wo_conceptual$`method/analysis/processing`,
-                main = "Methods/Analysis/\nProcessing", colour = 3)
-criteriaBarplot(paper_evaluation_wo_conceptual$`computational environment`,
-                main = "Computational\nEnvironment", colour = 4)
-criteriaBarplot(paper_evaluation_wo_conceptual$results,
-                main = "Results", colour = 5)
-```
+## Data points for text
 
 ```{r criteria_numbers}
 data_level_zero <- paper_evaluation_wo_conceptual %>% 
@@ -216,25 +207,55 @@ methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>%
 
 `r methods_and_results_eq_one` papers have level `1` in both methods and results criterion.
 
-```{r results_lineplot}
-# https://ggobi.github.io/ggally/reference/ggparcoord.html
-library("GGally")
+## Figure: Results of reproducibility assessment for non-conceptual papers
 
-#paper_evaluation %>%
-#  select(paper,
-#         `Input data` = `input data`,
-#         preprocessing,
-#         `method/analysis/processing`,
-#         `computational environment`,
-#          results) %>%
-#  mutate(id = 1:nrow(paper_evaluation)) %>%
+### Barplot
 
-  #mutate(preprocessing = as.numeric(preprocessing)) %>%
-  #group_by(paper) %>% 
-  #mutate(preprocessing_jitter = preprocessing + (preprocessing[1] - jitter(preprocessing[1], amount=.5)))
+```{r fig_assessment_results,fig.width=12}
+# match the colours to time series plot below
+colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
+level_names <- c("0", "1", "2", "3", NA)
+breaks <- seq(from = 0, to = nrow(paper_evaluation_wo_conceptual), by = 10)
 
-paper_evaluation %>%
-  mutate_if(is.factor, forcats::fct_explicit_na, na_level = "5") %>%
+criteriaBarplot = function(category, main, colour) {
+  cat <- enquo(category)
+  ggplot2::ggplot(data = paper_evaluation_wo_conceptual,
+                aes(!!cat),
+                show.legend = FALSE) +
+    ggplot2::geom_bar(fill = colours[colour], color = "black") +
+    ggplot2::ggtitle(main) +
+    ggplot2::xlab("Level") +
+    ggplot2::xlim(level_names) +
+    #ggplot2::scale_x_discrete(limits = level_names,
+    #                          na.translate = TRUE, na.value = "NA") +
+    ggplot2::ylab("") +
+    ggplot2::scale_y_continuous(breaks = breaks,
+                                limits = range(breaks)) +
+    #ggplot2::guides(fill = FALSE) + # remove legend
+    theme_tufte(base_size = 12) + theme(axis.ticks.x = element_blank())
+}
+
+fig_barplot <- patchwork::wrap_plots(
+  ncol = 5,
+  criteriaBarplot(`input data`,    main = "Input data",    colour = 1),
+  criteriaBarplot(`preprocessing`, main = "Preprocessing", colour = 2),
+  criteriaBarplot(`method/analysis/processing`,
+                  main = "Methods/Analysis/\nProcessing",  colour = 3),
+  criteriaBarplot(`computational environment`,
+                  main = "Computational\nEnvironment", colour = 4),
+  criteriaBarplot(results,         main = "Results", colour = 5)
+)
+
+fig_barplot
+```
+
+### [WIP] Alluvial plot
+
+Based on package [`ggalluvial`](https://corybrunson.github.io/ggalluvial/).
+
+```{r fig_alluvial}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
   group_by(`input data`,
          preprocessing,
          `method/analysis/processing`,
@@ -245,45 +266,43 @@ paper_evaluation %>%
                        preprocessing,
                        `method/analysis/processing`,
                        `computational environment`,
-                       results)) %>%
-  select(`input data`,
-         preprocessing,
-         `method/analysis/processing`,
-         `computational environment`,
-          results,
-         code,
-         n) %>%
-  GGally::ggparcoord(columns = c(1:5), groupColumn = 6,
-                     scale = "globalminmax",
-                     showPoints = TRUE,
-                     alphaLines = 0.8,
-                     mapping = ggplot2::aes(size = 1)) +
-  ggplot2::scale_size_identity()
-  
-#tibble(paper = c("a", "b", "c", "a", "b", "c"),
-#       category = c("first", "second", "first", "second", "first", "second"),
-#       value = c(1,2,3,2,2,1)) %>%
-#  ggplot(aes(x = category, y = value, group = paper, color = paper)) +
-#  geom_line()
+                       results))
+
+library("ggalluvial")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`, axis2 = preprocessing,
+           axis3 = `method/analysis/processing`,
+           axis4 = `computational environment`,
+           axis5 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data", "Preprocessing", "Methods/\nAnalysis/\nProcessing", "Computational\nEnvironment", "Results"), expand = c(.2, .05)) +
+  xlab("Category") +
+  geom_alluvium(aes(fill = code)) +
+  geom_stratum() +
+  scale_color_brewer(type = "qual", palette = "Set1") +
+  #geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  theme_tufte()
 ```
 
 
-## Table: Mean levels per criterion for full and short papers
+## Table: Mean levels per criterion for non-conceptual papers
 
 ```{r summary_evaldata_grouped}
-summaries <- sapply(evaldata_numeric %>%
-                                 select(categoryColumns), summary)
-means <- subset(summaries, rownames(summaries) %in% c("Mean"))
-rownames(means) <- c("Full papers")
+means <- lapply(evaldata_numeric %>%
+                      select(categoryColumns),
+                    summary) %>%
+    lapply(`[[`, "Mean") %>%
+    as.data.frame()
 
 kable(means,
       digits = 2,
       col.names = c("input data", "preproc.", "method/analysis/proc.", "comp. env.", "results"),
-      caption = "Mean levels per criterion for papers") %>%
+      caption = "Mean levels per criterion for non-conceptual papers") %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
-## Table: Mean levels averaged across criteria over time
+## Table: Mean levels averaged across criteria over time for non-conceptual papers
 
 ```{r evaldata_summary_by_year_mean}
 means_years <- evaldata_numeric %>%
@@ -306,11 +325,11 @@ means_years_table <- means_years %>%
         t()
 
 kable(means_years_table,
-      caption = "Summarised mean values over all criteria over time") %>%
+      caption = "Summarised mean values over all criteria over time (non-conceptual papers)") %>%
   kableExtra::kable_styling("striped", full_width = TRUE)
 ```
 
-## Figure: Mean reproducibility levels per category over time
+## Figure: Mean reproducibility levels per category over time for non-conceptual papers
 
 ```{r Fig4,fig.height=4,dpi=300}
 evaldata_years <- evaldata_numeric %>%
@@ -327,8 +346,11 @@ paper_count_years <- evaldata_numeric %>%
   summarise(`paper count` = n())
 
 evaldata_years_long <- melt(evaldata_years, id.vars = c("year"))
-ggplot(evaldata_years_long, aes(year, value)) +
+fig_mean_over_time <- ggplot(evaldata_years_long, aes(year, value)) +
   geom_bar(aes(fill = variable), position = "dodge", stat = "identity") +
+  #geom_errorbar(stat = "summary", fun.data = "mean_sdl", 
+  #                fun.args = list(mult = 1),
+  #                position =  position_dodge(width = 0.9)) +
   ylab("mean value of criterion level") + 
   scale_x_continuous(breaks = evaldata_years$year,
                      labels = paste0(paper_count_years$year, 
@@ -342,9 +364,27 @@ ggplot(evaldata_years_long, aes(year, value)) +
   ylim(0, 3) +
   stat_summary(fun.y = mean, fun.ymin = mean, fun.ymax = mean, shape = "-", size = 2) +
   stat_summary(fun.y = mean, geom = "line", linetype = "dotted", mapping = aes(group = 1))
+
+fig_mean_over_time
 ```
 
-## License & Metadata
+## Figure: Stacked bars of levels per category over time
+
+TODO
+
+## Colorblindness check
+
+_NOTE:_ The following code chunk is not executed by default and is mainly for evaluation during figure development.
+
+```{r colorblindness}
+library("colorblindr")
+
+colorblindr::cvd_grid(fig_mean_over_time)
+colorblindr::cvd_grid(fig_barplot)
+```
+
+
+## Colophon
 
 This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 All contained code is licensed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/).
@@ -353,6 +393,7 @@ This document is versioned in a public [git](https://git-scm.com/) repository, [
 **Runtime environment description:**
 
 ```{r session_info, echo=FALSE}
+options(width = 100)
 devtools::session_info(include_base = TRUE)
 ```
 
@@ -360,6 +401,6 @@ devtools::session_info(include_base = TRUE)
 # upload the HTML file to the Reproducibility Committee shared folder
 # upload the HTML file and source code to the Reproducibility Committee shared folder
 googledrive::drive_auth(use_oob = TRUE)
-googledrive::drive_put("giscience-reproducibility-assessment.html", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
-googledrive::drive_put("giscience-reproducibility-assessment.Rmd", path = "https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
+googledrive::drive_put("giscience-reproducibility-assessment.html", path = googledrive::as_dribble("https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA"))
+googledrive::drive_put("giscience-reproducibility-assessment.Rmd", path = googledrive::as_dribble("https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA"))
 ```

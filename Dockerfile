@@ -1,8 +1,8 @@
 # This Dockerfile is based on the rocker/binder example Dockerfile from https://github.com/rocker-org/binder/
-# We use 3.6.0 because it is a recent version of R that has a fixed MRAN date in the Rocker image.
+# We use 3.6.0 because it is a relatively recent version of R that has a fixed MRAN date in the Rocker image.
 FROM rocker/binder:3.6.0
 
-## Declares build arguments
+# Declares build arguments
 ARG NB_USER
 ARG NB_UID
 
@@ -11,14 +11,16 @@ USER root
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     libpoppler-cpp-dev \
+    # install wheel for requirements installation below
+    #python3-wheel \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/
 
-## Run install.R script
+# Run install.R script
 COPY install.R ${HOME}
 RUN R --quiet -f install.R
 
-## Copies all repo files into the Docker Container
+# Copies all repo files into the Docker Container
 USER root
 COPY . ${HOME}
 RUN chown -R ${NB_USER} ${HOME}
@@ -29,6 +31,10 @@ USER ${NB_USER}
 ## Export system libraries and R package versions
 RUN dpkg --list > dpkg-list.txt && \
   R -e 'capture.output(knitr::kable(as.data.frame(installed.packages())[c("Package", "Version", "License", "Built")], format = "markdown", row.names = FALSE), file = "r-packages.md")'
+
+# Install Python packages
+RUN pip3 install --upgrade wheel && \
+  pip3 install -r author_analysis/requirements.txt
 
 # --- Metadata ---
 LABEL maintainer="daniel.nuest@uni-muenster.de" \

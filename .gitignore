@@ -69,3 +69,13 @@ paper/reproducible-research-at-giscience.vtc
 giscience-reproducibility-assessment.html
 
 paper/reproducible-research-at-giscience_files/
+
+.cache/
+
+.ipython/
+
+.jupyter/
+
+author_analysis/.ipynb_checkpoints/
+
+.python_history

@@ -10,21 +10,37 @@ conference](https://agile-online.org/conference) submissions, see
 
 <!--
 [![Article DOI](https://img.shields.io/badge/PUBLISHER-https%3A%2F%2Fdoi.org%2FDOI-brightgreen.svg)](https://doi.org/)
-[![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/)](https://doi.org/10.5281/zenodo.)
 -->
+
+[![Zenodo
+DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4032875.svg)](https://doi.org/10.5281/zenodo.4032875)
 
 ## Reproduce online
 
-Click the “Binder” button below to open RStudio on
-[MyBinder.org](https://mybinder.org/).
+Click the “Binder” button below to open an interactive editing
+environment with all required software installed on
+[MyBinder.org](https://mybinder.org/). It uses the current version of
+the branch `master` in the repository, but you can also enter the Zenodo
+DOI (see above) in the MyBinder user interface to open a preserved
+release version.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nuest/reproducible-research-at-giscience/master?urlpath=rstudio)
 
-Then you can navigate to the R Markdown notebook files (see [list of
-files below](#files-in-this-repository)) to inspect and execute the code
-for the text analysis and reproduce the figures as described in
-[Reproduce locally](#reproduce-locally), but installation of required
-packages is not required.
+You can start RStudio for the text analysis and figures via “New \>
+RStudio” or open the Jupyter Notebook for the bibliographic analysis in
+the folder `author_analysis`.
+
+Use [this
+link](https://mybinder.org/v2/zenodo/10.5281/zenodo.4032875/?filepath=author_analysis/BibTex_handling.ipynb)
+to directly open the Jupyter Notebook.
+
+Use [this
+link](https://mybinder.org/v2/gh/nuest/reproducible-research-at-giscience/master?urlpath=rstudio)
+to directly open RStudio- Then you can navigate to the R Markdown
+notebook files (see [list of files below](#files-in-this-repository)) to
+inspect and execute the code for the text analysis and reproduce the
+figures as described in [Reproduce locally](#reproduce-locally), but
+installation of required packages is not required.
 
 ## Reproduce locally
 
@@ -90,8 +106,7 @@ make
 This repository is archived on Zenodo: TODO
 
 The deposited archive was created based on the tag `TODO` (matching the
-Zenodo version) with the following
-commands:
+Zenodo version) with the following commands:
 
 ``` bash
 git clone https://github.com/nuest/reproducible-research-at-giscience.git

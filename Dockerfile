@@ -1,6 +1,6 @@
 # This Dockerfile is based on the rocker/binder example Dockerfile from https://github.com/rocker-org/binder/
-# We use 3.6.0 because it is a relatively recent version of R that has a fixed MRAN date in the Rocker image.
-FROM rocker/binder:3.6.0
+# We use 3.6.3 because it is a relatively recent version of R at the time of starting this work, which has a fixed MRAN date in the Rocker image.
+FROM rocker/binder:3.6.3
 
 # Declares build arguments
 ARG NB_USER

@@ -17,7 +17,8 @@ remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "neve
 remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")
 
 # needs development version from a fork, see https://github.com/rstudio/rticles/pull/288
-remotes::install_github("nuest/rticles", ref = "LIPIcs")
+remotes::install_github("yihui/xfun", ref = "v0.15", upgrade = "never")
+remotes::install_github("nuest/rticles", ref = "LIPIcs", upgrade = "never")
 
 remotes::install_github("thomasp85/patchwork")
 install.packages("ggalluvial")
@@ -45,3 +46,5 @@ tinytex::tlmgr_install("xstring")
 tinytex::tlmgr_install("thmtools")
 tinytex::tlmgr_install("carlisle")
 tinytex::tlmgr_install("cleveref")
+tinytex::tlmgr_install("graphics")
+tinytex::tlmgr_install("xkeyval")

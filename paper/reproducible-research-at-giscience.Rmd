@@ -73,7 +73,6 @@ hideLIPIcs: true # remove references to LIPIcs series (logo, DOI, ...), e.g. whe
 # appendix _after_ the bibliography
 #appendix: |
 output:
-  # xelatex needed for 'thin space' Unicode character (see authorrunning);
   bookdown::pdf_book:
     base_format: rticles::lipics_article
     keep_tex: TRUE

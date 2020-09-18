@@ -277,30 +277,6 @@ Lastly, human subject tests and surveys were also a special case. Human-related 
 
 ## Paper corpus
 
-```{r load_data, echo=FALSE, message=FALSE, warning=FALSE}
-library("here")
-
-assessment_file <- here::here("results/paper_assessment.csv")
-
-category_levels <- c("0", "1", "2", "3")
-categoryColumns <- c("input data", 
-                     "preprocessing",
-                     "method/analysis/processing",
-                     "computational environment",
-                     "results")
-
-paper_evaluation <- readr::read_csv(assessment_file, 
-    col_types = readr::cols(
-      `conceptual paper` = readr::col_logical(),
-      `computational environment` = readr::col_factor(levels = category_levels),
-      `input data` = readr::col_factor(levels = category_levels),
-      `method/analysis/processing` = readr::col_factor(levels = category_levels),
-      preprocessing = readr::col_factor(levels = category_levels),
-      results = readr::col_factor(levels = category_levels)
-      ),
-    na = "NA")
-```
-
 ```{r count_papers, echo=FALSE, message=FALSE, warning=FALSE}
 library("dplyr")
 

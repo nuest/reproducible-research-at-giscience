@@ -26,6 +26,7 @@ install.packages("ggalluvial")
 remotes::install_github("wilkelab/cowplot")
 install.packages("colorspace", repos = "http://R-Forge.R-project.org")
 remotes::install_github("clauswilke/colorblindr")
+remotes::install_github("benmarwick/wordcountaddin")
 
 # Install LaTeX packages
 tinytex::tlmgr_install("siunitx")

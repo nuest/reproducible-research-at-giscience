@@ -1,12 +1,13 @@
 ---
-title: 'Text analysis of accepted full papers at historic GIScience conferences'
-author: "Daniel Nüst, Opening Reproducible Research (o2r), Institute for Geoinformatics, University of Münster"
+title: "Text analysis of accepted full papers at historic GIScience conferences"
+author: Daniel Nüst, Opening Reproducible Research (o2r), Institute for Geoinformatics,
+  University of Münster
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
     toc: yes
 params:
-  with_sp: FALSE
+  with_sp: no
 ---
 
 ## Introduction

@@ -41,14 +41,6 @@ author:
     orcid: "https://orcid.org/0000-0001-6651-0976"
     email: m.konkol@uni-muenster.de
     funding: "Project [_o2r_](https://www.uni-muenster.de/forschungaz/project/12343), German Research Foundation, grant numbers [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837) and [TR&nbsp;864/12-1]()."
-abstract: |
-  Authors of papers at the GIScience conference face challenges of computational reproducibility just like authors of any other discipline using computers to analyse data.
-  In this work, we apply a rubric for assessing the reproducibility of 74 conference papers published at the GIScience conference series in years 2012-2018.
-  The rubric and process were previously applied to the publications of the AGILE conference series.
-  The results of the GIScience paper assessment are in line with previous findings:
-  The description of workflows and publication of data and software used in most papers suffice to explain the presented work, but are far from enabling a reproduction by a third party with reasonable effort.
-  We summarise and adapt previous recommendations for improving this dire picture and invite the GIScience community to start a broad discussion on reusability, quality, and openness of its research.
-  The code and data for this article are published at https://doi.org/10.5281/zenodo.4032875.
 bibliography: bibliography
 authorrunning: "TODO authorrunning when order fixed" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
 # A "thin space" character, ' ' or &thinsp;, is used between the two first names.
@@ -60,7 +52,7 @@ ccdesc:
 keywords: "reproducible research, open science, reproducibility, GIScience"
 # OPTIONAL:
 acknowledgements: >
-  Contributions (see [CRediT](https://casrai.org/credit/)) by BH: conceptualisation, investigation (21), writing – original draft, writing - review & editing; by DN: conceptualisation, investigation (33), software, writing – original draft, writing - review & editing, visualisation; by FO: conceptualisation, investigation (33), writing – original draft, writing - review & editing, software; by CG: conceptualisation, investigation (30), writing – original draft, writing - review & editing, software; by MK: conceptualisation, investigation (30), writing – original draft, writing - review & editing. The number of papers assessed by each coauthor are given in brackets after the "investigation" category.
+  Contributions (see [CRediT](https://casrai.org/credit/)) by BH: conceptualisation, investigation (21), writing – original draft, writing - review & editing; by DN: conceptualisation, investigation (33), software, writing – original draft, writing - review & editing, visualisation; by FO: conceptualisation, investigation (33), writing – original draft, writing - review & editing, software; by CG: conceptualisation, investigation (30), writing – original draft, writing - review & editing, software; by MK: conceptualisation, investigation (30), writing – original draft. The number of papers assessed by each coauthor are given in brackets after the contribution "investigation".
 #category: "Invited paper"
 #relatedversion: "A full version of the paper is available at https://..." # optional, e.g. full version hosted on arXiv, HAL, or other respository/website
 # optional, e.g. related research data, source code, ... hosted on a repository like zenodo, figshare, GitHub, ...
@@ -77,7 +69,6 @@ output:
     base_format: rticles::lipics_article
     keep_tex: TRUE
 ---
-
 
 ```{r load_data, echo=FALSE, message=FALSE, warning=FALSE}
 library("here")
@@ -103,8 +94,39 @@ paper_evaluation <- readr::read_csv(assessment_file,
     na = "NA")
 ```
 
+```{r count_papers, echo=FALSE, message=FALSE, warning=FALSE}
+library("dplyr")
+
+count_papers <- nrow(paper_evaluation)
+
+count_conceptual <- nrow(paper_evaluation %>% 
+                           dplyr::filter(`conceptual paper` == TRUE))
+                           
+count_mixed <- nrow(paper_evaluation %>% 
+                      dplyr::filter(is.na(`input data`) 
+                             | is.na(preprocessing) 
+                             | is.na(`method/analysis/processing`) 
+                             | is.na(`computational environment`) 
+                             | is.na(results)))
+
+paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` == FALSE)
+
+count_n <- nrow(paper_evaluation_wo_conceptual)
+```
+
 ---
+abstract: |
+  Authors of papers at the GIScience conference face challenges of computational reproducibility just like authors of any other discipline using computers to analyse data.
+  In this work, we apply a rubric for assessing the reproducibility of `r count_n` conference papers published at the GIScience conference series in years 2012-2018.
+  The rubric and process were previously applied to the publications of the AGILE conference series.
+  The results of the GIScience paper assessment are in line with previous findings:
+  The description of workflows and publication of data and software used in most papers suffice to explain the presented work, but are far from enabling a reproduction by a third party with reasonable effort.
+  We summarise and adapt previous recommendations for improving this dire picture and invite the GIScience community to start a broad discussion on reusability, quality, and openness of its research.
+  The code and data for this article are published at [https://doi.org/10.5281/zenodo.4032875](https://doi.org/10.5281/zenodo.4032875).
 appendix: |
+
+  \newpage
+  
   # Appendix
   
   ```{r corpus-table, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%'}
@@ -113,25 +135,22 @@ appendix: |
   library("dplyr")
   
   knitr::kable(paper_evaluation %>%
-                 select(#paper,
-                        year, title, `conceptual paper`,
-                        #`reviewer 1`,
-                        #`reviewer 2`,
+                 select(year, title, `conceptual paper`,
                         `input data`, `preprocessing`, `method/analysis/processing`, `computational environment`, `results`), 
         longtable = TRUE,
         booktabs = TRUE,
-        #col.names = c("input data", "preproc.", "method/analysis/proc.",
-        #              "comp. env.", "results"),
-        caption = "Assessment data excerpt; for all fields (including assessors, authors, assessment comments) see reproducibility package at https://doi.org/10.5281/zenodo.4032875.") %>%
+        col.names = c("year", "title", "con-cep-tual",
+                      "input data", "pre-proc.", "method/ anal./ proc.", "comp. env.", "results"),
+        caption = "Assessment data excerpt; for all fields (including assessors, authors, assessment comments) see reproducibility package at \\url{https://doi.org/10.5281/zenodo.4032875}.") %>%
     kableExtra::row_spec(0, bold = TRUE) %>%
-    kableExtra::column_spec(2, width = "20em") %>%
-    kableExtra::column_spec(3, width = "6em") %>%
-    kableExtra::column_spec(4, width = "3em") %>%
-    kableExtra::column_spec(5, width = "3em") %>%
-    kableExtra::column_spec(6, width = "3em") %>%
-    kableExtra::column_spec(7, width = "3em") %>%
-    kableExtra::column_spec(8, width = "3em") %>%
-    kableExtra::kable_styling(latex_options = c("striped", "repeat_header", "scale_down"),
+    kableExtra::column_spec(2, width = "24em") %>%
+    kableExtra::column_spec(3, width = "2.8em") %>%
+    kableExtra::column_spec(4, width = "2em") %>%
+    kableExtra::column_spec(5, width = "2em") %>%
+    kableExtra::column_spec(6, width = "2.8em") %>%
+    kableExtra::column_spec(7, width = "2em") %>%
+    kableExtra::column_spec(8, width = "2em") %>%
+    kableExtra::kable_styling(latex_options = c("striped", "repeat_header"),
                               font_size = 6)
   ```
 ---
@@ -240,7 +259,7 @@ _Methods, Analysis, Processing_ is the actual analysis;
 _Computational Environment_ addresses the description of hard- and software.
 Finally, the criterion _Results_ refers to the output of analysis, for example, figures, tables, and numbers. 
 
-For each of these (sub)categories, we assigned one of four levels unless the criterion was not applicable, _(Level NA)_:
+For each of these (sub)categories, we assigned one of four levels unless the criterion was not applicable, _(Level NA)_.
 _(Level 0) Unavailable_ means that it is not possible to access the paper’s data, methods, or results, and that it is impossible to recreate them based on the description in the paper.
 _(Level 1) Documented_ indicates that the paper still does not provide direct access to datasets, methods, or results, but that there is sufficient description respectively metadata to recreate them closely enough for an evaluation, yet often a recreation is unlikely due to huge efforts needed.
 With regard to the methods criteria, Level 1 means that pseudo code or a textual workflow description is available.
@@ -278,26 +297,6 @@ Lastly, human subject tests and surveys were also a special case. Human-related 
 
 ## Paper corpus
 
-```{r count_papers, echo=FALSE, message=FALSE, warning=FALSE}
-library("dplyr")
-
-count_papers <- nrow(paper_evaluation)
-
-count_conceptual <- nrow(paper_evaluation %>% 
-                           dplyr::filter(`conceptual paper` == TRUE))
-                           
-count_mixed <- nrow(paper_evaluation %>% 
-                      dplyr::filter(is.na(`input data`) 
-                             | is.na(preprocessing) 
-                             | is.na(`method/analysis/processing`) 
-                             | is.na(`computational environment`) 
-                             | is.na(results)))
-
-paper_evaluation_wo_conceptual <- filter(paper_evaluation, `conceptual paper` == FALSE)
-
-count_n <- nrow(paper_evaluation_wo_conceptual)
-```
-
 ```{r conceptual_papers, echo=FALSE, message=FALSE, warning=FALSE}
 library("tidyr")
 
@@ -321,7 +320,6 @@ In summary, `r count_n` were assessed according to the reproducibility criteria 
 # Reproducibility of GIScience conference papers
 
 Table&nbsp;\@ref(tab:summary-evaldata) shows aggregated values for the assessed reproducibility levels. 
-    
 `r paper_evaluation_wo_conceptual %>% filter(is.na(preprocessing)) %>% count() %>% .$n` papers are not applicable for the preprocessing criterion.
 This can be explained because the boundary between the preprocessing criterion and the methods/analysis/processing criterion is not always clear in a given paper and is therefore subject to the reader's interpretation.
 This does not mean that the papers that did not qualify for the preprocessing criteron are not reproducible at all.
@@ -358,7 +356,6 @@ methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>%
 compenv_level_zero <- paper_evaluation_wo_conceptual %>% 
   filter(`computational environment` == 0) %>% 
   count() %>% .$n
-  
 ```
 
 Figure&nbsp;\@ref(fig:assessment-results) shows the distribution of the reproducibility levels for each criterion.
@@ -391,8 +388,8 @@ library("knitr")
 library("kableExtra")
 
 evaldata_numeric <- paper_evaluation_wo_conceptual %>%
-  # must convert factors to numbers to calculate the mean and median
-  dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
+  # must convert factors to numbers via character to calculate the mean and median without shifting values
+  dplyr::mutate_if(is.factor, ~as.integer(as.character(.)))
 
 summaryna <- function (v) {
   if(!any(is.na(v))){
@@ -401,17 +398,19 @@ summaryna <- function (v) {
     res <- summary(v)
   }
   return(res)
-} 
-
+}
 
 # apply summary independently to format as table
 summaries <- sapply(evaldata_numeric[,categoryColumns], summaryna)
 exclude_values_summary <- c("1st Qu.", "3rd Qu.")
-kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 
+knitr::kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 
       digits = 1,
       col.names = c("input data", "preproc.", "method/analysis/proc.",
                     "comp. env.", "results"),
-      caption = "Statistics of reproducibility levels per criterion (rounded to one decimal place)")
+      caption = "Statistics of reproducibility levels per criterion (rounded to one decimal place)") %>%
+  kableExtra::row_spec(0, bold = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("striped"),
+                            font_size = 8)
 ```
 
 ```{r assessment-results, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Barplots of reproducibility assessment results; levels range from 0 (leftmost bar) to 'not applicable' (rightmost bar)."}
@@ -492,6 +491,17 @@ Moving it to `2` requires several steps and actions, while reaching the gold sta
 
 ## Comparison of conferences
 
+```{r agile_values_for_comparison, echo=FALSE, warning=FALSE}
+agile_input_data_mean <- 0.67
+agile_method_mean <- 1.0
+agile_compenv_mean <- 0.62
+agile_results_mean <- 0.88
+
+agile_papers <- 32
+agile_conceptual <- 5
+agile_n <- agile_papers - agile_conceptual
+```
+
 Given that we followed the same process as in \cite{nust_reproducible_2018}, and the demonstrated transferability of the method, a comparison between the two conference series seems appropiate.
 It is important to remember that we do not attempt such a comparison with the objective to declare a 'winner'.
 The two conferences are similar enough, as shown below, for a comparison, yet too distinct and diverse in set-up, process, and audience for such simplistic ranking.
@@ -507,36 +517,49 @@ They list 15 authors who have published in all GIScience conference.
 We conducted a cursory investigation of the body of authors for full papers revealing significant overlap[^authoranalysis]: Out of `r author_counts$AGILE` unique AGILE and `r author_counts$GIScience` unique GIScience full paper authors, `r author_counts$intersection` published in both conferences, who include all 15 authors mentioned in \cite{kesler_spatiallinkedscience_2012}. 
 Therefore, the strong relation between the AGILE and GIScience conference series and provide the foundation for applying the same methodology to GIScience that has been developed for AGILE conference publications, and probably result in similar implications for improving reproducibility.
 
-Concerning the paper corpora, the publication years considered here are similar to the assessment of AGILE papers, which makes results comparable in the sense of what methods and tools would have been available for authors.
+Concerning the paper corpora, the publication years considered here (2012-2018) are similar to the assessment of AGILE papers (2010-2017), which makes results comparable in the sense of what methods and tools would have been available for authors.
+Furthermore, we note that both conferences have a similar ratio of conceptual papers which were not assessed for reproduciblity: in the AGILE corpus we identified `r agile_conceptual` of `r agile_n` conceptual papers (`r round(agile_conceptual / agile_papers, 2)`%), at GIScience `r count_conceptual` of `r count_papers` (`r round(count_conceptual / count_papers, 2)`%).
+This indicates that both conferences have similar share of papers using at least in part computational methods.
+On the content of the papers, our overall impression is that a larger share of GIScience papers include theoretical, conceptual, or methodological aspects, while AGILE papers seem to feature more empirical and/or applied geoinformation science research.
 
-Furthermore, we note that both conferences have a similar ratio of conceptual papers which were not assessed for reproduciblity: .... TODO DANIEL: sentence with the numbers for conceptual papers.
-This indicates that both conferences have similar share of papers using computational methods.
-On the content of the papers, our overall impression is that a larger share of GIScience papers focus on theoretical, conceptual, or methodological aspects than at AGILE, while AGILE papers seem to feature more empirical and/or applied geoinformation research.
+```{r comparison-table, echo=FALSE, warning=FALSE}
+criteria <- c("input data", "method/analysis/processing", "computational environment", "results")
+comparison_table <- tibble(Criterion = criteria,
+                           `AGILE full papers` = c(agile_input_data_mean,
+                                                   agile_method_mean,
+                                                   agile_compenv_mean,
+                                                   agile_results_mean),
+                           `GIScience papers` = summaries["Mean", criteria])
 
+knitr::kable(comparison_table,
+      digits = 2,
+      caption = "Mean values per criterion for both conferences (rounded to two decimal places)") %>%
+  kableExtra::row_spec(0, bold = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("striped"),
+                            font_size = 8)
+```
 
-|  Mean values per criterion| AGILE    | GIScience |
-| -------- | -------- | -------- |
-| Input data      | 0.48     | 0.7     |
-| Computational environment     | 0.46     | 0.3     |
-| Results     | 0.78    | 1.1     |
-
-Regarding the results of the reproducibility assessment, the nature of the data and sample size does not suggest statistical analysis about significant differences.
-However, looking at the _input data_ category, GIScience has a slightly higher mean (0.7 as opposed to 0.48 for AGILE) and a median of 1, indicating a slightly better, but by no means optimal, availability of input data.
-The pattern of reproducibility of the papers' analyses is very similar for the two conference series.
-The overwhelming majority of papers achieve a level of `1`, resulting in a mean of 1.0 for GIScience and 0.98 for AGILE.
-The _computational environment_ category is not that different, but sees AGILE in front with a mean of 0.46 vs. 0.3 for GIScience.
-The _results_ category scores are again slightly higher for GIScience, with a mean of 1.1 vs. a mean of 0.78 for AGILE. There are several papers in AGILE that received a level of `0` here, indicating that crucial information is missing about elements and transformations between analysis outputs and presented results.
+Regarding the results of the reproducibility assessments as summarised in Table&nbsp;\@ref(tab:comparison-table), the nature of the data and sample size does not support statistical analysis about significant differences.
+However, looking at the _input data_ category, GIScience has a slightly higher mean value compared to AGILE full papers (`r round(summaries["Mean","input data"], 2)` as opposed to `r agile_input_data_mean`) and a median of `r round(summaries["Median","input data"], 0)`.
+These values indicate a slightly better, but by no means optimal, availability of input data.
+The pattern of reproducibility of the papers' workflows (category _method/analysis/processing_) is very similar for the two conference series:
+The overwhelming majority of papers achieve a level of `1`, resulting in a mean of `r round(summaries["Mean","method/analysis/processing"], 2)` for GIScience and `r agile_method_mean` for AGILE full papers.
+The _computational environment_ category is not that different, but sees AGILE in front with a mean of `r agile_compenv_mean` vs. `r round(summaries["Mean","computational environment"], 2)` for GIScience.
+The _results_ category scores are again slightly higher for GIScience, with a mean of `r round(summaries["Mean","results"], 2)` vs. a mean of `r agile_results_mean` for AGILE.
+There are several papers in AGILE that received a level of `0` here, indicating that crucial information is missing about elements and transformations between analysis outputs and presented results.
 We refrain from comparing the _preprocessing_ category here, because our analysis has shown that this is a somewhat contentious dimension, causing the majority of discussions between assessors.
 
-An important difference between the two conference series is that GIScience is a biannual conference series as opposed to the annual AGILE, and features a different pre-publication review process and review management system: in AGILE both authors and reviewers are anonymous, while in GIScience only the reviewers are.
-
-The AGILE conference series has the AGILE association[^agileorg] as institutional supporter, which means a more stable organizational and financial framework for activities spanning more than one or between conferences.
+There are differences to consider between the two conference series.
+GIScience is a biannual conference series as opposed to the annual AGILE, and features a different pre-publication review process and review management system:
+In AGILE both authors and reviewers are anonymous, while in GIScience only the reviewers are.
+Furthermore, the AGILE conference series has the AGILE association[^agileorg] as institutional supporter, which means a more stable organizational and financial framework for activities spanning more than one or between conferences.
 However, like GIScience, the local conference organizers have to lift the main financial burden.
-AGILE also has a different geographic focus: While GIScience has a global target audience, the individual conferences are likely to be different in their contributor communities, because of the moving conference location, which often means lowered accessibility for other parts of the world.
+AGILE also has a different geographic focus:
+While GIScience has a global target audience, the individual conferences are likely to be different in their contributor communities, because of the moving conference location, which often means lowered accessibility for other parts of the world.
 AGILE, by comparison, has a European focus, and although the conference location moves every year, accessibility is less diverse. 
 This likely translates into a less fluctuating, and less geographically diverse audience.
 
-This comparison lets us draw two main conclusions:
+This comparison lets us draw two main conclusions.
 First, that both the target audience and the content of the two conference series are similar enough to be afflicted with similar shortcomings in terms of reproducibility, and thus likely also similar solutions.
 Second, that the AGILE conference series seems structurally better positioned to support changing habits, because of a more stable audience and institutional support.
 The introduction of the AGILE reproducibility guidelines was done within a short time frame and with financial support in form of an "AGILE initiative" for an in-person workshop.

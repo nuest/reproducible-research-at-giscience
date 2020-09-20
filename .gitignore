@@ -79,3 +79,7 @@ paper/reproducible-research-at-giscience_files/
 author_analysis/.ipynb_checkpoints/
 
 .python_history
+
+*.aux
+
+*.bbl

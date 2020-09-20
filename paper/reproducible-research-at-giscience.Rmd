@@ -163,7 +163,7 @@ Second, apply the assessment procedure used for AGILE conference papers (present
 Such a transfer validates the developed methodology.
 Together, these objectives yield important findings for the discussion of reproducibility within the GIScience conference community and the GIScience discipline at large. 
 Only then can a fruitful dialogue take place on if and how to improve reproducibility for the GIScience conference series, and whether the recent steps taken at AGILE[^reproagile] could be an inspiration for GIScience conferences as well.
-We discuss these findings and present our conclusions in the final two sections (Discussion; Conclusions and Outlook).
+We discuss these findings and present our conclusions in the final two sections (Discussion; Conclusions and outlook).
 
 [^giscience]: [https://www.giscience.org/](https://www.giscience.org/)
 [^agile]: [https://agile-online.org/conference](https://agile-online.org/conference)
@@ -201,25 +201,27 @@ knitr::kable(keywordstems_counts,
 
 # Related work
 
-This work transfers a previously used method to a new dataset and the original article, \cite{nust_reproducible_2018}, already provides an overview of reproducible research in general, including definitions, challenges, and shortcomings. In the following, we focus on works recently published and briefly introduce related meta-studies.
+This work transfers a previously used method to a new dataset and the original article \cite{nust_reproducible_2018} already provides an overview of reproducible research in general, including definitions, challenges, and shortcomings.
+In the following, we focus on works recently published and briefly introduce related meta-studies.
 
 Few groups have attempted practical reproduction of computational works related to GIScience.
-\cite{konkol_computational_2019} conducted an in-depth examination of the computational reproducibility of 41 geoscience papers with a focus on differences between the recreated figures. The set of papers was, similar to our work, drawn from a fixed group of two outlets (journals), but was further limited to recent papers providing code in the R language.
-Konkol et al. (2019) also conducted actual reproductions, from which we abstained.
+Konkol et&nbsp;al. \cite{konkol_computational_2019} conducted an in-depth examination of the computational reproducibility of 41 geoscience papers with a focus on differences between the recreated figures.
+The set of papers was, similar to our work, drawn from a fixed group of two outlets (journals), but was further limited to recent papers providing code in the R language.
+Konkol et&nbsp;al. \cite{konkol_computational_2019} also conducted actual reproductions, from which we abstained.
 However, applying the same prerequisites to our dataset would be possible as a next step.
 One could attempt to reproduce the papers whose assessment points to a possible reproduction (i.e., level two or higher, see below).
 In a report on the reproducibility review at the AGILE conference 2020[^reproreport], the reproducibility committee summarises the process and documents relevant obstacles to reproducibility of accepted papers.
-The main issues identified in the reproducibility committee's report and by \cite{konkol_computational_2019} are quite coincident.
+The main issues identified in the reproducibility committee's report and by Konkol et&nbsp;al. \cite{konkol_computational_2019} are quite coincident.
 
-Within the geospatial domain, \cite{kedron_reproducibility_2020} provide a recent review of opportunities and challenges for reproducibility and replicability.
+Within the geospatial domain, Kedron et&nbsp;al. \cite{kedron_reproducibility_2020} provide a recent review of opportunities and challenges for reproducibility and replicability.
 They transfer solutions from other domains but also discuss and conceptualize the specific nature of a reproducibility and replicability framework when working with geospatial data, e.g., handling context, uncertainty of spatial processes, or how to accomodate the inherent natural variability of geospatial systems.
-In a similar manner, \cite{brunsdon_opening_2020} investigate reproducibility within spatial data science, with particularly discussing big spatial data.
+In a similar manner, Brunsdon and Comber \cite{brunsdon_opening_2020} investigate reproducibility within spatial data science, with particularly discussing big spatial data.
 They support the need for open tools, knowledge about code, and reproducibility editors at domain journals and conferences, but also introduce the perspective that spatial analysis is no longer conducted only by GI/geo-scientists or geographers and connect reproducibility with critical spatial understanding.
 The conceptual work in these articles complements the assessment of reproducibility conducted in this paper.
 
 Two recent studies from distant disciplines, wildlife science \cite{archmiller_computational_2020} and hydrology \cite{stagge_assessing_2019}, relate to our work in this paper.
 Both investigate a random set of articles from selected journals and use step-wise process of questions to determine availability of materials, and eventually reproduce workflows if possible.
-\cite{archmiller_computational_2020} use a final ranking of 1 to 5 to specify the degree to which a study's conclusions were eventually reproduced.
+Archimiller et&nbsp;al. \cite{archmiller_computational_2020} use a final ranking of 1 to 5 to specify the degree to which a study's conclusions were eventually reproduced.
 Similar to our classification scheme, their ranking models the general notion of a _"reproducibility spectrum"_ \cite{peng_reproducible_2011}.
 
 [^reproreport]: [https://osf.io/7rjpe/](https://osf.io/7rjpe/)
@@ -228,8 +230,7 @@ Similar to our classification scheme, their ranking models the general notion of
 
 ## Criteria
 
-The assessment criteria were originally defined in previous work \cite{nust_reproducible_2018}.
-We provide a short introduction here and refer to \cite{nust_reproducible_2018} for details.
+The assessment criteria were originally defined in previous work, so we provide a short introduction here and refer to Nüst et&nbsp;al. \cite{nust_reproducible_2018} for details.
 The three assessment criteria are _Input Data_, _Methods_, and _Results_.
 _Input Data_ comprises all datasets that the computational analysis uses.
 _Methods_ encompasses the entire computational analysis that generates the results.
@@ -308,11 +309,12 @@ conceptual_paper_counts <- paper_evaluation %>%
 ```
 
 In total, `r count_papers` papers from the GIScience conferences in `r paste(sort(unique(paper_evaluation$year)), collapse = ", ")` were assessed.
-Table&nbsp;\@ref(tab:corpus-table) shows the full results of the assessment, for details on assigned assessors, authors, etc. please check the reproducibility package.
+Table&nbsp;\@ref(tab:corpus-table) shows the full results of the assessment.
+For details on assigned assessors, authors, et cetera please check the reproducibility package.
 `r count_conceptual` papers across all years were identified as conceptual papers[^conceptual] and were not included in the corpus.
 This results in `r paste0(round(count_conceptual / count_papers * 100, 0), "%")` out the corpus.
-For comparison, our previous reproducibility assessment of the AGILE conference series' papers had 5 conceptual papers out of 32 (`r paste0(round(5 / 32 * 100, 0), "%")`) - see \cite{nust_reproducible_2018} for further details -, which shows a similar proportion, even though both corpora have different time windows.
-The number of conceptual papers in GIScience conferences was low over the analysed years (`r paste(conceptual_paper_counts$counts, collapse = "; ")`, going down to 0 in the last year's proceedings (`r max(unique(paper_evaluation$year))`).
+For comparison, our previous reproducibility assessment of the AGILE conference series' papers had 5 conceptual papers out of 32 (`r paste0(round(5 / 32 * 100, 0), "%")`) \cite{nust_reproducible_2018}, which shows a similar proportion, even though both corpora have different time windows.
+The number of conceptual papers in GIScience conferences was low over the analysed years (`r paste(conceptual_paper_counts$counts, collapse = "; ")`, going down to zero in the last year's proceedings (`r max(unique(paper_evaluation$year))`).
 This might suggest the increasingly predominant and ubiquitous role of analytics datasets and computational workflows in the generation of the final published results in the field.
 In summary, `r count_n` were assessed according to the reproducibility criteria as explained next.
 
@@ -361,23 +363,25 @@ compenv_level_zero <- paper_evaluation_wo_conceptual %>%
 
 Figure&nbsp;\@ref(fig:assessment-results) shows the distribution of the reproducibility levels for each criterion.
 None of the papers reaches the highest level of reproducibility in any criterion.
-Only `r data_level_two` papers reach level 2 in the input data criterion, which is still the highest number of that level across all criteria.
-Similar to previous results \cite{nust_reproducible_2018}, the number of papers with level 0 for data is especially high (`r data_level_zero`, `r paste0(round(data_level_zero / count_n * 100, 0), "%")`), which is a heavy barrier to reproduction since input data is not only unavailable, but cannot be recreated from the information provided in the paper.
+Only `r data_level_two` papers reach level `2` in the input data criterion, which is still the highest number of that level across all criteria.
+Similar to previous results \cite{nust_reproducible_2018}, the number of papers with level `0` for data is especially high (`r data_level_zero`, `r paste0(round(data_level_zero / count_n * 100, 0), "%")`), which is a heavy barrier to reproduction since input data is not only unavailable, but cannot be recreated from the information provided in the paper.
 
-Data preprocessing applies to `r preprocessing_included` publications, and the levels reached are generally low (0,1), being level 2 almost residual. `r preprocessing_level_one` papers reach level 1 in the  data preprocessing criterion.
-This roughly represents half of the papers with level 1 in the analysis criterion, suggesting that sometimes data preproceesing was clearly identified in some papers while in others it was unclear to decide either the existence of data preprocessing tasks separated from the main analysis or being part of it.
+Data preprocessing applies to `r preprocessing_included` publications, and the levels reached are generally low (`0` or `1`), level `2` being almost residual.
+`r preprocessing_level_one` papers reach level `1` in the  data preprocessing criterion.
+This roughly represents half of the papers with level `1` in the analysis criterion, suggesting that sometimes data preproceesing was clearly identified in some papers while in others it was unclear to decide either the existence of data preprocessing tasks separated from the main analysis or being part of it.
 The former case, data processsing steps required but not reported, is much more problematic as it notably hinders the reproduction of the results of a paper.
 
 Methods and results criteria show a pretty similar distribution (Figure&nbsp;\@ref(fig:assessment-results).
-Indeed, `r methods_and_results_eq_one` publications have level 1 in both criteria, which represents `r paste0(round(methods_and_results_eq_one / count_n * 100, 0), "%")` of the papers assessed.
+Indeed, `r methods_and_results_eq_one` publications have level `1` in both criteria, which represents `r paste0(round(methods_and_results_eq_one / count_n * 100, 0), "%")` of the papers assessed.
 In this sense, most of the assessed papers fall below the minimum standard for reproduction as regards the methods and results criteria. 
-All papers except one have "1" for the results criterion, which shows that the peer review worked as expected for almost all articles.
+All papers except one have a value of `1` for the results criterion, which shows that the peer review worked as expected for almost all articles.
 In other words, the authors are concerned with making the results understandable to the reviewers, which is not always the case for the rest of the criteria.
 More generally, this aspect raises the question of whether peer review should stop in the absence of minimal evidence of the input data, analysis, and computational environment used in a paper.
-Without an explicit justification (confidential data, privacy concerns, etc), should a paper with level 0 (or NA) for the input data criterion get accepted for a conference? 
+Without an explicit justification (confidential data, privacy concerns, etc), should a paper with level `0` (or `NA`) for the input data criterion get accepted for a conference? 
 
-Finally, the computational environment criterion obtains the worst results. `r compenv_level_zero` (`r paste0(round(compenv_level_zero / count_n * 100, 0), "%")`) publications are level 0, which means that no clues are provided in the paper about the computing environment, tools and libraries used in the reported research and/or analysis.
-The computational environment criterion and the input data criterion account for a considerable number of `0s`, which clearly signals a serious impediment to reproduction.
+Finally, the computational environment criterion obtains the worst results.
+`r compenv_level_zero` (`r paste0(round(compenv_level_zero / count_n * 100, 0), "%")`) publications are level `0`, which means that no clues are provided in the paper about the computing environment, tools and libraries used in the reported research and/or analysis.
+The computational environment criterion and the input data criterion account for a considerable number of `0` values, which clearly signals a serious impediment to reproduction.
 
 
 The full assessment table in the paper repository is at [`paper_assessment.csv`](https://github.com/nuest/reproducible-research-at-giscience/blob/master/results/paper_assessment.csv) 
@@ -447,27 +451,29 @@ criteriaBarplot(paper_evaluation_wo_conceptual$results,
 Our first research objective was to assess the state of reproducibility in the GIScience conference series.
 A recurrent issue found in the analysis is the inability to access input data based on the information provided in the paper.
 Most of the links and pointers to datasets reported at the time of publication were either broken (e.g., non-existing resource, HTTP 404 error, invalid URL syntax) or not available anymore (URL works but is redirected to a different generic page; specific resource from the paper no longer exists).
-In these cases, a level of 2 in the input data criterion was well deserved at the time of publication.
-However, when evaluating the level of reproducibility some time later, as done in this work, level 2 is no longer correct for those papers.
+In these cases, a level of `2` in the input data criterion was well deserved at the time of publication.
+However, when evaluating the level of reproducibility some time later, as done in this work, level `2` is no longer correct for those papers.
 From the reproducibility point of view input data is not accessible, even if authors could be contacted directly.
-In the meaning of the criterion and in practical terms, this is effectively the same as the statement "available upon request" and thereby level 0.
+In the meaning of the criterion and in practical terms, this is effectively the same as the statement "available upon request" and thereby level `0`.
 An important part of reproducibility is that access to material should not degrade over time, which is best achieved by depositing data in repositories, including mechanisms for sensitive data, and properly citing it.
-In this assessment of reproducibility, we decided to give the authors the benefit of the doubt and awarded a value of 2 even if we could not conclusively determine, e.g., by using the Internet Archive's Wayback Machine[^wayback], if the original website ever existed.
+In this assessment of reproducibility, we decided to give the authors the benefit of the doubt and awarded a value of `2` even if we could not conclusively determine, e.g., by using the Internet Archive's Wayback Machine[^wayback], if the original website ever existed.
 <!-- DN: to me, this goes into too much detail about good practice for data citation.
 
 Simple methods and techniques can be more easily adhere to this goal, even for decades[^tenopir].
 Instead of short-lived URLs, e.g., a personal or project website, authors should archive input data used in a paper in permanent repositories.
 Consequently, footnotes with URLs are not suitable for citing data, but as a citation by itself like any other resource or paper included in the bibliography section.
+
+[^tenopir]: See Tenopir and colleagues' trilogy about "data sharing" at [https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1](https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1).
 -->
 
 [^wayback]: [https://web.archive.org/](https://web.archive.org/).
 
 Regarding the common situation of a paper with "all 1s", our interpretation is that indeed this is a regular paper that is up to current scientific standards.
-Even if there is a 0 in some criteria, that does not mean that the paper should not have passed peer review - after all, we assess specifically a paper's reproducibility, which likely was not included at all in the call for papers or the reviewer guidelines, and has therefore not received much attention from authors or reviewers.
+Even if there is a value of `0` in some criteria, that does not mean that the paper should not have passed peer review - after all, we assess specifically a paper's reproducibility, which likely was not included at all in the call for papers or the reviewer guidelines, and has therefore not received much attention from authors or reviewers.
 We analyse the history, when there were no incentives to push these aspects.
 
 However, the overall picture matches a somewhat worrisome focus on publishing exciting results in science, and less care about publishing the full process that allows readers to try and fully understand the research. 
-Clearly, a score of 0 in input data is problematic, because without sufficient knowledge about the characteristics of the input data, all attempts at reproducing results are bound to fail, even when the textual documentation would potentially allow an expensive recreation of the method.
+Clearly, a level of `0` in input data is problematic, because without sufficient knowledge about the characteristics of the input data, all attempts at reproducing results are bound to fail, even when the textual documentation would potentially allow an expensive recreation of the method.
 
 ## Transferability of method
 
@@ -480,9 +486,9 @@ Future assessments could provide a more precise definition for _pre_-processing,
 In a similar vein, the computational environment is difficult to clearly distinguish from analysis, and technology and practices for the effective management of the computing environment are reached mature states relatively recently.
 Future assessments could prepare concrete rules as reliefs for historic workflows, similar as discussed for input data above.
 
-Furthermore, it is important to remember that the levels of reproducibility are not equidistant in the sense that a level of 2 would be twice as good as a level of 1, or that the effort needed is twice as high.
+Furthermore, it is important to remember that the levels of reproducibility are not equidistant in the sense that a level of `2` would be twice as good as a level of `1`, or that the effort needed is twice as high.
 A level of 1 should be the standard for peer-reviewed papers.
-Moving it to 2 requires several steps and actions, while reaching the gold standard of 3 is a comparetively small step from level 2 - the main difference is to use public repositories with a DOI - but with a comparatetively positive impact in permanent accessibility.
+Moving it to `2` requires several steps and actions, while reaching the gold standard of `3` is a comparetively small step from level `2` - the main difference is to use public repositories with a DOI - but with a comparatetively positive impact in permanent accessibility.
 
 ## Comparison of conferences
 
@@ -517,9 +523,9 @@ On the content of the papers, our overall impression is that a larger share of G
 Regarding the results of the reproducibility assessment, the nature of the data and sample size does not suggest statistical analysis about significant differences.
 However, looking at the _input data_ category, GIScience has a slightly higher mean (0.7 as opposed to 0.48 for AGILE) and a median of 1, indicating a slightly better, but by no means optimal, availability of input data.
 The pattern of reproducibility of the papers' analyses is very similar for the two conference series.
-The overwhelming majority of papers achieve a level of 1, resulting in a mean of 1.0 for GIScience and 0.98 for AGILE.
+The overwhelming majority of papers achieve a level of `1`, resulting in a mean of 1.0 for GIScience and 0.98 for AGILE.
 The _computational environment_ category is not that different, but sees AGILE in front with a mean of 0.46 vs. 0.3 for GIScience.
-The _results_ category scores are again slightly higher for GIScience, with a mean of 1.1 vs. a mean of 0.78 for AGILE. There are several papers in AGILE that received a score of 0 here, indicating that crucial information is missing about elements and transformations between analysis outputs and presented results.
+The _results_ category scores are again slightly higher for GIScience, with a mean of 1.1 vs. a mean of 0.78 for AGILE. There are several papers in AGILE that received a level of `0` here, indicating that crucial information is missing about elements and transformations between analysis outputs and presented results.
 We refrain from comparing the _preprocessing_ category here, because our analysis has shown that this is a somewhat contentious dimension, causing the majority of discussions between assessors.
 
 An important difference between the two conference series is that GIScience is a biannual conference series as opposed to the annual AGILE, and features a different pre-publication review process and review management system: in AGILE both authors and reviewers are anonymous, while in GIScience only the reviewers are.
@@ -537,7 +543,6 @@ The introduction of the AGILE reproducibility guidelines was done within a short
 For GIScience, the task to change the review process to support more reproducibility falls squarely on the shoulders of the changing program committees. 
 However, the experience of AGILE's new guidelines shows that even small changes can lead to a significantly improved outcome.
 
-[^tenopir]: See Tenopir and colleagues' trilogy about "data sharing" at [https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1](https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1).
 [^agileorg]: [https://agile-online.org/](https://agile-online.org/).
 [^authoranalysis]: The data and code for the brief exploration into the authorships across the conferences considered in this work can be found in the directory `author_analysis` of this paper's reproducibility package \cite{daniel_nust_2020_4032875}.
 
@@ -553,7 +558,7 @@ Instead, we investigated the papers along a single desirable quality dimension, 
 Taking a similar high bar for reproducibility as in the earlier study, the results clearly show a lot of room for improvement, as none of the presented articles was readily reproducible.
 The majority of articles provide some information, but not to the degree required to facilitate transparent, and, most relevantly, reusable research using data and software.
 This is overall similar to the outcomes of our earlier study on AGILE papers.
-In \cite{nust_reproducible_2018} we describe concrete recommendations for individuals and organisations to improve the reproducibility.
+In previous work \cite{nust_reproducible_2018} we describe concrete recommendations for individuals and organisations to improve the reproducibility.
 We have argued that AGILE and GIScience share a sufficiently common starting position, domain/discipline characteristics, attendence, audience, and author community, for sharing common strategies to improve the situation.
 Therefore the recommendations are directly transferable to the GIScience conference series, most importantly (1) a promotion of outstanding reproducible work, e.g., with awards or badges,
 (2) recognition of the efforts to achieve reproducibility, e.g., with a special track for reproducible papers, a role of reproducibility reviewer, open educational resources, and helpful author guidelines including data and software citation requirements and a specific data/software repository, and

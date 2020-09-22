@@ -312,9 +312,9 @@ Table&nbsp;\@ref(tab:corpus-table) shows the full results of the assessment.
 For details on assigned assessors, authors, etcetera please check the reproducibility package \cite{daniel_nust_2020_4032875}.
 `r count_conceptual` papers (`r paste0(round(count_conceptual / count_papers * 100, 0), "%")`) across all years were identified as conceptual papers[^conceptual] and were not included in the corpus.
 For comparison, our previous reproducibility assessment of the AGILE conference series' papers had 5 conceptual papers out of 32 (`r paste0(round(5 / 32 * 100, 0), "%")`) \cite{nust_reproducible_2018}, which shows a similar proportion, even though both corpora have different time windows.
-The number of conceptual papers in GIScience conferences was low over the analysed years (`r paste(conceptual_paper_counts$counts, collapse = "; ")"`, going down to zero in the last year's proceedings (`r max(unique(paper_evaluation$year))`).
+The number of conceptual papers in GIScience conferences was low over the analysed years (`r paste(conceptual_paper_counts$counts, collapse = "; ")`), going down to zero in the last year's proceedings (`r max(unique(paper_evaluation$year))`).
 This might suggest the increasingly predominant and ubiquitous role of analytics datasets and computational workflows in the generation of the final published results in the field.
-In summary, `r count_n` were assessed according to the reproducibility criteria as explained next.
+In summary, `r count_n` papers were assessed according to the reproducibility criteria as explained next.
 
 # Reproducibility of GIScience conference papers
 

@@ -216,7 +216,7 @@ knitr::kable(keywordstems_counts,
   kableExtra::row_spec(0, bold = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("striped", "scale_down"),
                             font_size = 6) %>%
-  kableExtra::footnote(general = "The very high value for 'code' in 2012 is due to a single paper about land use, for which different "land use codes" are defined, discussed and used.",
+  kableExtra::footnote(general = "The very high value for 'code' in 2012 is due to a single paper about land use, for which different \"land use codes\" are defined, discussed and used.",
                        title_format = c("italic"))
 ```
 
@@ -322,10 +322,8 @@ In total, `r count_papers` papers from the GIScience conferences in `r paste0(pa
 Table&nbsp;\@ref(tab:corpus-table) shows the full results of the assessment.
 For details on assigned assessors, authors, etc., please check the reproducibility package \cite{daniel_nust_2020_4032875}.
 `r count_conceptual` papers (`r paste0(round(count_conceptual / count_papers * 100, 0), "%")`) across all years were identified as conceptual papers[^conceptual] and were not included in the corpus.
-For comparison, our previous reproducibility assessment of the AGILE conference series' papers had 5 conceptual papers out of 32 (`r paste0(round(5 / 32 * 100, 0), "%")`) \cite{nust_reproducible_2018}, which shows a similar proportion, even though both corpora have different time windows.
 The number of conceptual papers in GIScience conferences was low over the analysed years (`r paste(conceptual_paper_counts$counts, collapse = "; ")`), going down to zero in the last year's proceedings (`r max(unique(paper_evaluation$year))`).
 This might suggest the increasingly predominant and ubiquitous role of analytics datasets and computational workflows in the generation of the final published results in the field.
-In summary, `r count_n` papers were assessed according to the reproducibility criteria as explained next.
 
 # Reproducibility of GIScience conference papers
 
@@ -528,7 +526,7 @@ Therefore, the strong relation between the AGILE and GIScience conference series
 
 Concerning the paper corpora, the publication years considered here (2012-2018) are similar to the assessment of AGILE papers (2010-2017), which makes the results comparable in the sense of what methods and tools would have been available for authors.
 Furthermore, we note that both conferences have a similar ratio of conceptual papers which were not assessed for reproducibility:
-In the AGILE corpus we identified `r agile_conceptual` of `r agile_n` conceptual papers (`r round(agile_conceptual / agile_papers * 100, 1)`%), in the GIScience corpus there were `r count_conceptual` of `r count_papers` (`r round(count_conceptual / count_papers * 100, 1)`%).
+In the AGILE corpus we identified `r agile_conceptual` of `r agile_papers` conceptual papers (`r round(agile_conceptual / agile_papers * 100, 1)`%), in the GIScience corpus there were `r count_conceptual` of `r count_papers` (`r round(count_conceptual / count_papers * 100, 1)`%).
 This indicates that both conferences have similar share of papers that used, at least in part, computational methods.
 On the content of the papers, our overall impression was that a larger share of GIScience papers included theoretical, conceptual, or methodological aspects, while AGILE papers seemed to feature more empirical and/or applied geoinformation science research.
 

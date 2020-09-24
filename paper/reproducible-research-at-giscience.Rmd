@@ -151,7 +151,7 @@ appendix: |
     kableExtra::column_spec(5, width = "2em") %>%
     kableExtra::column_spec(6, width = "2.8em") %>%
     kableExtra::column_spec(7, width = "2em") %>%
-    kableExtra::column_spec(8, width = "2em") %>%
+    kableExtra::column_spec(8, width = "2.8em") %>%
     kableExtra::kable_styling(latex_options = c("striped", "repeat_header"),
                               font_size = 6)
   ```

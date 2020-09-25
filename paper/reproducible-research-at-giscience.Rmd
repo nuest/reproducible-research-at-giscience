@@ -151,7 +151,7 @@ appendix: |
     kableExtra::column_spec(5, width = "2em") %>%
     kableExtra::column_spec(6, width = "2.8em") %>%
     kableExtra::column_spec(7, width = "2em") %>%
-    kableExtra::column_spec(8, width = "2.8em") %>%
+    kableExtra::column_spec(8, width = "2em") %>%
     kableExtra::kable_styling(latex_options = c("striped", "repeat_header"),
                               font_size = 6)
   ```
@@ -385,7 +385,7 @@ In other words, authors are concerned with making the results understandable to 
 More generally, this aspect raises the question of whether peer review should stop in the absence of minimal evidence of the input data, analysis, and computational environment used in a paper.
 Without an explicit justification (confidential data, privacy concerns, etc), should a paper with level `0` (or `NA`) for the input data criterion get accepted for a conference? 
 
-Finally, papers scored words on the _Computational Environment_ criterion.
+Finally, papers scored worse on the _Computational Environment_ criterion.
 Overall, `r compenv_level_zero` (`r paste0(round(compenv_level_zero / count_n * 100, 0), "%")`) publications were level `0`, which means that no clues were provided in the paper about the computing environment, tools, or libraries used in the reported analysis.
 The _Computational Environment_ criterion and the _Input Data_ criterion accounted for a considerable number of `0` values, which clearly signals a serious impediment to reproduction.
 
@@ -477,7 +477,7 @@ Even if there is a value of `0` in some criteria, that does not mean the paper s
 Thus, we are analysing in the historical context of when there were no concrete incentives to push these aspects, beyond the general concerns for good scientific practice.
 
 However, this overall picture matches the somewhat worrisome focus that researchers, editors, and publishers have on publishing exciting results in science, and not giving as much care to publishing the full process and collection of parts that would allow readers to try to fully understand the research. 
-Clearly, a level of `0` in _Input Data_ is problematic, because without sufficient knowledge about the characteristics of the input data, all attempts at reproducing results are bound to fail, even when the textual documentation of the data would potentially allow for an expensive recreation of the method.
+Clearly, a level of `0` in _Input Data_ is problematic, because without sufficient knowledge about the characteristics of the input data, all attempts at reproducing results are bound to fail, even when the textual documentation of the data would potentially allow for an expensive recreation of the computational workflow.
 
 ## Transferability of method
 

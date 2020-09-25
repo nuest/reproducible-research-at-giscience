@@ -275,6 +275,7 @@ While reaching 1 is fairly straightforward, jumping to level 2 means one must ha
 ## Process
 
 The overall approach to assessing the reproducibility of GIScience papers, again, followed the previous assessment of AGILE papers \cite{nust_reproducible_2018}.
+The assessment was conducted by the same persons.
 All full papers in the GIScience conference series (from the 2012 to 2018 editions) were assessed.
 This is partly because of no obvious subset, such as the nominees for best papers as in the case of the AGILE conference series; this was also partly because we aimed to work with a larger dataset for potentially more informative results.
 Each GIScience paper was randomly assigned to two assessors who evaluated it qualitatively according to the five reproducibility criteria.

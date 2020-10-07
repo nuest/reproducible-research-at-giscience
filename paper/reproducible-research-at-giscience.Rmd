@@ -11,7 +11,7 @@ anonymous: false # for anonymousing the authors (e.g. for double-blind review)
 thm-restate: true # for enabling thm-restate support
 author:
   # mandatory, please use full name; only 1 author per \author macro; first two parameters are mandatory, other parameters can be empty. Please provide at least the name of the affiliation and the country. The full address is optional
-  - name: Frank Ostermann
+  - name: Frank O. Ostermann
     #footnote: Optional footnote, e.g. to mark corresponding author
     affiliation: "Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente, Enschede, The Netherlands"
     orcid: "https://orcid.org/0000-0002-9317-8291"
@@ -42,9 +42,8 @@ author:
     email: m.konkol@uni-muenster.de
     funding: "Project [_o2r_](https://www.uni-muenster.de/forschungaz/project/12343), German Research Foundation, grant numbers [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837) and [TR&nbsp;864/12-1]()."
 bibliography: bibliography
-authorrunning: "F. Ostermann, D. Nüst, C. Granell, B. Hofer, M. Konkol" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
+authorrunning: "F. O. Ostermann, D. Nüst, C. Granell, B. Hofer, M. Konkol" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
 # A "thin space" character, ' ' or &thinsp;, is used between the two first names.
-copyright: "Frank Ostermann, Daniel Nüst, Carlos Granell, Barbara Hofer, and Markus Konkol" # mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
 ccdesc:
   # Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm
   concept_significance: "500"

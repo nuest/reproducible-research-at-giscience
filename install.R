@@ -61,3 +61,9 @@ tinytex::tlmgr_install("environ")
 tinytex::tlmgr_install("trimspaces")
 tinytex::tlmgr_install("ulem")
 tinytex::tlmgr_install("makecell")
+
+# for the preprint header:
+tinytex::tlmgr_install("ifluatex")
+tinytex::tlmgr_install("ms")
+tinytex::tlmgr_install("pgf")
+tinytex::tlmgr_install("anyfontsize")

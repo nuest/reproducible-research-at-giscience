@@ -1,0 +1,30 @@
+---
+output:
+  pdf_document:
+    latex_engine: xelatex
+header-includes:
+  - \usepackage{anyfontsize}
+  - \usepackage{xcolor}
+  - \definecolor{shadecolor}{RGB}{222,222,222}
+geometry: margin=0.1in
+papersize: a4
+---
+
+\scriptsize
+
+\colorbox{shadecolor}{
+\parbox{\dimexpr\textwidth-2\fboxsep\relax}{
+{\fontsize{5.8}{5.5}\selectfont 
+This manuscript is a \textbf{non-peer reviewed EarthArXiv preprint} (\url{https://eartharxiv.org/}).
+Subsequent versions may have different content.
+If submitted and accepted, the peer-reviewed version of this manuscript will be available via the 'Peer-reviewed Publication DOI' link on the manuscripts webpage.
+Please feel free to contact any of the authors - we welcome feedback!
+}}}
+
+```{r add_watermark_header, eval=FALSE, echo=FALSE}
+library("here")
+system2("pdftk", c(here("paper", "reproducible-research-at-giscience.pdf"),
+                   "stamp", here("paper", "preprint-header.pdf"),
+                   "output", here("paper", "reproducible-research-at-giscience_preprint.pdf")))
+```
+

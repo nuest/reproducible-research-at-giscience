@@ -83,3 +83,7 @@ author_analysis/.ipynb_checkpoints/
 *.aux
 
 *.bbl
+
+paper/preprint-header.pdf
+
+paper/reproducible-research-at-giscience_preprint.pdf

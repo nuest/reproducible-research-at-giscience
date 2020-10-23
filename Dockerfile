@@ -6,11 +6,12 @@ FROM rocker/binder:3.6.3
 ARG NB_USER
 ARG NB_UID
 
-# Install system dependency for pdftools
+# Install system dependency for pdftools and install pdftk
 USER root
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     libpoppler-cpp-dev \
+    pdftk \
     # install wheel for requirements installation below
     #python3-wheel \
   && apt-get clean \

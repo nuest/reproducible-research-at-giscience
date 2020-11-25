@@ -5,12 +5,15 @@ Reproducibility package for the article “Reproducible research and
 GIScience: an evaluation using GIScience conference papers”. This
 repository is based on a previous analysis of [AGILE
 conference](https://agile-online.org/conference) submissions, see
-<https://github.com/nuest/reproducible-research-and-giscience>.
+<https://github.com/nuest/reproducible-research-and-giscience>. Find the
+preprint and a deposition of this repository via the badges below.
 
 <!--
 [![Article DOI](https://img.shields.io/badge/PUBLISHER-https%3A%2F%2Fdoi.org%2FDOI-brightgreen.svg)](https://doi.org/)
 -->
 
+[![Earth ArXiv
+DOI](https://img.shields.io/badge/%F0%9F%8C%8D%F0%9F%8C%8F%F0%9F%8C%8E%20EarthArXiv-doi.org%2F10.31223%2FX5ZK5V-%23FF7F2A)](https://doi.org/10.31223/X5ZK5V)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4032875.svg)](https://doi.org/10.5281/zenodo.4032875)
 
@@ -21,8 +24,7 @@ environment with all required software installed on
 [MyBinder.org](https://mybinder.org/). It uses the current version of
 the branch `master` in the repository, but you can also enter the Zenodo
 DOI (see above) in the MyBinder user interface to open a preserved
-release
-version.
+release version.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nuest/reproducible-research-at-giscience/master?urlpath=rstudio)
 

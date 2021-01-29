@@ -464,14 +464,6 @@ From the reproducibility point of view, the input data was not accessible, even 
 According to the meaning of the criterion and in practical terms, this is equivalent to including the statement "available upon request" in the paper and thereby level `0`.
 An important part of reproducibility is that access to material should not degrade over time, which is best achieved by depositing data in repositories, including sensitive data (using the appropriate mechanisms), and properly citing it.
 In this assessment of reproducibility, we decided to give the authors the benefit of the doubt and awarded a value of `2` for _Input Data_ even if we could not conclusively determine, e.g., by using the Internet Archive's Wayback Machine[^wayback], whether the original website ever existed.
-<!-- DN: to me, this goes into too much detail about good practice for data citation.
-
-Simple methods and techniques can be more easily adhere to this goal, even for decades[^tenopir].
-Instead of short-lived URLs, e.g., a personal or project website, authors should archive input data used in a paper in permanent repositories.
-Consequently, footnotes with URLs are not suitable for citing data, but as a citation by itself like any other resource or paper included in the bibliography section.
-
-[^tenopir]: See Tenopir and colleagues' trilogy about "data sharing" at [https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1](https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1).
--->
 
 [^wayback]: [https://web.archive.org/](https://web.archive.org/).
 

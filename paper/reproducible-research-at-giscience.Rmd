@@ -162,7 +162,9 @@ appendix: |
 A large proportion of GIScience research today uses software to analyse data on computers.
 This means that many articles published in the context of the GIScience conference series[^giscience] fall into the categories of data science or computational research.
 Thereby, these articles face challenges of transparency and reproducibility in the sense of the Claerbout/Donoho/Peng terminology \cite{barba_terminologies_2018}, where \emph{reproduction} means a recreation of the same results using the same input data and workflow as the original authors.
-However, also the related concept of replication is likely to be a challenge. So far, although the GIScience conference series has a rigorous review process and high-quality proceedings, reproducibility and replicability have not been a core concern in the contributions. With reproducibility now being a recognized topic in the call for papers, it is time to take stock and identify action. 
+However, also the related concept of replication is likely to be a challenge.
+So far, despite the GIScience conference series' rigorous review process, reproducibility and replicability have not been a core concern in the contributions.
+With reproducibility now being a recognized topic in the call for papers, it is time to take stock and identify action. 
 In previous work \cite{nust_reproducible_2018} we assessed the reproducibility of a selection of full and short papers from the AGILE conference series[^agile], a community conference organised by member labs of the Association of Geographic Information Laboratories in Europe (AGILE).
 The AGILE conference is closely related to GIScience conference in terms of scientific domain and contributing authors.
 Using systematic analysis based on a rubric for reproducible research, we found that the majority of AGILE papers neither provided sufficient information for a reviewer to evaluate the code and data and attempt a reproduction, nor enough material for readers to reuse or extend data or code from the analytical workflows.

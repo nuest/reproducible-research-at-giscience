@@ -122,7 +122,7 @@ abstract: |
   Here, to assess the reproducibility of GIScience research, we apply a rubric for assessing the reproducibility of `r count_n` conference papers published at the GIScience conference series in the years 2012-2018.
   Since the rubric and process were previously applied to the publications of the AGILE conference series, this paper itself is an attempt to replicate that analysis, however going beyond the previous work by evaluating and discussing proposed measures to improve reproducibility in the specific context of the GIScience conference series.
   The results of the GIScience paper assessment are in line with previous findings:
-  although descriptions of workflows and the inclusion of the data and software suffice to explain the presented work, form most published papers they do not enable the findings to be reproduced by a third party with reasonable effort.
+  Although descriptions of workflows and the inclusion of the data and software suffice to explain the presented work, form most published papers they do not enable the findings to be reproduced by a third party with reasonable effort.
   We summarise and adapt previous recommendations for improving this  situation and propose the GIScience community to start a broad discussion on the reusability, quality, and openness of its research.
   The code and data for this article are published at [https://doi.org/10.5281/zenodo.4032875](https://doi.org/10.5281/zenodo.4032875).
 appendix: |
@@ -173,7 +173,7 @@ As a consequence, we have initiated a process to support authors in increasing r
 
 An obvious question is whether the GIScience conference series faces the same issues and whether similar strategies could work for improvement.
 To begin this investigation, we conducted a simple text analysis of GIScience conference proceedings[^textanalysis] to evaluate the relevance of computational methods in the conference papers.
-The analysis searched for several word stems related to reproducibility: generic words, e.g., "data", "software", or "process"; specific platforms, e.g., "GitHub"; and concrete terms, e.g., words starting with "reproduc" or "replic".
+The analysis searched for several word stems related to reproducibility: Generic words, e.g., "data", "software", or "process"; specific platforms, e.g., "GitHub"; and concrete terms, e.g., words starting with "reproduc" or "replic".
 Table&nbsp;\@ref(tab:wordstem-table) shows the results of the search for each year analysed.
 The take-away message from the text analysis is that algorithms, processing, and data play a large role in GIScience publications, but few papers mentioned code repositories or reproduction materials.
 Therefore, a more detailed manual assessment of the reproducibility of these publications was necessary.
@@ -484,7 +484,10 @@ Clearly, a level of `0` in _Input Data_ is problematic, because without sufficie
 
 ## Transferability of method
 
-Concerning our second research objective, we can state that the overall process and the applicatoin of the reproducibility rubric was successfully replicated with the different data set. This is not entirely surprising given that AGILE and GIScience conference series share similarities in target audience, review process, and publication of proceedings (more on that in the following section). More importantly, the process faced similar challenges as we recalled from its earlier application. This is very important information: The successful replication of the process, including its challenges, enables us and others to ground any changes in solid evidence:
+Concerning our second research objective, we can state that the overall process and the application of the reproducibility rubric was successfully replicated with the different data set.
+This is not entirely surprising given that AGILE and GIScience conference series share similarities in target audience, review process, and publication of proceedings (more on that in the following section).
+More importantly, the process faced similar challenges as we recalled from its earlier application.
+This is very important information, because the successful replication of the process, including its challenges, enables us and others to ground any changes in solid evidence.
 In particular the preprocessing criterion caused many discussions among the reproducibility reviewers during the assessment.
 It is often not clear or a matter of interpretation if a particular processing step belongs to a minor basic transformation of input data, if it is already part of the main analysis, and when it is a truly distinct step in the process.
 The borders are vague and hence scores should be interpreted with caution.

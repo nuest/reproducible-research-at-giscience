@@ -390,7 +390,7 @@ colorblindr::cvd_grid(fig_barplot)
 
 This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 All contained code is licensed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/).
-This document is versioned in a public [git](https://git-scm.com/) repository, [https://github.com/nuest/reproducible-research-at-giscience](https://github.com/nuest/reproducible-research-at-giscience).
+This document is versioned in a public [git](https://git-scm.com/) repository, [https://github.com/nuest/reproducible-research-at-giscience](https://github.com/nuest/reproducible-research-at-giscience), and archived on Zenodo at [https://doi.org/10.5281/zenodo.4032875](https://doi.org/10.5281/zenodo.4032875).
 
 **Runtime environment description:**
 

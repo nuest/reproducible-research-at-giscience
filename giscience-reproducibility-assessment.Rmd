@@ -90,6 +90,7 @@ library("patchwork")
 
 ```{r evaldata_file}
 assessment_file <- here::here("results/paper_assessment.csv")
+codebook_file <- here::here("results/codebook.csv")
 ```
 
 The data is loaded from a collaborative spreadsheet using the `googlesheets4` package.
@@ -114,7 +115,8 @@ assessment_sheet <- googlesheets4::read_sheet(
 write.csv(assessment_sheet, file = assessment_file)
 ```
 
-The following plots are based on the file `r assessment_file`, the result from the manual reproducibility assessment.
+The following plots are based on the data file `r assessment_file`, the result from the manual reproducibility assessment.
+The file `r codebook_file` contains a codebook with names, labels, and descriptions for the variables in the data file as documentation of the dataset outside of this computational notebook.
 
 ```{r load_evaldata}
 category_levels <- c("0", "1", "2", "3")

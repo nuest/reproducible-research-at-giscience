@@ -22,6 +22,7 @@ remotes::install_github("nuest/rticles", ref = "LIPIcs", upgrade = "never")
 
 remotes::install_github("thomasp85/patchwork")
 install.packages("ggalluvial")
+install.packages("ggfittext")
 # https://github.com/clauswilke/colorblindr for checking the figures
 remotes::install_github("wilkelab/cowplot")
 install.packages("colorspace", repos = "http://R-Forge.R-project.org")

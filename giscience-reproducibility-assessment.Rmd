@@ -209,9 +209,7 @@ methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>%
 
 `r methods_and_results_eq_one` papers have level `1` in both methods and results criterion.
 
-## Figure: Results of reproducibility assessment for non-conceptual papers
-
-### Barplot
+## Figure: Barplots of reproducibility assessment results
 
 ```{r fig_assessment_results,fig.width=12}
 # match the colours to time series plot below
@@ -251,18 +249,21 @@ fig_barplot <- patchwork::wrap_plots(
 fig_barplot
 ```
 
-### [WIP] Alluvial plot
+## [WIP] Figure: Alluvial plot of reproducibility assessment results
 
 Based on package [`ggalluvial`](https://corybrunson.github.io/ggalluvial/).
 
-```{r fig_alluvial}
+This figure does not include the categories `preprocessing` and `computational environment` because they were deemed as quite hard to assess, and have a large fraction of missing values.
+
+```{r fig_alluvial_orig}
 papers_wide <- paper_evaluation_wo_conceptual %>%
   mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
   group_by(`input data`,
-         preprocessing,
-         `method/analysis/processing`,
-         `computational environment`,
-          results) %>%
+           preprocessing,
+           `method/analysis/processing`,
+           `computational environment`,
+           results) %>%
   tally() %>%
   mutate(code = paste0(`input data`,
                        preprocessing,
@@ -272,7 +273,8 @@ papers_wide <- paper_evaluation_wo_conceptual %>%
 
 library("ggalluvial")
 ggplot(data = papers_wide,
-       aes(axis1 = `input data`, axis2 = preprocessing,
+       aes(axis1 = `input data`,
+           axis2 = preprocessing,
            axis3 = `method/analysis/processing`,
            axis4 = `computational environment`,
            axis5 = results,
@@ -283,10 +285,174 @@ ggplot(data = papers_wide,
   geom_alluvium(aes(fill = code)) +
   geom_stratum() +
   scale_color_brewer(type = "qual", palette = "Set1") +
-  #geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
   theme_tufte()
 ```
 
+**WITHOUT PREPROCESSING AND COMP ENV, WITHOUT NAs:**
+
+```{r fig_alluvial_2}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  #mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  drop_na() %>%
+  group_by(`input data`,
+           #preprocessing,
+           `method/analysis/processing`,
+           #`computational environment`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       #preprocessing,
+                       `method/analysis/processing`,
+                       #`computational environment`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`,
+           axis2 = `method/analysis/processing`,
+           axis3 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data",
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code), width = 1/3) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  coord_flip() +
+  theme_tufte() + theme(legend.position = "none")
+```
+
+**Drop preprocessing and comp env, keep NAs**
+
+```{r fig_alluvial_2}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  group_by(`input data`,
+           #preprocessing,
+           `method/analysis/processing`,
+           #`computational environment`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       #preprocessing,
+                       `method/analysis/processing`,
+                       #`computational environment`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`,
+           axis2 = `method/analysis/processing`,
+           axis3 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data",
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code), width = 1/3) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  coord_flip() +
+  theme_tufte() + theme(legend.position = "none")
+```
+
+**Dropped NAs, and re-grouped to "below minimum standard" and "better (1-2)", no 3s anyway**
+
+```{r fig_alluvial_3}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  #mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  drop_na() %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  mutate_if(is.factor, ~ forcats::fct_collapse(., `0` = c("0"), `1, 2`= c("1","2","3"))) %>%
+  group_by(`input data`,
+           preprocessing,
+           `method/analysis/processing`,
+           `computational environment`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       preprocessing,
+                       `method/analysis/processing`,
+                       `computational environment`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`,
+           axis2 = preprocessing,
+           axis3 = `method/analysis/processing`,
+           axis4 = `computational environment`,
+           axis5 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data", 
+                              "Preprocessing",
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Computational\nEnvironment",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code)) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  coord_flip() +
+  theme_tufte() + theme(legend.position = "none")
+```
+
+**Dropped NAs, group levels, only 3 categories**
+
+```{r fig_alluvial_4}
+papers_wide_4 <- paper_evaluation_wo_conceptual %>%
+  #mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  drop_na() %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  mutate_if(is.factor, ~ forcats::fct_collapse(., `0` = c("0"), `1, 2`= c("1","2","3"))) %>%
+  group_by(`input data`,
+           `method/analysis/processing`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       `method/analysis/processing`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+ggplot(data = papers_wide_4,
+       aes(axis1 = `input data`,
+           axis3 = `method/analysis/processing`,
+           axis5 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data", 
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code)) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  coord_flip() +
+  theme_tufte() + theme(legend.position = "none")
+```
 
 ## Table: Mean levels per criterion for non-conceptual papers
 

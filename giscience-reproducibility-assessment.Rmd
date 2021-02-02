@@ -93,9 +93,9 @@ assessment_file <- here::here("results/paper_assessment.csv")
 codebook_file <- here::here("results/codebook.csv")
 ```
 
-The data is loaded from a collaborative spreadsheet using the `googlesheets4` package.
-After a year is completed by all assessors, a [named version] of the spreadsheet is created.
-Then the data file `r assessment_file` is updated from the online spreadsheet and committed to the git history.
+The data is loaded from a collaborative spreadsheet using the [`googlesheets4`](https://googlesheets4.tidyverse.org/) package.
+After a year is completed by all assessors, a [named version](https://support.google.com/a/users/answer/9331169?hl=en#) of the spreadsheet is created.
+Then the data file `` `r assessment_file` `` is updated from the online spreadsheet and committed to the git history.
 Afterwards the individual assessments are manually merged in the online spreadsheet and the data file is updated and committed once more.
 
 ```{r googlesheets_auth, echo=FALSE, eval=FALSE}
@@ -115,8 +115,8 @@ assessment_sheet <- googlesheets4::read_sheet(
 write.csv(assessment_sheet, file = assessment_file)
 ```
 
-The following plots are based on the data file `r assessment_file`, the result from the manual reproducibility assessment.
-The file `r codebook_file` contains a codebook with names, labels, and descriptions for the variables in the data file as documentation of the dataset outside of this computational notebook.
+The following plots are based on the data file `` `r assessment_file` ``, the result from the manual reproducibility assessment.
+The file `` `r codebook_file` `` contains a codebook with names, labels, and descriptions for the variables in the data file as documentation of the dataset outside of this computational notebook.
 
 ```{r load_evaldata}
 category_levels <- c("0", "1", "2", "3")
@@ -157,7 +157,7 @@ knitr::kable(paper_evaluation %>%
 evaldata_numeric <- paper_evaluation_wo_conceptual %>%
   dplyr::filter(`conceptual paper` == FALSE) %>%
   # must convert factors to numbers to calculate the mean and median
-  dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
+  dplyr::mutate_if(is.factor, list(~ as.integer(as.character(.))))
 
 # https://stackoverflow.com/questions/32011873/force-summary-to-report-the-number-of-nas-even-if-none
 summaryna <- function (v) {
@@ -292,7 +292,7 @@ ggplot(data = papers_wide,
 
 ```{r summary_evaldata_grouped}
 means <- lapply(evaldata_numeric %>%
-                      select(categoryColumns),
+                      select(all_of(categoryColumns)),
                     summary) %>%
     lapply(`[[`, "Mean") %>%
     as.data.frame()
@@ -364,21 +364,17 @@ fig_mean_over_time <- ggplot(evaldata_years_long, aes(year, value)) +
   theme(legend.position = c(0.15,0.75), 
         legend.text = element_text(size = 14)) +
   ylim(0, 3) +
-  stat_summary(fun.y = mean, fun.ymin = mean, fun.ymax = mean, shape = "-", size = 2) +
-  stat_summary(fun.y = mean, geom = "line", linetype = "dotted", mapping = aes(group = 1))
+  stat_summary(fun = mean, fun.min = mean, fun.max = mean, shape = "-", size = 2) +
+  stat_summary(fun = mean, geom = "line", linetype = "dotted", mapping = aes(group = 1))
 
 fig_mean_over_time
 ```
-
-## Figure: Stacked bars of levels per category over time
-
-TODO
 
 ## Colorblindness check
 
 _NOTE:_ The following code chunk is not executed by default and is mainly for evaluation during figure development.
 
-```{r colorblindness}
+```{r colorblindness, eval=FALSE}
 library("colorblindr")
 
 colorblindr::cvd_grid(fig_mean_over_time)

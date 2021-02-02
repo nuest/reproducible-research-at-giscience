@@ -51,7 +51,7 @@ ccdesc:
 keywords: "reproducible research, open science, reproducibility, GIScience"
 # OPTIONAL:
 acknowledgements: >
-  Contributions (see [CRediT](https://casrai.org/credit/)) by FO: conceptualisation, investigation (33), writing – original draft, writing - review & editing, software; b< DN: conceptualisation, investigation (33), software, writing – original draft, writing - review & editing, visualisation; by CG: conceptualisation, investigation (30), writing – original draft, writing - review & editing, software; by BH: conceptualisation, investigation (21), writing – original draft, writing - review & editing; by MK: conceptualisation, investigation (30), writing – original draft.
+  Author contributions (see [CRediT](https://casrai.org/credit/)) FO: conceptualisation, investigation (33), writing – original draft, writing - review & editing, software; DN: conceptualisation, investigation (33), software, writing – original draft, writing - review & editing, visualisation; CG: conceptualisation, investigation (30), writing – original draft, writing - review & editing, software; BH: conceptualisation, investigation (21), writing – original draft, writing - review & editing; MK: conceptualisation, investigation (30), writing – original draft.
   The number of papers assessed by each coauthor are given in brackets after the contribution "investigation".
   We thank Celeste R. Brennecka from the Scientific Editing Service of the University of Münster for her editorial support.
 #category: "Invited paper"

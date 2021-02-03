@@ -1,6 +1,6 @@
 # This Dockerfile is based on the rocker/binder example Dockerfile from https://github.com/rocker-org/binder/
-# We use 3.6.3 because it is a relatively recent version of R at the time of starting this work, which has a fixed MRAN date in the Rocker image.
-FROM rocker/binder:3.6.3
+# We use 4.0.2 because it is a relatively recent version of R at the time of starting this work, which has a fixed MRAN date in the Rocker image.
+FROM rocker/binder:4.0.2
 
 # Declares build arguments
 ARG NB_USER
@@ -21,6 +21,16 @@ RUN apt-get update \
 COPY install.R ${HOME}
 RUN R --quiet -f install.R
 
+## Export system libraries and R package versions
+RUN dpkg --list > dpkg-list.txt && \
+  R -e 'capture.output(knitr::kable(as.data.frame(installed.packages())[c("Package", "Version", "License", "Built")], format = "markdown", row.names = FALSE), file = "r-packages.md")'
+
+# Install Python packages
+COPY author_analysis/requirements.txt ${HOME}author_analysis/requirements.txt
+RUN python3 -m pip install --upgrade pip && \
+  pip3 install --upgrade wheel && \
+  pip3 install -r author_analysis/requirements.txt
+
 # Copies all repo files into the Docker Container
 USER root
 COPY . ${HOME}
@@ -29,17 +39,10 @@ RUN chown -R ${NB_USER} ${HOME}
 ## Become normal user again
 USER ${NB_USER}
 
-## Export system libraries and R package versions
-RUN dpkg --list > dpkg-list.txt && \
-  R -e 'capture.output(knitr::kable(as.data.frame(installed.packages())[c("Package", "Version", "License", "Built")], format = "markdown", row.names = FALSE), file = "r-packages.md")'
-
-# Install Python packages
-RUN pip3 install --upgrade wheel && \
-  pip3 install -r author_analysis/requirements.txt
-
 # --- Metadata ---
 LABEL maintainer="daniel.nuest@uni-muenster.de" \
   Name="Reproducible research at GIScience - computing environment" \
+  Version="2" \
   org.opencontainers.image.created="2020-04" \
   org.opencontainers.image.authors="Daniel Nüst" \
   org.opencontainers.image.url="https://github.com/nuest/reproducible-research-at-giscience/blob/master/Dockerfile" \
@@ -49,7 +52,6 @@ LABEL maintainer="daniel.nuest@uni-muenster.de" \
 # --- Development instructions ---
 # From time to time, run a linter on the Dockerfile:
 # $ docker run -it --rm --privileged -v $PWD:/root/ projectatomic/dockerfile-lint dockerfile_lint
-
 
 # --- Usage instructions ---
 ## Build the image

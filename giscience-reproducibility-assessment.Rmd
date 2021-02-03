@@ -536,18 +536,6 @@ fig_mean_over_time <- ggplot(evaldata_years_long, aes(year, value)) +
 fig_mean_over_time
 ```
 
-## Colorblindness check
-
-_NOTE:_ The following code chunk is not executed by default and is mainly for evaluation during figure development.
-
-```{r colorblindness, eval=FALSE}
-library("colorblindr")
-
-colorblindr::cvd_grid(fig_mean_over_time)
-colorblindr::cvd_grid(fig_barplot)
-```
-
-
 ## Colophon
 
 This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).

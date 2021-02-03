@@ -13,20 +13,16 @@ install.packages("wordcloud")
 install.packages("quanteda")
 install.packages("Hmisc")
 # not available (in required version) for R 3.6.0 > install tag from GitHub
-remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "never")
-remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")
+#remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "never")
+#remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")
 
 # needs development version from a fork, see https://github.com/rstudio/rticles/pull/288
-remotes::install_github("yihui/xfun", ref = "v0.15", upgrade = "never")
-remotes::install_github("nuest/rticles", ref = "LIPIcs", upgrade = "never")
+#remotes::install_github("yihui/xfun", ref = "v0.15", upgrade = "never")
+#remotes::install_github("nuest/rticles", ref = "LIPIcs", upgrade = "never")
 
 remotes::install_github("thomasp85/patchwork")
 install.packages("ggalluvial")
 install.packages("ggfittext")
-# https://github.com/clauswilke/colorblindr for checking the figures
-remotes::install_github("wilkelab/cowplot")
-install.packages("colorspace", repos = "http://R-Forge.R-project.org")
-remotes::install_github("clauswilke/colorblindr")
 remotes::install_github("benmarwick/wordcountaddin")
 
 # Install LaTeX packages

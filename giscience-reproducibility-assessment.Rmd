@@ -455,6 +455,49 @@ ggplot(data = papers_wide_4,
   theme_tufte() + theme(legend.position = "none")
 ```
 
+
+**Dropped NAs, without preprocessing, horizontal:**
+
+```{r fig_alluvial_2}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  drop_na() %>%
+  group_by(`input data`,
+           #preprocessing,
+           `method/analysis/processing`,
+           `computational environment`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       #preprocessing,
+                       `method/analysis/processing`,
+                       `computational environment`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+library("colorspace")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`,
+           axis2 = `method/analysis/processing`,
+           axis3 = `computational environment`,
+           axis4 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data",
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Computational Environment",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  colorspace::scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code), width = 1/3) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  theme_tufte() + theme(legend.position = "none")
+```
+
 ## Table: Mean levels per criterion for non-conceptual papers
 
 ```{r summary_evaldata_grouped}

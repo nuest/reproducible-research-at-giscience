@@ -51,7 +51,7 @@ ccdesc:
 keywords: "reproducible research, open science, reproducibility, GIScience"
 # OPTIONAL:
 acknowledgements: >
-  Contributions (see [CRediT](https://casrai.org/credit/)) by FO: conceptualisation, investigation (33), writing – original draft, writing - review & editing, software; b< DN: conceptualisation, investigation (33), software, writing – original draft, writing - review & editing, visualisation; by CG: conceptualisation, investigation (30), writing – original draft, writing - review & editing, software; by BH: conceptualisation, investigation (21), writing – original draft, writing - review & editing; by MK: conceptualisation, investigation (30), writing – original draft.
+  Author contributions (see [CRediT](https://casrai.org/credit/)) FO: conceptualisation, investigation (33), writing – original draft, writing - review & editing, software; DN: conceptualisation, investigation (33), software, writing – original draft, writing - review & editing, visualisation; CG: conceptualisation, investigation (30), writing – original draft, writing - review & editing, software; BH: conceptualisation, investigation (21), writing – original draft, writing - review & editing; MK: conceptualisation, investigation (30), writing – original draft.
   The number of papers assessed by each coauthor are given in brackets after the contribution "investigation".
   We thank Celeste R. Brennecka from the Scientific Editing Service of the University of Münster for her editorial support.
 #category: "Invited paper"
@@ -162,7 +162,9 @@ appendix: |
 A large proportion of GIScience research today uses software to analyse data on computers.
 This means that many articles published in the context of the GIScience conference series[^giscience] fall into the categories of data science or computational research.
 Thereby, these articles face challenges of transparency and reproducibility in the sense of the Claerbout/Donoho/Peng terminology \cite{barba_terminologies_2018}, where \emph{reproduction} means a recreation of the same results using the same input data and workflow as the original authors.
-However, also the related concept of replication is likely to be a challenge. Despite the GIScience conference series has a rigorous review process and high-quality proceedings, reproducibility and replicability have not been a core concern in the contributed papers. With reproducibility now being a recognized topic in the call for papers, it is time to take stock and identify action. 
+However, also the related concept of replication is likely to be a challenge.
+So far, despite the GIScience conference series' rigorous review process, reproducibility and replicability have not been a core concern in the contributions.
+With reproducibility now being a recognized topic in the call for papers, it is time to take stock and identify action. 
 In previous work \cite{nust_reproducible_2018} we assessed the reproducibility of a selection of full and short papers from the AGILE conference series[^agile], a community conference organised by member labs of the Association of Geographic Information Laboratories in Europe (AGILE).
 The AGILE conference is closely related to GIScience conference in terms of scientific domain and contributing authors.
 Using systematic analysis based on a rubric for reproducible research, we found that the majority of AGILE papers neither provided sufficient information for a reviewer to evaluate the code and data and attempt a reproduction, nor enough material for readers to reuse or extend data or code from the analytical workflows.
@@ -173,7 +175,7 @@ As a consequence, we have initiated a process to support authors in increasing r
 
 An obvious question is whether the GIScience conference series faces the same issues and whether similar strategies could work for improvement.
 To begin this investigation, we conducted a simple text analysis of GIScience conference proceedings[^textanalysis] to evaluate the relevance of computational methods in the conference papers.
-The analysis searched for several word stems related to reproducibility: generic words, e.g., "data", "software", or "process"; specific platforms, e.g., "GitHub"; and concrete terms, e.g., words starting with "reproduc" or "replic".
+The analysis searched for several word stems related to reproducibility: Generic words, e.g., "data", "software", or "process"; specific platforms, e.g., "GitHub"; and concrete terms, e.g., words starting with "reproduc" or "replic".
 Table&nbsp;\@ref(tab:wordstem-table) shows the results of the search for each year analysed.
 The take-away message from the text analysis is that algorithms, processing, and data play a large role in GIScience publications, but few papers mentioned code repositories or reproduction materials.
 Therefore, a more detailed manual assessment of the reproducibility of these publications was necessary.
@@ -464,14 +466,6 @@ From the reproducibility point of view, the input data was not accessible, even 
 According to the meaning of the criterion and in practical terms, this is equivalent to including the statement "available upon request" in the paper and thereby level `0`.
 An important part of reproducibility is that access to material should not degrade over time, which is best achieved by depositing data in repositories, including sensitive data (using the appropriate mechanisms), and properly citing it.
 In this assessment of reproducibility, we decided to give the authors the benefit of the doubt and awarded a value of `2` for _Input Data_ even if we could not conclusively determine, e.g., by using the Internet Archive's Wayback Machine[^wayback], whether the original website ever existed.
-<!-- DN: to me, this goes into too much detail about good practice for data citation.
-
-Simple methods and techniques can be more easily adhere to this goal, even for decades[^tenopir].
-Instead of short-lived URLs, e.g., a personal or project website, authors should archive input data used in a paper in permanent repositories.
-Consequently, footnotes with URLs are not suitable for citing data, but as a citation by itself like any other resource or paper included in the bibliography section.
-
-[^tenopir]: See Tenopir and colleagues' trilogy about "data sharing" at [https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1](https://journals.plos.org/plosone/search?filterJournals=PLoSONE&filterAuthors=Carol+Tenopir&page=1).
--->
 
 [^wayback]: [https://web.archive.org/](https://web.archive.org/).
 
@@ -484,7 +478,10 @@ Clearly, a level of `0` in _Input Data_ is problematic, because without sufficie
 
 ## Transferability of method
 
-Concerning our second research objective, we can state that the overall process and the application of the reproducibility rubric was successfully replicated with a different data set. This is not entirely surprising given that AGILE and GIScience conference series share similarities in target audience, review process, and publication of proceedings (more on that in the following section). More importantly, the process faced similar challenges as we recalled from its earlier application. This is very important information: The successful replication of the process, including its challenges, enables us and others to ground any changes in solid evidence:
+Concerning our second research objective, we can state that the overall process and the application of the reproducibility rubric was successfully replicated with the different data set.
+This is not entirely surprising given that AGILE and GIScience conference series share similarities in target audience, review process, and publication of proceedings (more on that in the following section).
+More importantly, the process faced similar challenges as we recalled from its earlier application.
+This is very important information, because the successful replication of the process, including its challenges, enables us and others to ground any changes in solid evidence.
 In particular the preprocessing criterion caused many discussions among the reproducibility reviewers during the assessment.
 It is often not clear or a matter of interpretation if a particular processing step belongs to a minor basic transformation of input data, if it is already part of the main analysis, and when it is a truly distinct step in the process.
 The borders are vague and hence scores should be interpreted with caution.

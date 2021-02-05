@@ -12,7 +12,7 @@ preprint and a deposition of this repository via the badges below.
 [![Article DOI](https://img.shields.io/badge/PUBLISHER-https%3A%2F%2Fdoi.org%2FDOI-brightgreen.svg)](https://doi.org/)
 -->
 
-[![Earth ArXiv
+[![Earth ArXiv Preprint
 DOI](https://img.shields.io/badge/%F0%9F%8C%8D%F0%9F%8C%8F%F0%9F%8C%8E%20EarthArXiv-doi.org%2F10.31223%2FX5ZK5V-%23FF7F2A)](https://doi.org/10.31223/X5ZK5V)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4032875.svg)](https://doi.org/10.5281/zenodo.4032875)
@@ -24,7 +24,8 @@ environment with all required software installed on
 [MyBinder.org](https://mybinder.org/). It uses the current version of
 the branch `master` in the repository, but you can also enter the Zenodo
 DOI (see above) in the MyBinder user interface to open a preserved
-release version.
+release
+version.
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/nuest/reproducible-research-at-giscience/master?urlpath=rstudio)
 
@@ -33,7 +34,7 @@ RStudio” or open the Jupyter Notebook for the bibliographic analysis in
 the folder `author_analysis`. You can navigate to the R Markdown
 notebook files (see [list of files below](#files-in-this-repository)) to
 inspect and execute the code for the text analysis and reproduce the
-figures as described in [Reproduce locally](#reproduce-locally), except
+figures as described in [Reproduce locally](#reproduce-analyses), except
 that local installation of required packages is not required.
 
 Use [this
@@ -44,29 +45,33 @@ Use [this
 link](https://mybinder.org/v2/gh/nuest/reproducible-research-at-giscience/master?urlpath=rstudio)
 to directly open RStudio.
 
-## Reproduce locally
+## Reproduce analyses
 
 Open one of the two *R Markdown analysis files* (`.Rmd`) with
 [RStudio](https://www.rstudio.com/products/rstudio/). Then select “Knit
 \> Knit to PDF” to render the document. If you have errors rendering the
 whole PDF, try running each
 [chunk](https://rmarkdown.rstudio.com/authoring_rcodechunks.html) to
-locate the problem or use “Knit to HTML”.
+locate the problem or use “Knit to HTML”. Depending on the [R Markdown
+parameters](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html),
+the historic tex analysis tries to download proceedings PDFs from a
+private share and requires a login. This download does not work with
+knitting the whole document - please execute the chunk
+`data_download_drive` manually.
 
-The document does *not* include code to install required packages. Run
+The documents do *not* include code to install required packages. Run
 the code in the file `install.R` to install all dependencies. You can
 skip the installation of LaTeX (recommended to use
-[`tinytex`](https://yihui.org/tinytex/) if you must) and installation of
-LaTeX packages if you knit to HTML or run the chunks directly from
-RStudio.
+[`tinytex`](https://yihui.org/tinytex/)) and installation of LaTeX
+packages if you knit to HTML or run the chunks directly from RStudio.
 
 ## Reproduce locally with Docker
 
 Install [Docker CE](https://www.docker.com/community-edition) or a
 compatible tool for building an image based on a `Dockerfile` and
 running a container based on the image. The `Dockerfile` uses the Rocker
-image [`rocker/binder:3.6.0`](https://hub.docker.com/r/rocker/binder),
-providing R version `3.6.0` with a CRAN mirror timestamp of July 5th
+image [`rocker/binder:3.6.3`](https://hub.docker.com/r/rocker/binder),
+providing R version `3.6.3` with a CRAN mirror timestamp of July 5th
 2019.
 
 Download the project files, open a command line in the root directory

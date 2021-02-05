@@ -17,15 +17,13 @@ remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "neve
 remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")
 
 # needs development version from a fork, see https://github.com/rstudio/rticles/pull/288
-remotes::install_github("yihui/xfun", ref = "v0.15", upgrade = "never")
-remotes::install_github("nuest/rticles", ref = "LIPIcs", upgrade = "never")
+#remotes::install_github("yihui/xfun", ref = "v0.15", upgrade = "never")
+remotes::install_github("rstudio/rmarkdown", ref = "v2.5", upgrade = "never")
+remotes::install_github("rstudio/rticles", ref = "v0.17", upgrade = "never")
 
-remotes::install_github("thomasp85/patchwork")
+remotes::install_github("thomasp85/patchwork", ref = "v1.1.0", upgrade = "never")
 install.packages("ggalluvial")
-# https://github.com/clauswilke/colorblindr for checking the figures
-remotes::install_github("wilkelab/cowplot")
-install.packages("colorspace", repos = "http://R-Forge.R-project.org")
-remotes::install_github("clauswilke/colorblindr")
+install.packages("ggfittext")
 remotes::install_github("benmarwick/wordcountaddin")
 
 # Install LaTeX packages

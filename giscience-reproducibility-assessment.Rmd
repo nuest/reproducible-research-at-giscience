@@ -90,11 +90,12 @@ library("patchwork")
 
 ```{r evaldata_file}
 assessment_file <- here::here("results/paper_assessment.csv")
+codebook_file <- here::here("results/codebook.csv")
 ```
 
-The data is loaded from a collaborative spreadsheet using the `googlesheets4` package.
-After a year is completed by all assessors, a [named version] of the spreadsheet is created.
-Then the data file `r assessment_file` is updated from the online spreadsheet and committed to the git history.
+The data is loaded from a collaborative spreadsheet using the [`googlesheets4`](https://googlesheets4.tidyverse.org/) package.
+After a year is completed by all assessors, a [named version](https://support.google.com/a/users/answer/9331169?hl=en#) of the spreadsheet is created.
+Then the data file `` `r assessment_file` `` is updated from the online spreadsheet and committed to the git history.
 Afterwards the individual assessments are manually merged in the online spreadsheet and the data file is updated and committed once more.
 
 ```{r googlesheets_auth, echo=FALSE, eval=FALSE}
@@ -114,7 +115,8 @@ assessment_sheet <- googlesheets4::read_sheet(
 write.csv(assessment_sheet, file = assessment_file)
 ```
 
-The following plots are based on the file `r assessment_file`, the result from the manual reproducibility assessment.
+The following plots are based on the data file `` `r assessment_file` ``, the result from the manual reproducibility assessment.
+The file `` `r codebook_file` `` contains a codebook with names, labels, and descriptions for the variables in the data file as documentation of the dataset outside of this computational notebook.
 
 ```{r load_evaldata}
 category_levels <- c("0", "1", "2", "3")
@@ -155,7 +157,7 @@ knitr::kable(paper_evaluation %>%
 evaldata_numeric <- paper_evaluation_wo_conceptual %>%
   dplyr::filter(`conceptual paper` == FALSE) %>%
   # must convert factors to numbers to calculate the mean and median
-  dplyr::mutate_if(is.factor, dplyr::funs(as.integer(as.character(.))))
+  dplyr::mutate_if(is.factor, list(~ as.integer(as.character(.))))
 
 # https://stackoverflow.com/questions/32011873/force-summary-to-report-the-number-of-nas-even-if-none
 summaryna <- function (v) {
@@ -207,9 +209,7 @@ methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>%
 
 `r methods_and_results_eq_one` papers have level `1` in both methods and results criterion.
 
-## Figure: Results of reproducibility assessment for non-conceptual papers
-
-### Barplot
+## Figure: Barplots of reproducibility assessment results
 
 ```{r fig_assessment_results,fig.width=12}
 # match the colours to time series plot below
@@ -249,18 +249,21 @@ fig_barplot <- patchwork::wrap_plots(
 fig_barplot
 ```
 
-### [WIP] Alluvial plot
+## [WIP] Figure: Alluvial plot of reproducibility assessment results
 
 Based on package [`ggalluvial`](https://corybrunson.github.io/ggalluvial/).
 
-```{r fig_alluvial}
+This figure does not include the categories `preprocessing` and `computational environment` because they were deemed as quite hard to assess, and have a large fraction of missing values.
+
+```{r fig_alluvial_1}
 papers_wide <- paper_evaluation_wo_conceptual %>%
   mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
   group_by(`input data`,
-         preprocessing,
-         `method/analysis/processing`,
-         `computational environment`,
-          results) %>%
+           preprocessing,
+           `method/analysis/processing`,
+           `computational environment`,
+           results) %>%
   tally() %>%
   mutate(code = paste0(`input data`,
                        preprocessing,
@@ -270,7 +273,8 @@ papers_wide <- paper_evaluation_wo_conceptual %>%
 
 library("ggalluvial")
 ggplot(data = papers_wide,
-       aes(axis1 = `input data`, axis2 = preprocessing,
+       aes(axis1 = `input data`,
+           axis2 = preprocessing,
            axis3 = `method/analysis/processing`,
            axis4 = `computational environment`,
            axis5 = results,
@@ -281,16 +285,181 @@ ggplot(data = papers_wide,
   geom_alluvium(aes(fill = code)) +
   geom_stratum() +
   scale_color_brewer(type = "qual", palette = "Set1") +
-  #geom_text(stat = "stratum", aes(label = after_stat(stratum))) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
   theme_tufte()
 ```
 
+**WITHOUT PREPROCESSING AND COMP ENV, WITHOUT NAs:**
+
+```{r fig_alluvial_2}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  #mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  drop_na() %>%
+  group_by(`input data`,
+           #preprocessing,
+           `method/analysis/processing`,
+           #`computational environment`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       #preprocessing,
+                       `method/analysis/processing`,
+                       #`computational environment`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+library("colorspace")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`,
+           axis2 = `method/analysis/processing`,
+           axis3 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data",
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  colorspace::scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code), width = 1/3) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  coord_flip() +
+  theme_tufte() + theme(legend.position = "none")
+```
+
+**Drop preprocessing and comp env, keep NAs**
+
+```{r fig_alluvial_3}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  group_by(`input data`,
+           #preprocessing,
+           `method/analysis/processing`,
+           #`computational environment`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       #preprocessing,
+                       `method/analysis/processing`,
+                       #`computational environment`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`,
+           axis2 = `method/analysis/processing`,
+           axis3 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data",
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code), width = 1/3) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  coord_flip() +
+  theme_tufte() + theme(legend.position = "none")
+```
+
+**Dropped NAs, and re-grouped to "below minimum standard" and "better (1-2)", no 3s anyway**
+
+```{r fig_alluvial_4}
+papers_wide <- paper_evaluation_wo_conceptual %>%
+  #mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  drop_na() %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  mutate_if(is.factor, ~ forcats::fct_collapse(., `0` = c("0"), `1, 2`= c("1","2","3"))) %>%
+  group_by(`input data`,
+           preprocessing,
+           `method/analysis/processing`,
+           `computational environment`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       preprocessing,
+                       `method/analysis/processing`,
+                       `computational environment`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+ggplot(data = papers_wide,
+       aes(axis1 = `input data`,
+           axis2 = preprocessing,
+           axis3 = `method/analysis/processing`,
+           axis4 = `computational environment`,
+           axis5 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data", 
+                              "Preprocessing",
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Computational\nEnvironment",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code)) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  coord_flip() +
+  theme_tufte() + theme(legend.position = "none")
+```
+
+**Dropped NAs, group levels, only 3 categories**
+
+```{r fig_alluvial_5}
+papers_wide_4 <- paper_evaluation_wo_conceptual %>%
+  #mutate_if(is.factor, forcats::fct_explicit_na, na_level = "NA") %>%
+  drop_na() %>%
+  mutate_if(is.factor, forcats::fct_rev) %>%
+  mutate_if(is.factor, ~ forcats::fct_collapse(., `0` = c("0"), `1, 2`= c("1","2","3"))) %>%
+  group_by(`input data`,
+           `method/analysis/processing`,
+           results) %>%
+  tally() %>%
+  mutate(code = paste0(`input data`,
+                       `method/analysis/processing`,
+                       results))
+
+library("ggalluvial")
+library("ggfittext")
+ggplot(data = papers_wide_4,
+       aes(axis1 = `input data`,
+           axis3 = `method/analysis/processing`,
+           axis5 = results,
+           y = n)
+       ) +
+  scale_x_discrete(limits = c("Input data", 
+                              "Methods/\nAnalysis/\nProcessing",
+                              "Results"),
+                   expand = c(.1, 0)
+                   ) +
+  xlab("Category") +
+  scale_fill_discrete_qualitative(aesthetics = "fill") +
+  geom_alluvium(aes(fill = code)) +
+  geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = "stratum", aes(label = after_stat(stratum)), min.size = 1) +
+  coord_flip() +
+  theme_tufte() + theme(legend.position = "none")
+```
 
 ## Table: Mean levels per criterion for non-conceptual papers
 
 ```{r summary_evaldata_grouped}
 means <- lapply(evaldata_numeric %>%
-                      select(categoryColumns),
+                      select(all_of(categoryColumns)),
                     summary) %>%
     lapply(`[[`, "Mean") %>%
     as.data.frame()
@@ -362,33 +531,17 @@ fig_mean_over_time <- ggplot(evaldata_years_long, aes(year, value)) +
   theme(legend.position = c(0.15,0.75), 
         legend.text = element_text(size = 14)) +
   ylim(0, 3) +
-  stat_summary(fun.y = mean, fun.ymin = mean, fun.ymax = mean, shape = "-", size = 2) +
-  stat_summary(fun.y = mean, geom = "line", linetype = "dotted", mapping = aes(group = 1))
+  stat_summary(fun = mean, fun.min = mean, fun.max = mean, shape = "-", size = 2) +
+  stat_summary(fun = mean, geom = "line", linetype = "dotted", mapping = aes(group = 1))
 
 fig_mean_over_time
 ```
-
-## Figure: Stacked bars of levels per category over time
-
-TODO
-
-## Colorblindness check
-
-_NOTE:_ The following code chunk is not executed by default and is mainly for evaluation during figure development.
-
-```{r colorblindness}
-library("colorblindr")
-
-colorblindr::cvd_grid(fig_mean_over_time)
-colorblindr::cvd_grid(fig_barplot)
-```
-
 
 ## Colophon
 
 This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 All contained code is licensed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/).
-This document is versioned in a public [git](https://git-scm.com/) repository, [https://github.com/nuest/reproducible-research-at-giscience](https://github.com/nuest/reproducible-research-at-giscience).
+This document is versioned in a public [git](https://git-scm.com/) repository, [https://github.com/nuest/reproducible-research-at-giscience](https://github.com/nuest/reproducible-research-at-giscience), and archived on Zenodo at [https://doi.org/10.5281/zenodo.4032875](https://doi.org/10.5281/zenodo.4032875).
 
 **Runtime environment description:**
 

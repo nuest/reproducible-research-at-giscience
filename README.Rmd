@@ -1,10 +1,10 @@
 ---
 output: github_document
-title: Reproducible research at GIScience conference
+title: Reproducible research at the GIScience conference
 ---
 
-Reproducibility package for the article "Reproducible research and GIScience: an evaluation using GIScience conference papers".
-This repository is based on a previous analysis of [AGILE conference](https://agile-online.org/conference) submissions, see [https://github.com/nuest/reproducible-research-and-giscience](https://github.com/nuest/reproducible-research-and-giscience).
+This repository is the reproducibility package for the article _"Reproducible research and GIScience: an evaluation using GIScience conference papers"_.
+This repository is based on a previous analysis of [AGILE conference](https://agile-online.org/conference) submissions, see [https://github.com/nuest/reproducible-research-and-giscience](https://github.com/nuest/reproducible-research-and-giscience) (doi:[https://doi.org/10.5281/zenodo.1227260](10.5281/zenodo.1227260)).
 Find the preprint and a deposition of this repository via the badges below.
 
 <!--

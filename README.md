@@ -1,12 +1,14 @@
-Reproducible research at GIScience conference
+Reproducible research at the GIScience conference
 ================
 
-Reproducibility package for the article “Reproducible research and
-GIScience: an evaluation using GIScience conference papers”. This
-repository is based on a previous analysis of [AGILE
-conference](https://agile-online.org/conference) submissions, see
-<https://github.com/nuest/reproducible-research-and-giscience>. Find the
-preprint and a deposition of this repository via the badges below.
+This repository is the reproducibility package for the article
+*“Reproducible research and GIScience: an evaluation using GIScience
+conference papers”*. This repository is based on a previous analysis of
+[AGILE conference](https://agile-online.org/conference) submissions, see
+<https://github.com/nuest/reproducible-research-and-giscience>
+([doi:\[https://doi.org/10.5281/zenodo.1227260\](10.5281/zenodo.1227260)](doi:%5Bhttps://doi.org/10.5281/zenodo.1227260%5D\(10.5281/zenodo.1227260\))).
+Find the preprint and a deposition of this repository via the badges
+below.
 
 <!--
 [![Article DOI](https://img.shields.io/badge/PUBLISHER-https%3A%2F%2Fdoi.org%2FDOI-brightgreen.svg)](https://doi.org/)

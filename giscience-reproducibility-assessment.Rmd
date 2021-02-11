@@ -87,7 +87,8 @@ library("googlesheets4")
 library("patchwork")
 library("knitr")
 library("kableExtra")
-
+library("ggalluvial")
+library("ggfittext")
 ```
 
 ## Load data
@@ -265,7 +266,7 @@ This figure is based on package [`ggalluvial`](https://corybrunson.github.io/gga
 It does not include the category `preprocessing` because it was discovered to be quite hard to assess, and subsequently has a large share of missing values.
 The figure also does _not_ include any papers who have one or more categories as `NA`, as that means "not assessable".
 
-```{r fig_alluvial}
+```{r data_alluvial}
 papers_wo_na_wo_prepr <- paper_evaluation_wo_conceptual %>%
   drop_na() %>%
   mutate_if(is.factor, forcats::fct_rev) %>%
@@ -278,10 +279,9 @@ papers_wo_na_wo_prepr <- paper_evaluation_wo_conceptual %>%
                        `method/analysis/processing`, " ",
                        `computational environment`, " ",
                        results, " (", n, ")"))
+```
 
-library("ggalluvial")
-library("ggfittext")
-
+```{r fig_alluvial}
 fig_alluvial <- ggplot(data = papers_wo_na_wo_prepr,
        aes(axis1 = `input data`,
            axis2 = `method/analysis/processing`,
@@ -289,9 +289,9 @@ fig_alluvial <- ggplot(data = papers_wo_na_wo_prepr,
            axis4 = results,
            y = n)
        ) +
-  ggplot2::scale_x_discrete(limits = c("Input data",
+  ggplot2::scale_x_discrete(limits = c("Input Data",
                               "Methods/\nAnalysis/\nProcessing",
-                              "Computational Environment",
+                              "Computational\nEnvironment",
                               "Results"),
                    expand = c(.1, 0)
                    ) +

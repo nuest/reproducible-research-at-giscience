@@ -330,6 +330,9 @@ This does not mean that the papers in which the _Preprocessing_ criterion was mi
 Simply, in these cases, either no preprocessing is required or has been integrated into the main analysis.
 Obviously, if data preprocessing is required but it is either not indicated in the paper or is not provided as an additional (computational) step or resource, the ability to reproduce the paper will be seriously limited.
 
+```{r summary-evaldata, ref.label="summary_evaldata", out.width="100%"}
+```
+
 If we look at the median values of the five criteria (Table&nbsp;\@ref(tab:summary-evaldata)), a typical GIScience paper scores `1`&nbsp;`1`&nbsp;`1`&nbsp;`0`&nbsp;`1`.
 This score translates in practical terms into a paper that is sufficiently documented to claim that reproduction could be attempted within a short time frame after publication.
 While such a level of reproducibility is typically accepted by journals and conferences today, it does not guarantee actual reproducibility or even reproduction.
@@ -343,7 +346,10 @@ None of the papers reached the highest level of reproducibility on any criterion
 Only `r data_level_two` papers reached level `2` in the _Input Data_ criterion, which was still the highest number of that level across all criteria.
 Similar to previous results \cite{nust_reproducible_2018}, the number of papers with level `0` for _Input Data_ was especially high (`r data_level_zero`, corresponding to `r paste0(round(data_level_zero / count_n * 100, 0), "%")`), which is a significant barrier to reproduction since input data is not only unavailable but also cannot be recreated from the information provided in the paper.
 
-_Preprocessing_ applied to `r preprocessing_included` publications, and the levels reached were generally low (`0` or `1`), level `2` being almost residual.
+```{r barplot, ref.label="fig_assessment_results", out.width='100%', fig.cap="Barplots of reproducibility assessment results; levels range from 0 (leftmost bar) to 'not applicable' (rightmost bar)."}
+```
+
+_Preprocessing_ applied to `r preprocessing_included` publications, and the levels reached were generally low (`0` or `1`), level `2` being residual.
 Of these, `r preprocessing_level_one` papers reach level `1`.
 This represents about half of the papers with level `1` in the _Analysis_ criterion, suggesting that data processing was clearly identified in some papers.
 For the other half, it was not clear whether data preprocessing tasks existed at all, or whether these tasks part of the main analysis.
@@ -361,15 +367,16 @@ Finally, papers scored worse on the _Computational Environment_ criterion.
 Overall, `r compenv_level_zero` (`r paste0(round(compenv_level_zero / count_n * 100, 0), "%")`) publications were level `0`, which means that no clues were provided in the paper about the computing environment, tools, or libraries used in the reported analysis.
 The _Computational Environment_ criterion and the _Input Data_ criterion accounted for a considerable number of `0` values, which clearly signals a serious impediment to reproduction.
 
-We have previously referred to the minimum standard for reproduction. Level 1 is minimum acceptable standard if a paper is examined under the prism of "preproducibility" (reproduction by reading only) \cite{stark_2018}. However, considering that minimum, as noted above, actual reproduction is totally unpredictable since there is no guarantee of availability of data and methods. Fig 2 shows the distribution of papers by levels through all criteria except _Preprocessing_. The largest stream is for papers with "1101", which just barely meet the minimum standard for read-only reproduction. Note that the second largest stream is "0101", which seriously questions the reporting of input data in a paper.
+```{r data-alluvial, ref.label='data_alluvial'}
+```
 
 For practical reproduction, the minimum standard bar for hand-on reproduction is set to 2, ensuring that all required pieces are available. Looking at Fig 2, only a small fraction of papers reaches level 2 (none for _Computational Environment_), which most likely will be successfully reproduced. Nevertheless, level 2 is necessary but not sufficient to carry out "always" a successful reproduction, since access to data and code say nothing about the quality and documentation of such resources (Daniel: one of your recent works can be cited here?).
 
-```{r summary-evaldata, ref.label="summary_evaldata", out.width="100%"}
+```{r alluvial-diagramme, ref.label='fig_alluvial', echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Alluvial diagramme of common groups of papers throughout 4 of 5 categories including only papers without any ``not applicable'' \\emph{(Level NA)} value; category \\emph{Preprocessing} was dropped because difficulty to clearly assess it lead to many ``not applicable'' values."}
 ```
 
-```{r barplot, ref.label="fig_assessment_results", out.width='100%', fig.cap="Barplots of reproducibility assessment results; levels range from 0 (leftmost bar) to 'not applicable' (rightmost bar)."}
-```
+More interestingly, the diagramme illustrates how groups of papers with the same properties move through the different categories.
+Three major groups, who represent `r papers_wo_na_wo_prepr %>% filter(n > 9) %>% .$n %>% sum()` (`r round(papers_wo_na_wo_prepr %>% filter(n > 9) %>% .$n %>% sum() / sum(papers_wo_na_wo_prepr$n), 2) * 100`%) of the papers included in the figure, become visible as broad bands.
 
 ```{r alluvial-diagramme, ref.label='fig_alluvial', echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Alluvial diagramme"}
 ```

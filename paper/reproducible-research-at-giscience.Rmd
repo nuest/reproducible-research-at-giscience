@@ -330,10 +330,10 @@ This does not mean that the papers in which the _Preprocessing_ criterion was mi
 Simply, in these cases, either no preprocessing is required or has been integrated into the main analysis.
 Obviously, if data preprocessing is required but it is either not indicated in the paper or is not provided as an additional (computational) step or resource, the ability to reproduce the paper will be seriously limited.
 
-If we look at the median values of the five criteria (Table&nbsp;\@ref(tab:summary-evaldata)), a typical GIScience paper scores `11101`.
+If we look at the median values of the five criteria (Table&nbsp;\@ref(tab:summary-evaldata)), a typical GIScience paper scores `1`&nbsp;`1`&nbsp;`1`&nbsp;`0`&nbsp;`1`.
 This score translates in practical terms into a paper that is sufficiently documented to claim that reproduction could be attempted within a short time frame after publication.
 While such a level of reproducibility is typically accepted by journals and conferences today, it does not guarantee actual reproducibility or even reproduction.
-If we had to reproduce such a paper, this would require considerable effort, namely technical skills, communication with authors, and time not only to both gather, recreate, and/or analyse all the necessary resources (data, code, etc.) but also to recreate the specific computational environment of the paper, if the latter were even possible, since this is generally not specified (note the value `0` in the fourth position in `11101`).
+If we had to reproduce such a paper, this would require considerable effort, namely technical skills, communication with authors, and time not only to both gather, recreate, and/or analyse all the necessary resources (data, code, etc.) but also to recreate the specific computational environment of the paper, if the latter were even possible, since this is generally not specified (note the lone value `0` in the fourth position above).
 
 ```{r ref.label="criteria_numbers"}
 ```
@@ -355,7 +355,7 @@ In this sense, most of the assessed papers fall below the minimum standard for r
 All papers except one had a value of `1` for the results criterion, which shows that the peer review worked as expected for almost all articles.
 In other words, authors are concerned with making the results understandable to the reviewers, which is not always the case for the other criteria.
 More generally, this aspect raises the question of whether peer review should stop in the absence of minimal evidence of the input data, analysis, and computational environment used in a paper.
-Without an explicit justification (confidential data, privacy concerns, etc), should a paper with level `0` (or `NA`) for the input data criterion get accepted for a conference? 
+Without an explicit justification (confidential data, privacy concerns, etc), should a paper with level `0` (or `NA`) for the input data criterion get accepted for a conference?
 
 Finally, papers scored worse on the _Computational Environment_ criterion.
 Overall, `r compenv_level_zero` (`r paste0(round(compenv_level_zero / count_n * 100, 0), "%")`) publications were level `0`, which means that no clues were provided in the paper about the computing environment, tools, or libraries used in the reported analysis.

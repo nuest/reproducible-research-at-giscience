@@ -72,6 +72,7 @@ Required libraries and runtime environment description are as follows.
 
 ```{r load_libraries, echo=TRUE, message=FALSE}
 library("tidyverse")
+library("tidyr")
 library("readr")
 library("ggplot2")
 library("reshape2")
@@ -84,6 +85,9 @@ library("huxtable")
 library("here")
 library("googlesheets4")
 library("patchwork")
+library("knitr")
+library("kableExtra")
+
 ```
 
 ## Load data
@@ -155,7 +159,6 @@ knitr::kable(paper_evaluation %>%
 
 ```{r summary_evaldata}
 evaldata_numeric <- paper_evaluation_wo_conceptual %>%
-  dplyr::filter(`conceptual paper` == FALSE) %>%
   # must convert factors to numbers to calculate the mean and median
   dplyr::mutate_if(is.factor, list(~ as.integer(as.character(.))))
 
@@ -167,7 +170,7 @@ summaryna <- function (v) {
     res <- summary(v)
   }
   return(res)
-} 
+}
 
 # apply summary independently to format as table
 summaries <- sapply(evaldata_numeric[,categoryColumns], summaryna)
@@ -178,7 +181,9 @@ kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)),
       col.names = c("input data", "preproc.", "method/analysis/proc.",
                     "comp. env.", "results"),
       caption = "Statistics of reproducibility levels per criterion (rounded to one decimal place)") %>%
-  kableExtra::kable_styling("striped", full_width = FALSE)
+  kableExtra::row_spec(0, bold = TRUE) %>%
+  kableExtra::kable_styling(latex_options = c("striped"),
+                            font_size = 8)
 ```
 
 The preprocessing has `r sum(!is.na(evaldata_numeric$preprocessing))` values, with `0` and `1` around the "middle" resulting in a fraction as the median.
@@ -198,8 +203,16 @@ preprocessing_included <- paper_evaluation_wo_conceptual %>%
   filter(!is.na(preprocessing)) %>% 
   count() %>% .$n
 
+preprocessing_level_one <- paper_evaluation_wo_conceptual %>% 
+  filter(preprocessing == 1) %>% 
+  count() %>% .$n
+
 methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>% 
   filter(`method/analysis/processing` == 1 & results == 1) %>% 
+  count() %>% .$n
+  
+compenv_level_zero <- paper_evaluation_wo_conceptual %>% 
+  filter(`computational environment` == 0) %>% 
   count() %>% .$n
 ```
 
@@ -211,7 +224,7 @@ methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>%
 
 ## Figure: Barplots of reproducibility assessment results
 
-```{r fig_assessment_results,fig.width=12}
+```{r fig_assessment_results, fig.width=12}
 # match the colours to time series plot below
 colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
 level_names <- c("0", "1", "2", "3", NA)
@@ -226,13 +239,10 @@ criteriaBarplot = function(category, main, colour) {
     ggplot2::ggtitle(main) +
     ggplot2::xlab("Level") +
     ggplot2::xlim(level_names) +
-    #ggplot2::scale_x_discrete(limits = level_names,
-    #                          na.translate = TRUE, na.value = "NA") +
     ggplot2::ylab("") +
     ggplot2::scale_y_continuous(breaks = breaks,
                                 limits = range(breaks)) +
-    #ggplot2::guides(fill = FALSE) + # remove legend
-    theme_tufte(base_size = 12) + theme(axis.ticks.x = element_blank())
+    ggthemes::theme_tufte(base_size = 8) + theme(axis.ticks.x = element_blank())
 }
 
 fig_barplot <- patchwork::wrap_plots(
@@ -570,7 +580,7 @@ fig_mean_over_time <- ggplot(evaldata_years_long, aes(year, value)) +
                                      paper_count_years$`paper count`, 
                                      ")")) +
   scale_fill_brewer(palette = "Set1", name = "Category") +
-  theme_tufte(base_size = 18) +
+  ggthemes::theme_tufte(base_size = 18) +
   theme(legend.position = c(0.15,0.75), 
         legend.text = element_text(size = 14)) +
   ylim(0, 3) +

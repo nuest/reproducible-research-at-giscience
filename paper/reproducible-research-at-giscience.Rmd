@@ -72,28 +72,21 @@ output:
     keep_tex: TRUE
 ---
 
-```{r load_data, echo=FALSE, message=FALSE, warning=FALSE}
-library("here")
 
-assessment_file <- here::here("results/paper_assessment.csv")
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = FALSE)
+```
 
-category_levels <- c("0", "1", "2", "3")
-categoryColumns <- c("input data", 
-                     "preprocessing",
-                     "method/analysis/processing",
-                     "computational environment",
-                     "results")
+```{r load_assessment_analysis}
+# extract chunks from analysis document and read them so they can be executed individually using <<name-of-chunk>>
+invisible(knitr::purl("../giscience-reproducibility-assessment.Rmd", output="temp", quiet = TRUE))
+knitr::read_chunk('temp')
+```
 
-paper_evaluation <- readr::read_csv(assessment_file, 
-    col_types = readr::cols(
-      `conceptual paper` = readr::col_logical(),
-      `computational environment` = readr::col_factor(levels = category_levels),
-      `input data` = readr::col_factor(levels = category_levels),
-      `method/analysis/processing` = readr::col_factor(levels = category_levels),
-      preprocessing = readr::col_factor(levels = category_levels),
-      results = readr::col_factor(levels = category_levels)
-      ),
-    na = "NA")
+```{r run_analysis_chunks}
+<<evaldata_file>>
+<<load_libraries>>
+<<load_evaldata>>
 ```
 
 ```{r count_papers, echo=FALSE, message=FALSE, warning=FALSE}
@@ -311,15 +304,13 @@ Lastly, human subject tests and surveys were also a special case. Human-related 
 
 ## Paper corpus
 
-```{r conceptual_papers, echo=FALSE, message=FALSE, warning=FALSE}
-library("tidyr")
-
-conceptual_paper_counts <- paper_evaluation %>%
+```{r years}
+conceptual_counts_per_year <- paper_evaluation %>%
   dplyr::filter(`conceptual paper` == TRUE) %>%
-  group_by(year) %>%
-  summarise(n = n()) %>%
-  unite(counts, year, n, sep = ": ")
- 
+  dplyr::group_by(year) %>%
+  dplyr::summarise(n = n()) %>%
+  tidyr::unite(counts, year, n, sep = ":&nbsp;")
+    
 years <- sort(unique(paper_evaluation$year))
 ```
 
@@ -327,8 +318,8 @@ In total, `r count_papers` papers from the GIScience conferences in `r paste0(pa
 Table&nbsp;\@ref(tab:corpus-table) shows the full results of the assessment.
 For details on assigned assessors, authors, etc., please check the reproducibility package \cite{daniel_nust_2020_4032875}.
 `r count_conceptual` papers (`r paste0(round(count_conceptual / count_papers * 100, 0), "%")`) across all years were identified as conceptual papers[^conceptual] and were not included in the corpus.
-The number of conceptual papers in GIScience conferences was low over the analysed years (`r paste(conceptual_paper_counts$counts, collapse = "; ")`), going down to zero in the last year's proceedings (`r max(unique(paper_evaluation$year))`).
-This might suggest the increasingly predominant and ubiquitous role of analytics datasets and computational workflows in the generation of the final published results in the field.
+The number of conceptual papers in GIScience conferences was low over the analysed years (`r paste(conceptual_counts_per_year$counts, collapse = "; ")`), going down to zero in the last included year's proceedings (`r max(unique(paper_evaluation$year))`).
+This might suggest an increasingly predominant and ubiquitous role of analytics datasets and computational workflows in the generation of the final published results in the field.
 
 # Reproducibility of GIScience conference papers
 
@@ -344,34 +335,10 @@ This score translates in practical terms into a paper that is sufficiently docum
 While such a level of reproducibility is typically accepted by journals and conferences today, it does not guarantee actual reproducibility or even reproduction.
 If we had to reproduce such a paper, this would require considerable effort, namely technical skills, communication with authors, and time not only to both gather, recreate, and/or analyse all the necessary resources (data, code, etc.) but also to recreate the specific computational environment of the paper, if the latter were even possible, since this is generally not specified (note the value `0` in the fourth position in `11101`).
 
-```{r criteria_numbers, echo=FALSE, message=FALSE, warning=FALSE}
-
-data_level_zero <- paper_evaluation_wo_conceptual %>% 
-  filter(`input data` == 0) %>% 
-  count() %>% .$n
-
-data_level_two <- paper_evaluation_wo_conceptual %>% 
-  filter(`input data` == 2) %>% 
-  count() %>% .$n
-
-preprocessing_included <- paper_evaluation_wo_conceptual %>% 
-  filter(!is.na(preprocessing)) %>% 
-  count() %>% .$n
-
-preprocessing_level_one <- paper_evaluation_wo_conceptual %>% 
-  filter(preprocessing == 1) %>% 
-  count() %>% .$n
-
-methods_and_results_eq_one <- paper_evaluation_wo_conceptual %>% 
-  filter(`method/analysis/processing` == 1 & results == 1) %>% 
-  count() %>% .$n
-  
-compenv_level_zero <- paper_evaluation_wo_conceptual %>% 
-  filter(`computational environment` == 0) %>% 
-  count() %>% .$n
+```{r ref.label="criteria_numbers"}
 ```
 
-Figure&nbsp;\@ref(fig:assessment-results) shows the distribution of the reproducibility levels for each criterion.
+Figure&nbsp;\@ref(fig:barplot) shows the distribution of the reproducibility levels for each criterion.
 None of the papers reached the highest level of reproducibility on any criterion.
 Only `r data_level_two` papers reached level `2` in the _Input Data_ criterion, which was still the highest number of that level across all criteria.
 Similar to previous results \cite{nust_reproducible_2018}, the number of papers with level `0` for _Input Data_ was especially high (`r data_level_zero`, corresponding to `r paste0(round(data_level_zero / count_n * 100, 0), "%")`), which is a significant barrier to reproduction since input data is not only unavailable but also cannot be recreated from the information provided in the paper.
@@ -398,62 +365,13 @@ We have previously referred to the minimum standard for reproduction. Level 1 is
 
 For practical reproduction, the minimum standard bar for hand-on reproduction is set to 2, ensuring that all required pieces are available. Looking at Fig 2, only a small fraction of papers reaches level 2 (none for _Computational Environment_), which most likely will be successfully reproduced. Nevertheless, level 2 is necessary but not sufficient to carry out "always" a successful reproduction, since access to data and code say nothing about the quality and documentation of such resources (Daniel: one of your recent works can be cited here?).
 
-```{r summary-evaldata, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%'}
-library("knitr")
-library("kableExtra")
-
-evaldata_numeric <- paper_evaluation_wo_conceptual %>%
-  # must convert factors to numbers via character to calculate the mean and median without shifting values
-  dplyr::mutate_if(is.factor, ~as.integer(as.character(.)))
-
-summaryna <- function (v) {
-  if(!any(is.na(v))){
-    res <- c(summary(v),"NA's"=0)
-  } else{
-    res <- summary(v)
-  }
-  return(res)
-}
-
-# apply summary independently to format as table
-summaries <- sapply(evaldata_numeric[,categoryColumns], summaryna)
-exclude_values_summary <- c("1st Qu.", "3rd Qu.")
-knitr::kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 
-      digits = 1,
-      col.names = c("input data", "preproc.", "method/analysis/proc.",
-                    "comp. env.", "results"),
-      caption = "Statistics of reproducibility levels per criterion (rounded to one decimal place)") %>%
-  kableExtra::row_spec(0, bold = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("striped"),
-                            font_size = 8)
+```{r summary-evaldata, ref.label="summary_evaldata", out.width="100%"}
 ```
 
-```{r assessment-results, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Barplots of reproducibility assessment results; levels range from 0 (leftmost bar) to 'not applicable' (rightmost bar)."}
-# match the colours to time series plot below
-colours <- RColorBrewer::brewer.pal(length(categoryColumns), "Set1")
-level_names <- c("0", "1", "2", "3", "NA")
+```{r barplot, ref.label="fig_assessment_results", out.width='100%', fig.cap="Barplots of reproducibility assessment results; levels range from 0 (leftmost bar) to 'not applicable' (rightmost bar)."}
+```
 
-criteriaBarplot = function(data, main, colour) {
-  barplot(table(data, useNA = "always"), 
-          main = main,
-          xlab = "Level",
-          ylim = c(0,nrow(paper_evaluation_wo_conceptual)),
-          names.arg = level_names, col = colours[colour])
-}
-
-par(mfrow = c(1,length(categoryColumns)),
-    cex = 0.5,
-    cex.axis = 0.9)
-criteriaBarplot(paper_evaluation_wo_conceptual$`input data`,
-                main = "Input data", colour = 1)
-criteriaBarplot(paper_evaluation_wo_conceptual$`preprocessing`, 
-                main = "Preprocessing", colour = 2)
-criteriaBarplot(paper_evaluation_wo_conceptual$`method/analysis/processing`,
-                main = "Methods/Analysis/\nProcessing", colour = 3)
-criteriaBarplot(paper_evaluation_wo_conceptual$`computational environment`,
-                main = "Computational\nEnvironment", colour = 4)
-criteriaBarplot(paper_evaluation_wo_conceptual$results,
-                main = "Results", colour = 5)
+```{r alluvial-diagramme, ref.label='fig_alluvial', echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Alluvial diagramme"}
 ```
 
 [^conceptual]: See \cite{nust_reproducible_2018} for a definition of "conceptual".
@@ -534,7 +452,7 @@ In the AGILE corpus we identified `r agile_conceptual` of `r agile_papers` conce
 This indicates that both conferences have similar share of papers that used, at least in part, computational methods.
 On the content of the papers, our overall impression was that a larger share of GIScience papers included theoretical, conceptual, or methodological aspects, while AGILE papers seemed to feature more empirical and/or applied geoinformation science research.
 
-```{r comparison-table, echo=FALSE, warning=FALSE}
+```{r comparison-table}
 criteria <- c("input data", "method/analysis/processing", "computational environment", "results")
 comparison_table <- tibble(Criterion = criteria,
                            `AGILE full papers` = c(agile_input_data_mean,
@@ -617,6 +535,10 @@ Such a project would ideally be supported with proper funding.
 If the observed trend of non-reproducibility is continued in further, or in the case of replications, much more detailed evaluations, which we fear it might, the GIScience community should take action and improve its state of reproducibility.
 A timely adoption of the technological and procedural solutions may allow GIScience researchers, together with the entirety of academia, to level up and approach the challenges of the _"second phase of reproducible research"_ by tackling long-term funding for maintenance of code and data and building supporting infrastructure for reproducible research \cite{peng_reproducible_2020}.
 
-```{r wordcount, echo=FALSE, message=FALSE, warning=FALSE}
+```{r wordcount}
 message("WORDCOUNT: ", wordcountaddin::word_count())
+```
+
+```{r}
+unlink("temp")
 ```

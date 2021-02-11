@@ -366,20 +366,36 @@ Without an explicit justification (confidential data, privacy concerns, etc), sh
 Finally, papers scored worse on the _Computational Environment_ criterion.
 Overall, `r compenv_level_zero` (`r paste0(round(compenv_level_zero / count_n * 100, 0), "%")`) publications were level `0`, which means that no clues were provided in the paper about the computing environment, tools, or libraries used in the reported analysis.
 The _Computational Environment_ criterion and the _Input Data_ criterion accounted for a considerable number of `0` values, which clearly signals a serious impediment to reproduction.
+It also shows a rather low recognition of data and software as academic outputs, because both data and software should be properly cited to give credit to their creators \cite{lawrence_bryan_citation_2011,katz_recognizing_2021}.
 
 ```{r data-alluvial, ref.label='data_alluvial'}
 ```
 
-For practical reproduction, the minimum standard bar for hand-on reproduction is set to 2, ensuring that all required pieces are available. Looking at Fig 2, only a small fraction of papers reaches level 2 (none for _Computational Environment_), which most likely will be successfully reproduced. Nevertheless, level 2 is necessary but not sufficient to carry out "always" a successful reproduction, since access to data and code say nothing about the quality and documentation of such resources (Daniel: one of your recent works can be cited here?).
+Figure&nbsp;\@ref(fig:alluvial-diagramme) shows an alluvial diagramme of all scores, i.e., combinations of category values, of `r sum(papers_wo_na_wo_prepr$n)` papers, which do not have any categories with level `NA`.
+A large part of the not included papers have this value within the category `preprocessing` because it was discovered to be quite hard to assess.
+Therefore this category is not shown in the figure.
+The diagramme repeats overall patterns seen before.
+The vast majority of papers have level `1` in categories in _Methods/Analysis/Processing_ and _Results_.
+_Input data_ is most diverse, with a surprisingly large number of papers with level `0` but also the largest fraction of papers reaching level `2`.
+All kinds of papers show considerable drops in _Computational Environment_.
 
 ```{r alluvial-diagramme, ref.label='fig_alluvial', echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Alluvial diagramme of common groups of papers throughout 4 of 5 categories including only papers without any ``not applicable'' \\emph{(Level NA)} value; category \\emph{Preprocessing} was dropped because difficulty to clearly assess it lead to many ``not applicable'' values."}
 ```
 
 More interestingly, the diagramme illustrates how groups of papers with the same properties move through the different categories.
 Three major groups, who represent `r papers_wo_na_wo_prepr %>% filter(n > 9) %>% .$n %>% sum()` (`r round(papers_wo_na_wo_prepr %>% filter(n > 9) %>% .$n %>% sum() / sum(papers_wo_na_wo_prepr$n), 2) * 100`%) of the papers included in the figure, become visible as broad bands.
+These papers only get close to meet the minimum standard for reproducibility, and provide no assurance at all that the level can be kept in the mid term as materials are not properly deposited.
+Two groups with 10 papers each start with level `0` for _Input Data_ and `1` for _Methods/Analysis/Processing_ and reach a `1` for _Results_, while they are divided equally between level `0` and `1` for _Computational Environment_.
+These groups seriously question the focus of the reporting and arguments in the papers, as convincing results seem to outweigh all concerns for transparency and full understandability.
+The third and largest group matches the overall mean values for the typical GIScience paper with level `1` for all categories except for _Computational Environment_.
 
-```{r alluvial-diagramme, ref.label='fig_alluvial', echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Alluvial diagramme"}
-```
+Most interestingly, the diagramme shows some more curious patterns albeit with only few papers.
+The papers with the lowest level of `0` in _Results_, so in the eyes' of the assessors the results are not fully understandable, actually have better values in earlier categories.
+Only few papers that start with level `2` in _Input Data_ can keep this level for _Methods/Analysis/Processing_, and even the ones who do then drop to level `0` in _Computational Environment_.
+Only one paper each shows the following surprising paths: a start with level `1` for _Input Data_ and then a move up to level `2` in the methodology; reaching level `2` in results despite having only values of `1` or `0` in other categories.
+
+Not a single paper can reach the required levels for an immediate reproduction by ensuring that all required pieces are available (levels of `2`), not even considering the further challenges around documentation if availability is given (e.g.,&nbsp;\cite{nust_improving_2020}).
+The overall low values for _Computational Environment_ are one signal that lead to the growing concerns for reproducibility and reusability of computational research.
 
 [^conceptual]: See \cite{nust_reproducible_2018} for a definition of "conceptual".
 

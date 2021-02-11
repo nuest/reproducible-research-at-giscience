@@ -163,7 +163,7 @@ The AGILE conference is closely related to GIScience conference in terms of scie
 Using systematic analysis based on a rubric for reproducible research, we found that the majority of AGILE papers neither provided sufficient information for a reviewer to evaluate the code and data and attempt a reproduction, nor enough material for readers to reuse or extend data or code from the analytical workflows.
 This is corroborated by research in related disciplines such as quantitative geography \cite{brunsdon_quantitative_2016}, qualitative GIS \cite{muenchow_reviewing_2019}, geoscience \cite{konkol_computational_2019}, and \mbox{e-Science} \cite{freire_et_al:DR:2016:5817}.
 The problems identified in these related research areas are directly transferable to GIScience, which operates at the intersections of aforementioned fields \cite{Goodchild1992}.
-In any case, observations on the lack of reproducibility in all scientific fields contrast with the clear advantages and benefits of open and reproducible research both for individuals and for academia as a whole (cf. for example \cite{donoho_invitation_2010,markowetz_five_2015,kray_reproducible_2019,Colavizza2020}).
+In any case, observations on the lack of reproducibility in all scientific fields contrast with the clear advantages and benefits of open and reproducible research both for individuals and for academia as a whole (cf.&nbsp;for example \cite{donoho_invitation_2010,markowetz_five_2015,kray_reproducible_2019,Colavizza2020}).
 As a consequence, we have initiated a process to support authors in increasing reproducibility for AGILE publications; as a main outcome, this initiative has produced author guidelines as well as strategies for the AGILE conference series[^reproagile].
 
 An obvious question is whether the GIScience conference series faces the same issues and whether similar strategies could work for improvement.
@@ -223,14 +223,14 @@ This work transfers a previously used method to a new dataset, whereby the origi
 In the following, we focus on recently published works and briefly introduce related meta-studies.
 
 Few groups have attempted practical reproduction of computational works related to GIScience.
-Konkol et&nbsp;al. \cite{konkol_computational_2019} conducted an in-depth examination of the computational reproducibility of 41 geoscience papers with a focus on differences between the recreated figures.
+Konkol et&nbsp;al.&nbsp;\cite{konkol_computational_2019} conducted an in-depth examination of the computational reproducibility of 41 geoscience papers with a focus on differences between the recreated figures.
 The set of papers was, similar to our work, drawn from a fixed group of two outlets (journals), but it was further limited to recent papers providing code in the R language.
-Konkol et&nbsp;al. \cite{konkol_computational_2019} also conducted actual reproductions, which we did not do here; yet, applying the same prerequisites to our dataset would be possible as a next step.
+Konkol et&nbsp;al.&nbsp;\cite{konkol_computational_2019} also conducted actual reproductions, which we did not do here; yet, applying the same prerequisites to our dataset would be possible as a next step.
 One could attempt to reproduce the papers whose assessment points to a possible reproduction (i.e., level two or higher, see below).
 In a report on the reproducibility review at the AGILE conference 2020[^reproreport], the reproducibility committee summarised the process and documented relevant obstacles to reproducibility of accepted papers.
-The main issues identified in their report and by Konkol et&nbsp;al. \cite{konkol_computational_2019} are quite coincident.
+The main issues identified in their report and by Konkol et&nbsp;al.&nbsp;\cite{konkol_computational_2019} are quite coincident.
 
-Within the geospatial domain, Kedron et&nbsp;al. \cite{kedron_reproducibility_2020} provide a recent review of opportunities and challenges for reproducibility and replicability.
+Within the geospatial domain, Kedron et&nbsp;al.&nbsp;\cite{kedron_reproducibility_2020} provide a recent review of opportunities and challenges for reproducibility and replicability.
 They transfer solutions from other domains but also discuss and conceptualize the specific nature of a reproducibility and replicability framework when working with geospatial data, e.g., handling context, uncertainty of spatial processes, or how to accommodate the inherent natural variability of geospatial systems.
 In a similar manner, Brunsdon and Comber \cite{brunsdon_opening_2020} investigate reproducibility within spatial data science, with special attention to big spatial data.
 They support the need for open tools, knowledge about code, and reproducibility editors at domain journals and conferences, but they also introduce the perspective that spatial analysis is no longer conducted only by GI/geo-scientists or geographers and connect reproducibility with critical spatial understanding.
@@ -238,7 +238,7 @@ The conceptual work in these articles complements the assessment of reproducibil
 
 Two recent studies from distant disciplines, wildlife science \cite{archmiller_computational_2020} and hydrology \cite{stagge_assessing_2019}, relate to our work in this paper.
 Both investigate a random set of articles from selected journals and use a stepwise process of questions to determine the availability of materials, and eventually reproduce workflows if possible.
-Archimiller et&nbsp;al. \cite{archmiller_computational_2020} use a final ranking of 1 to 5 to specify the degree to which a study's conclusions were eventually reproduced.
+Archimiller et&nbsp;al.&nbsp;\cite{archmiller_computational_2020} use a final ranking of 1 to 5 to specify the degree to which a study's conclusions were eventually reproduced.
 Similar to our classification scheme, their ranking models borrow the general notion of a _"reproducibility spectrum"_ \cite{peng_reproducible_2011}.
 
 [^reproreport]: [https://osf.io/7rjpe/](https://osf.io/7rjpe/)
@@ -247,7 +247,7 @@ Similar to our classification scheme, their ranking models borrow the general no
 
 ## Criteria
 
-The assessment criteria used for the current study were originally defined in previous work, so we provide a short introduction here and refer to Nüst et&nbsp;al. \cite{nust_reproducible_2018} for details.
+The assessment criteria used for the current study were originally defined in previous work, so we provide a short introduction here and refer to Nüst et&nbsp;al.&nbsp;\cite{nust_reproducible_2018} for details.
 The three assessment criteria are _Input Data_, _Methods_, and _Results_.
 _Input Data_ comprises all datasets that the computational analysis uses.
 _Methods_ encompasses the entire computational analysis that generates the results.
@@ -463,10 +463,10 @@ If not, what adaptations seem necessary?
 author_counts <- read.csv(here::here("author_analysis", "author_counts.csv"))
 ```
 
-Concerning the contributing and participating academic communities, Egenhofer et&nbsp;al. \cite{egenhofer_contributions_2016} and Kemp et&nbsp;al. \cite{kemp2013results} both include  the conferences considered here as outlets for GIScience.
-Further, Ke\ss ler et&nbsp;al. \cite{kesler_spatiallinkedscience_2012} investigate the bibliographies of four GIScience conference series, including GIScience and AGILE.
+Concerning the contributing and participating academic communities, Egenhofer et&nbsp;al.&nbsp;\cite{egenhofer_contributions_2016} and Kemp et&nbsp;al.&nbsp;\cite{kemp2013results} both include  the conferences considered here as outlets for GIScience.
+Further, Ke\ss ler et&nbsp;al.&nbsp;\cite{kesler_spatiallinkedscience_2012} investigate the bibliographies of four GIScience conference series, including GIScience and AGILE.
 They list 15 authors who have published in all GIScience conference.
-We conducted a cursory investigation of the body of authors for full papers, revealing significant overlap[^authoranalysis]: Out of `r author_counts$AGILE` unique AGILE and `r author_counts$GIScience` unique GIScience full paper authors, `r author_counts$intersection` published in both conferences, and this includes all 15 authors mentioned by Ke\ss ler et&nbsp;al. \cite{kesler_spatiallinkedscience_2012}. 
+We conducted a cursory investigation of the body of authors for full papers, revealing significant overlap[^authoranalysis]: Out of `r author_counts$AGILE` unique AGILE and `r author_counts$GIScience` unique GIScience full paper authors, `r author_counts$intersection` published in both conferences, and this includes all 15 authors mentioned by Ke\ss ler et&nbsp;al.&nbsp;\cite{kesler_spatiallinkedscience_2012}. 
 Therefore, the strong relation between the AGILE and GIScience conference series confirms our approach to apply the same methodology to GIScience that has been developed for AGILE conference publications, and it might lead to similar implications for improving reproducibility.
 
 Concerning the paper corpora, the publication years considered here (2012-2018) are similar to the assessment of AGILE papers (2010-2017), which makes the results comparable in the sense of what methods and tools would have been available for authors.
@@ -541,19 +541,19 @@ Therefore, the previously identified recommendations are directly transferable t
 (2) recognizing researchers' efforts to achieve reproducibility, e.g., with a special track for reproducible papers, implementing a reproducibility reviewer, open educational resources, and helpful author guidelines including data and software citation requirements and a specific data/software repository, and
 (3) making an institutional commitment to a policy shift that goes beyond mere accessibility \cite{stodden_empirical_2018}.
 These changes require a roadmap and a clear year, say 2024, when GIScience starts to only accept computationally reproducible submissions and to check reproducibility before papers are accepted.
-The concluding statement of Archmiller et&nbsp;al. \cite{archmiller_computational_2020} is directly transferable to GIScience:
+The concluding statement of Archmiller et&nbsp;al.&nbsp;\cite{archmiller_computational_2020} is directly transferable to GIScience:
 The challenges are not insurmountable, and increased reproducibility will ensure scientific integrity.
 
 The AGILE reproducible paper guidelines \cite{agile_guidelines} and the associated reproducibility review processes as well as other community code review systems such as CODECHECK \cite{eglen_codecheck_2019} are open and "ready to use".
 They can also be adopted for GIScience conferences, e.g., to suit the peer review process goals and scheduling.
-Kedron et&nbsp;al. \cite{kedron_reproducibility_2020} stressed the need for a comprehensive balanced approach to technical, conceptual, and practical issues.
+Kedron et&nbsp;al.&nbsp;\cite{kedron_reproducibility_2020} stressed the need for a comprehensive balanced approach to technical, conceptual, and practical issues.
 They further pointed out that availability must not lead to adoption.
 Therefore, a broad discourse around these recommendations, tools, and concepts would be beneficial for all members of the community, whether their work is more towards conceptual, computational, or applied GIScience.
 A survey for authors, as conducted for AGILE \cite{nust_reproducible_2018}, could help identify special requirements and specific circumstances, beyond the findings presented here and in related work.
 
-Future work may transfer the assessment process to other major events and outlets for GIScience research, such as GeoComputation or COSIT conferences and domain journals (cf. \cite{egenhofer_contributions_2016} for an extensive list), but we would not expect significantly differing results.
+Future work may transfer the assessment process to other major events and outlets for GIScience research, such as GeoComputation or COSIT conferences and domain journals (cf.&nbsp;\cite{egenhofer_contributions_2016} for an extensive list), but we would not expect significantly differing results.
 Practical reproductions of papers and even replications of fundamental works are even more promising projects to convincingly underpin a call for a culture change.
-For example, Egenhofer et&nbsp;al. \cite{egenhofer_contributions_2016} provide for a list of the most frequently cited articles as potential candidates.
+For example, Egenhofer et&nbsp;al.&nbsp;\cite{egenhofer_contributions_2016} provide for a list of the most frequently cited articles as potential candidates.
 Such a project would ideally be supported with proper funding.
 If the observed trend of non-reproducibility is continued in further, or in the case of replications, much more detailed evaluations, which we fear it might, the GIScience community should take action and improve its state of reproducibility.
 A timely adoption of the technological and procedural solutions may allow GIScience researchers, together with the entirety of academia, to level up and approach the challenges of the _"second phase of reproducible research"_ by tackling long-term funding for maintenance of code and data and building supporting infrastructure for reproducible research \cite{peng_reproducible_2020}.

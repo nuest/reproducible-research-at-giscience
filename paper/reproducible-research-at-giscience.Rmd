@@ -325,9 +325,10 @@ This might suggest an increasingly predominant and ubiquitous role of analytics 
 
 Table&nbsp;\@ref(tab:summary-evaldata) shows aggregated values for the assessed reproducibility levels. 
 For `r paper_evaluation_wo_conceptual %>% filter(is.na(preprocessing)) %>% count() %>% .$n` papers, the _Preprocessing_ criterion was not applicable.
-This large number can be explained because the boundary between the _Preprocessing_ criterion and the _Methods, Analysis, Processing_ criterion is not always clear and is therefore subject to the assessor's interpretation.
+This large number can be explained with the unclear boundary between the _Preprocessing_ criterion and the _Methods, Analysis, Processing_ criterion.
+Therefore, especially the _Preprocessing_ criterion was found to be subject to the assessor's interpretation.
 This does not mean that the papers in which the _Preprocessing_ criterion was missing are not reproducible at all.
-Simply, in these cases, either no preprocessing is required or has been integrated into the main analysis.
+Simply, in these cases, either no preprocessing is required or it has been integrated into the main analysis.
 Obviously, if data preprocessing is required but it is either not indicated in the paper or is not provided as an additional (computational) step or resource, the ability to reproduce the paper will be seriously limited.
 
 ```{r summary-evaldata, ref.label="summary_evaldata", out.width="100%"}
@@ -335,15 +336,16 @@ Obviously, if data preprocessing is required but it is either not indicated in t
 
 If we look at the median values of the five criteria (Table&nbsp;\@ref(tab:summary-evaldata)), a typical GIScience paper scores `1`&nbsp;`1`&nbsp;`1`&nbsp;`0`&nbsp;`1`.
 This score translates in practical terms into a paper that is sufficiently documented to claim that reproduction could be attempted within a short time frame after publication.
-While such a level of reproducibility is typically accepted by journals and conferences today, it does not guarantee actual reproducibility or even reproduction.
-If we had to reproduce such a paper, this would require considerable effort, namely technical skills, communication with authors, and time not only to both gather, recreate, and/or analyse all the necessary resources (data, code, etc.) but also to recreate the specific computational environment of the paper, if the latter were even possible, since this is generally not specified (note the lone value `0` in the fourth position above).
+While such a level of reproducibility is typically accepted by journals and conferences today, it does not guarantee that a reproduction would be possible and practical.
+A reproduction of such a paper would require considerable effort, namely technical skills, communication with authors, and time not only to both gather, recreate, and/or analyse all the necessary resources (data, code, etc.) but also to recreate the specific computational environment of the paper.
+Especially the latter is very unlikely, as the computational environment is generally not specified at all (note the lone value `0` in the fourth position above).
 
 ```{r ref.label="criteria_numbers"}
 ```
 
 Figure&nbsp;\@ref(fig:barplot) shows the distribution of the reproducibility levels for each criterion.
-None of the papers reached the highest level of reproducibility on any criterion.
-Only `r data_level_two` papers reached level `2` in the _Input Data_ criterion, which was still the highest number of that level across all criteria.
+None of the papers reached the highest level of reproducibility (`3`) on any criterion.
+Only `r data_level_two` papers reached level `2` in the _Input Data_ criterion.
 Similar to previous results \cite{nust_reproducible_2018}, the number of papers with level `0` for _Input Data_ was especially high (`r data_level_zero`, corresponding to `r paste0(round(data_level_zero / count_n * 100, 0), "%")`), which is a significant barrier to reproduction since input data is not only unavailable but also cannot be recreated from the information provided in the paper.
 
 ```{r barplot, ref.label="fig_assessment_results", out.width='100%', fig.cap="Barplots of reproducibility assessment results; levels range from 0 (leftmost bar) to 'not applicable' (rightmost bar)."}
@@ -352,7 +354,7 @@ Similar to previous results \cite{nust_reproducible_2018}, the number of papers 
 _Preprocessing_ applied to `r preprocessing_included` publications, and the levels reached were generally low (`0` or `1`), level `2` being residual.
 Of these, `r preprocessing_level_one` papers reach level `1`.
 This represents about half of the papers with level `1` in the _Analysis_ criterion, suggesting that data processing was clearly identified in some papers.
-For the other half, it was not clear whether data preprocessing tasks existed at all, or whether these tasks part of the main analysis.
+For the other half, it was not clear whether data preprocessing tasks existed at all, or whether these tasks were part of the main analysis.
 When data preprocessing steps are required but not reported, this situation becomes much more problematic, as this makes it noticeably difficult to reproduce the results of a paper.
 
 _Methods_ and _Results_ criteria show a pretty similar distribution (see Figure&nbsp;\@ref(fig:assessment-results)).

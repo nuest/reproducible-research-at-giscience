@@ -17,6 +17,8 @@ the preprint and a deposition of this repository via the badges below.
 DOI](https://img.shields.io/badge/%F0%9F%8C%8D%F0%9F%8C%8F%F0%9F%8C%8E%20EarthArXiv-doi.org%2F10.31223%2FX5ZK5V-%23FF7F2A)](https://doi.org/10.31223/X5ZK5V)
 [![Zenodo
 DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4032875.svg)](https://doi.org/10.5281/zenodo.4032875)
+[![CI rendering of
+PDF](https://img.shields.io/badge/PDF-CI%20rendering-informational)](https://nightly.link/nuest/reproducible-research-at-giscience/suites/2070796259/artifacts/41866863)
 
 ## Reproduce online
 

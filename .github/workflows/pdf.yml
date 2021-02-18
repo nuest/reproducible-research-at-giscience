@@ -1,0 +1,29 @@
+name: Compile PDF
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  render:
+    runs-on: ubuntu-20.04
+    container:
+      # https://github.com/aergus/dockerfiles/blob/master/latex/Dockerfile
+      image: "nuest/reproducible-research-at-giscience"
+      #volumes: GH by default mounts workdir to /__w/, and sets "--workdir /__w/reponame/reponame"
+      options: --user root
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Render PDF
+        run: |
+          R -q -e 'rmarkdown::render("paper/reproducible-research-at-giscience.Rmd");'
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v2
+        with:
+          name: reproducible-research-at-giscience
+          path: paper/reproducible-research-at-giscience.pdf

@@ -70,6 +70,9 @@ output:
   bookdown::pdf_book:
     base_format: rticles::lipics_article
     keep_tex: TRUE
+header-includes:
+  - \usepackage{newunicodechar}
+  - \newunicodechar{^^^^2009}{\,}
 ---
 
 

@@ -362,7 +362,7 @@ This represents about half of the papers with level `1` in the _Analysis_ criter
 For the other half, it was not clear whether data preprocessing tasks existed at all, or whether these tasks were part of the main analysis.
 When data preprocessing steps are required but not reported, this situation becomes much more problematic, as this makes it noticeably difficult to reproduce the results of a paper.
 
-_Methods_ and _Results_ criteria show a pretty similar distribution (see Figure&nbsp;\@ref(fig:assessment-results)).
+_Methods_ and _Results_ criteria show a pretty similar distribution (see Figure&nbsp;\@ref(fig:barplot)).
 Indeed, `r methods_and_results_eq_one` publications had level `1` in both criteria, which represents `r paste0(round(methods_and_results_eq_one / count_n * 100, 0), "%")` of the papers assessed.
 In this sense, most of the assessed papers fall below the minimum standard for reproduction as regards the methods and results criteria. 
 All papers except one had a value of `1` for the results criterion, which shows that the peer review worked as expected for almost all articles.

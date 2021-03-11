@@ -12,7 +12,7 @@ thm-restate: true # for enabling thm-restate support
 author:
   # mandatory, please use full name; only 1 author per \author macro; first two parameters are mandatory, other parameters can be empty. Please provide at least the name of the affiliation and the country. The full address is optional
   - name: Frank O. Ostermann
-    #footnote: Optional footnote, e.g. to mark corresponding author
+    footnote: Corresponding author
     affiliation: "Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente, Enschede, The Netherlands"
     orcid: "https://orcid.org/0000-0002-9317-8291"
     email: f.o.ostermann@utwente.nl

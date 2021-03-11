@@ -42,8 +42,7 @@ author:
     email: m.konkol@uni-muenster.de
     funding: "Project [_o2r_](https://www.uni-muenster.de/forschungaz/project/12343), German Research Foundation, grant numbers [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837) and [TR&nbsp;864/12-1]()."
 bibliography: bibliography
-authorrunning: "F. O. Ostermann, D. Nüst, C. Granell, B. Hofer, M. Konkol" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
-# A "thin space" character, ' ' or &thinsp;, is used between the two first names.
+authorrunning: "F.\\thinspace O. Ostermann, D. Nüst, C. Granell, B. Hofer, M. Konkol" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
 ccdesc:
   # Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm
   concept_significance: "500"
@@ -64,17 +63,18 @@ supplement: |
   The R packages are installed from the [MRAN snapshot](https://mran.microsoft.com/timemachine) of July 5th 2019, and Python packages are pinned to specific versions, see `requirements.txt` file.
 nolinenumbers: true # disable line numbering
 hideLIPIcs: true # remove references to LIPIcs series (logo, DOI, ...), e.g. when preparing a pre-final version to be uploaded to arXiv or another public repository
-# appendix _after_ the bibliography
-#appendix: |
+always_allow_html: yes
 output:
   bookdown::pdf_book:
     base_format: rticles::lipics_article
-    keep_tex: TRUE
+    keep_tex: yes
+    pandoc_args : ["--verbose"]
 header-includes:
-  - \usepackage{newunicodechar}
-  - \newunicodechar{^^^^2009}{\,}
+  # add packages manually because they are needed for table in the appendix, and that is somehow not picked up
+  - \usepackage{longtable}
+  - \usepackage{booktabs}
+  - \usepackage[table]{xcolor}
 ---
-
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = FALSE)
@@ -134,7 +134,8 @@ appendix: |
   
   knitr::kable(paper_evaluation %>%
                  select(year, title, `conceptual paper`,
-                        `input data`, `preprocessing`, `method/analysis/processing`, `computational environment`, `results`), 
+                        `input data`, `preprocessing`, `method/analysis/processing`, `computational environment`, `results`),
+        format = "latex",
         longtable = TRUE,
         booktabs = TRUE,
         col.names = c("year", "title", "con-cep-tual",
@@ -199,6 +200,7 @@ library("kableExtra")
 
 # for inline testing: kable(word_counts_sums)
 knitr::kable(keywordstems_counts,
+             format = "latex",
              col.names = c("year", "words",
                            "reproduc..",
                            "replic..",
@@ -490,6 +492,7 @@ comparison_table <- tibble(Criterion = criteria,
                            `GIScience papers` = summaries["Mean", criteria])
 
 knitr::kable(comparison_table,
+      format = "latex",
       digits = 2,
       caption = "Mean values per criterion for both conferences (rounded to two decimal places)") %>%
   kableExtra::row_spec(0, bold = TRUE) %>%
@@ -564,9 +567,9 @@ If the observed trend of non-reproducibility is continued in further, or in the 
 A timely adoption of the technological and procedural solutions may allow GIScience researchers, together with the entirety of academia, to level up and approach the challenges of the _"second phase of reproducible research"_ by tackling long-term funding for maintenance of code and data and building supporting infrastructure for reproducible research \cite{peng_reproducible_2020}.
 
 ```{r wordcount}
-message("WORDCOUNT: ", wordcountaddin::word_count())
+message("WORDCOUNT: ", wordcountaddin::word_count(filename = here::here("paper/reproducible-research-at-giscience.Rmd")))
 ```
 
-```{r}
+```{r remove_temp_file}
 unlink("temp")
 ```

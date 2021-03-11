@@ -12,7 +12,7 @@ thm-restate: true # for enabling thm-restate support
 author:
   # mandatory, please use full name; only 1 author per \author macro; first two parameters are mandatory, other parameters can be empty. Please provide at least the name of the affiliation and the country. The full address is optional
   - name: Frank O. Ostermann
-    #footnote: Optional footnote, e.g. to mark corresponding author
+    footnote: Corresponding author
     affiliation: "Faculty of Geo-Information Science and Earth Observation (ITC), University of Twente, Enschede, The Netherlands"
     orcid: "https://orcid.org/0000-0002-9317-8291"
     email: f.o.ostermann@utwente.nl
@@ -42,8 +42,7 @@ author:
     email: m.konkol@utwente.nl
     funding: "Project [_o2r_](https://www.uni-muenster.de/forschungaz/project/12343), German Research Foundation, grant numbers [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837) and [TR&nbsp;864/12-1]()."
 bibliography: bibliography
-authorrunning: "F. O. Ostermann, D. Nüst, C. Granell, B. Hofer, M. Konkol" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
-# A "thin space" character, ' ' or &thinsp;, is used between the two first names.
+authorrunning: "F.\\thinspace O. Ostermann, D. Nüst, C. Granell, B. Hofer, M. Konkol" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
 ccdesc:
   # Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm
   concept_significance: "500"
@@ -64,20 +63,24 @@ supplement: |
   The R packages are installed from the [MRAN snapshot](https://mran.microsoft.com/timemachine) of July 5th 2019, and Python packages are pinned to specific versions, see `requirements.txt` file.
 nolinenumbers: true # disable line numbering
 hideLIPIcs: true # remove references to LIPIcs series (logo, DOI, ...), e.g. when preparing a pre-final version to be uploaded to arXiv or another public repository
-# appendix _after_ the bibliography
-#appendix: |
+always_allow_html: yes
 output:
   bookdown::pdf_book:
     base_format: rticles::lipics_article
-    keep_tex: TRUE
+    keep_tex: yes
+    pandoc_args : ["--verbose"]
 header-includes:
-  - \usepackage{newunicodechar}
-  - \newunicodechar{^^^^2009}{\,}
+  # add packages manually because they are needed for table in the appendix, and that is somehow not picked up
+  - \usepackage{longtable}
+  - \usepackage{booktabs}
+  - \usepackage[table]{xcolor}
 ---
-
 
 ```{r global_options, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE, cache = FALSE)
+
+# keep .aux file and .bbl file, the latter somehow disappears and thereby references are broken
+options(tinytex.clean = FALSE)
 ```
 
 ```{r load_assessment_analysis}
@@ -134,7 +137,8 @@ appendix: |
   
   knitr::kable(paper_evaluation %>%
                  select(year, title, `conceptual paper`,
-                        `input data`, `preprocessing`, `method/analysis/processing`, `computational environment`, `results`), 
+                        `input data`, `preprocessing`, `method/analysis/processing`, `computational environment`, `results`),
+        format = "latex",
         longtable = TRUE,
         booktabs = TRUE,
         col.names = c("year", "title", "con-cep-tual",
@@ -197,6 +201,7 @@ library("kableExtra")
 
 # for inline testing: kable(word_counts_sums)
 knitr::kable(keywordstems_counts,
+             format = "latex",
              col.names = c("year", "words",
                            "reproduc..",
                            "replic..",
@@ -355,7 +360,15 @@ This represents about half of the papers with level `1` in the _Analysis_ criter
 For the other half, it was not clear whether data preprocessing tasks existed at all, or whether these tasks were part of the main analysis.
 When data preprocessing steps are required but not reported, this situation becomes much more problematic, as this makes it noticeably difficult to reproduce the results of a paper.
 
+<<<<<<< Updated upstream
 _Methods_ and _Results_ criteria show a similar distribution (see Figure&nbsp;\@ref(fig:barplot)).
+=======
+<<<<<<< HEAD
+_Methods_ and _Results_ criteria show a similar distribution (see Figure&nbsp;\@ref(fig:barplot)).
+=======
+_Methods_ and _Results_ criteria show a pretty similar distribution (see Figure&nbsp;\@ref(fig:barplot)).
+>>>>>>> b62725219b6bb3e4231e5d7774bc8fee5b337a74
+>>>>>>> Stashed changes
 Indeed, `r methods_and_results_eq_one` publications had level `1` in both criteria, which represents `r paste0(round(methods_and_results_eq_one / count_n * 100, 0), "%")` of the papers assessed.
 In this sense, most of the assessed papers fall below the minimum standard for reproduction as regards the methods and results criteria. 
 All papers except reached level `1` for the _Results_ criterion, which shows that the peer review worked as expected for almost all articles.
@@ -492,6 +505,7 @@ comparison_table <- tibble(Criterion = criteria,
                            `GIScience papers` = summaries["Mean", criteria])
 
 knitr::kable(comparison_table,
+      format = "latex",
       digits = 2,
       caption = "Mean values per criterion for both conferences (rounded to two decimal places)") %>%
   kableExtra::row_spec(0, bold = TRUE) %>%
@@ -556,9 +570,9 @@ There is currently a lot of activity in the GIScience discipline to address repr
 A timely adoption of the technological and procedural solutions may allow GIScience researchers, together with the entirety of academia, to level up and approach the challenges of the _"second phase of reproducible research"_ by tackling long-term funding for maintenance of code and data and building supporting infrastructure for reproducible research \cite{peng_reproducible_2020}.
 
 ```{r wordcount}
-message("WORDCOUNT: ", wordcountaddin::word_count())
+message("WORDCOUNT: ", wordcountaddin::word_count(filename = here::here("paper/reproducible-research-at-giscience.Rmd")))
 ```
 
-```{r}
+```{r remove_temp_file}
 unlink("temp")
 ```

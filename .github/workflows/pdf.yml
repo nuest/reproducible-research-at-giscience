@@ -20,10 +20,12 @@ jobs:
       
       - name: Render PDF
         run: |
-          R -q -e 'rmarkdown::render("paper/reproducible-research-at-giscience.Rmd");'
+          cd paper
+          R -q -e 'rmarkdown::render("reproducible-research-at-giscience.Rmd", clean = FALSE);'
+          R -q -e 'rmarkdown::render("reproducible-research-at-giscience.Rmd", clean = FALSE);'
 
       - name: Upload PDF
         uses: actions/upload-artifact@v2
         with:
           name: reproducible-research-at-giscience
-          path: paper/reproducible-research-at-giscience.pdf
+          path: paper/reproducible-research-at-giscience.*

@@ -89,3 +89,7 @@ paper/preprint-header.pdf
 paper/reproducible-research-at-giscience_preprint.pdf
 
 .ipynb_checkpoints/
+
+paper/reproducible-research-at-giscience.out
+
+paper/reproducible-research-at-giscience.blg

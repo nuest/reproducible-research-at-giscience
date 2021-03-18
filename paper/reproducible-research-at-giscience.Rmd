@@ -28,7 +28,7 @@ author:
     affiliation: "Institute of New Imaging Technologies, Universitat Jaume I de Castellón, Castellón, Spain"
     orcid: "https://orcid.org/0000-0003-1004-9695"
     email: carlos.granell@uji.es
-    funding: "Ramon y Cajal Programme of the Spanish government, grant number RYC‐2014‐16913."
+    funding: "Ramón y Cajal Programme of the Spanish government, grant number RYC‐2014‐16913."
   - name: Barbara Hofer
     #footnote: Optional footnote, e.g. to mark corresponding author
     affiliation: "Christian Doppler Laboratory GEOHUM and Department of Geoinformatics - Z_GIS, University&nbsp;of&nbsp;Salzburg, Salzburg, Austria"
@@ -37,7 +37,7 @@ author:
     #funding: "(Optional) author-specific funding acknowledgements"
   - name: Markus Konkol
     #footnote: Optional footnote, e.g. to mark corresponding author
-    affiliation: "Faculty of Geographic Information Science and Earth Observation (ITC), University&nbsp;of&nbsp;Twente, Enschede, The Netherlands"
+    affiliation: "Faculty of Geo-Information Science and Earth Observation (ITC), University&nbsp;of&nbsp;Twente, Enschede, The Netherlands"
     orcid: "https://orcid.org/0000-0001-6651-0976"
     email: m.konkol@utwente.nl
     funding: "Project [_o2r_](https://www.uni-muenster.de/forschungaz/project/12343), German Research Foundation, grant numbers [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837) and [TR&nbsp;864/12-1]()."
@@ -183,7 +183,7 @@ Therefore, an in-depth assessment of the reproducibility of these publications w
 
 The main contribution of this work addresses two objectives:
 First, it aims to investigate the state of reproducibility in the GIScience conference community.
-This investigation broadens our knowledge base about reproducibility in the GIScience displine and informs us about the situation in the GIScience conference series specifically (details in section&nbsp;4).
+This investigation broadens our knowledge base about reproducibility in the GIScience discipline and informs us about the situation in the GIScience conference series specifically (details in section&nbsp;4).
 Second, it aims to apply the assessment procedure used for AGILE conference papers (presented in section&nbsp;3) to the papers of the GIScience conference, so that the broader suitability of this procedure is evaluated using a different dataset, and thereby providing evidence of its replicability.
 Such a transfer validates the developed methodology. 
 We discuss these findings and present our conclusions in the final two sections (5 and 6).
@@ -263,7 +263,7 @@ _Methods, Analysis, Processing_ is the main analysis;
 _Computational Environment_ addresses the description of hard- and software.
 Finally, the criterion _Results_ refers to the output of analysis, for example, figures, tables, and numbers. 
 
-For each of these (sub)criteria, we assigned one of four levels unless the criterion was not applicable ( _NA_ ).
+For each of these (sub)criteria, we assigned one of four levels unless the criterion was not applicable (_NA_).
 _Unavailable_ (level&nbsp;`0`) means that it was not possible to access the paper’s data, methods, or results, and that it was impossible to recreate them based on the description in the paper.
 _Documented_ (level&nbsp;`1`) indicates that the paper still did not provide direct access to datasets, methods, or results, but that there was sufficient description or metadata to potentially recreate them closely enough for an evaluation; yet, often a recreation was unlikely due to the huge amount of effort needed. For example, with regard to the methods criteria, _Documented_ means that pseudo code or a textual workflow description was provided.
 _Available_ (level&nbsp;`2`) was assigned if the paper provided direct access to the materials (e.g., through a link to a personal or institutional website), but not in the form of an open and permanent identifier, such as a digital object identifier (DOI).
@@ -334,7 +334,7 @@ If we look at the median values of the five criteria (Table&nbsp;\@ref(tab:summa
 This score translates in practical terms into a paper that is sufficiently documented to claim that reproduction could be attempted within a reasonable time frame after publication.
 While such a level of reproducibility is typically accepted by journals and conferences today, it does not guarantee that a reproduction would be possible and practical.
 A reproduction of such a paper would require considerable effort, namely technical skills, communication with authors, and time not only to both gather, recreate, and/or analyse all the necessary resources (data, code, etc.) but also to recreate the specific computational environment of the paper.
-Especially the latter is very unlikely, as the computational environment is generally not specified at all, as demonstrated by the median value of `0` ( _Unavailable_ ) for this sub-criterion.
+Especially the latter is very unlikely, as the computational environment is generally not specified at all, as demonstrated by the median value of `0` (_Unavailable_) for this sub-criterion.
 
 ```{r summary-evaldata, ref.label="summary_evaldata", out.width="100%"}
 ```
@@ -343,26 +343,26 @@ Especially the latter is very unlikely, as the computational environment is gene
 ```
 
 Figure&nbsp;\@ref(fig:barplot) shows the distribution of the reproducibility levels for each criterion.
-None of the papers reached the highest reproducibility level of `3` ( _Available and Open_ ) on any criterion.
-Only `r data_level_two`&nbsp;papers reached level&nbsp;`2` ( _Available_ ) in the _Input Data_ criterion.
+None of the papers reached the highest reproducibility level of `3` (_Available and Open_) on any criterion.
+Only `r data_level_two`&nbsp;papers reached level&nbsp;`2` (_Available_) in the _Input Data_ criterion.
 Similar to previous results \cite{nust_reproducible_2018}, the number of papers with level&nbsp;`0` for _Input Data_ was especially high (`r data_level_zero`, corresponding to `r paste0(round(data_level_zero / count_n * 100, 0), "%")`), which is a significant barrier to reproduction since input data is not only unavailable but also cannot be recreated from the information provided in the paper.
 
 ```{r barplot, ref.label="fig_assessment_results", out.width='100%', fig.cap="Barplots of reproducibility assessment results; levels range from 0 (leftmost bar) to 'not applicable' (rightmost bar)."}
 ```
 
 _Preprocessing_ applied to only `r preprocessing_included`&nbsp;publications. 
-For `r paper_evaluation_wo_conceptual %>% filter(is.na(preprocessing)) %>% count() %>% .$n`&nbsp;papers, the _Preprocessing_ criterion was not applicable ( _NA_ ).
+For `r paper_evaluation_wo_conceptual %>% filter(is.na(preprocessing)) %>% count() %>% .$n`&nbsp;papers, the _Preprocessing_ criterion was not applicable (_NA_).
 This large number is a result of our decision to assess _Preprocessing_ only if papers explicitly stated or described a preprocessing step in their analysis, which few did. 
 This does not mean the assessment ignored missing information on preprocessing step, only that such missing information would then reduce the level of the _Methods_ criterion instead. 
 Obviously, if data preprocessing is required but it is either not indicated in the paper or is not provided as an additional (computational) step or resource, the ability to reproduce the paper will be limited.
 The achieved levels for _Preprocessing_ remained low:
-`r preprocessing_level_one`&nbsp;papers reach level&nbsp;`1` ( _Documented_ ), about half of the papers with level&nbsp;`1` in the _Methods_ criterion.
+`r preprocessing_level_one`&nbsp;papers reach level&nbsp;`1` (_Documented_), about half of the papers with level&nbsp;`1` in the _Methods_ criterion.
 For the other half, it was not clear whether data preprocessing tasks existed at all, or whether these tasks were part of the main analysis.
 
 _Methods_ and _Results_ criteria show a similar distribution (see Figure&nbsp;\@ref(fig:barplot)).
 Indeed, `r methods_and_results_eq_one`&nbsp;publications had level&nbsp;`1` in both criteria, which represents `r paste0(round(methods_and_results_eq_one / count_n * 100, 0), "%")` of the papers assessed.
 In this sense, most of the assessed papers fall below the minimum standard for reproduction as regards the methods and results criteria. 
-All papers except reached level&nbsp;`1` for the _Results_ criterion, which shows that the peer review worked as expected for almost all articles.
+All papers except one reached level&nbsp;`1` for the _Results_ criterion, which shows that the peer review worked as expected for almost all articles.
 In other words, authors are concerned with making the results understandable to the reviewers, which is not always the case for the other criteria.
 More generally, this aspect raises the question of whether peer review should stop in the absence of minimal evidence of the input data, analysis, and computational environment used in a paper.
 
@@ -381,7 +381,7 @@ The vast majority of papers have level&nbsp;`1` in _Methods/Analysis/Processing_
 _Input data_ is most diverse, with a surprisingly large number of papers with level&nbsp;`0` but also the largest fraction of papers reaching level&nbsp;`2`.
 Many papers show low levels in _Computational Environment_.
 
-```{r alluvial-diagramme, ref.label='fig_alluvial', echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Alluvial diagramme of common groups of papers throughout 4 of 5 categories including only papers without any ``not applicable'' \\emph{(Level~\texttt{NA})} value; category \\emph{Preprocessing} was dropped because difficulty to clearly assess it lead to many ``not applicable'' values."}
+```{r alluvial-diagramme, ref.label='fig_alluvial', echo=FALSE, message=FALSE, warning=FALSE, out.width='100%', fig.cap="Alluvial diagramme of common groups of papers throughout 4 of 5 categories including only papers without any ``not applicable'' \\emph{(Level~\\texttt{NA})} value; category \\emph{Preprocessing} was dropped because difficulty to clearly assess it lead to many ``not applicable'' values."}
 ```
 
 The diagramme illustrates how groups of papers with similar properties 'flow' through the different criteria
@@ -555,7 +555,7 @@ Future work may replicate the reproducibility assessment at other major events a
 Practical reproductions of papers and even replications of fundamental works are even more promising projects to convincingly underpin a call for a culture change \cite{ostermann_linking_2021}.
 For example, Egenhofer et&nbsp;al.&nbsp;\cite{egenhofer_contributions_2016} provide for a list of the most frequently cited articles as potential candidates.
 Such a project would ideally be supported with proper funding.
-There is currently a lot of activity in the GIScience discipline to address reproducibility and replicability of geospatial research. The GIScience conference community has he opportunity to play a leading and shaping role in this process, thereby ensuring its continuing attractiveness for authors to submit their work, and in consequence its high relevance for the wider GIScience discipline. 
+There is currently a lot of activity in the GIScience discipline to address reproducibility and replicability of geospatial research. The GIScience conference community has the opportunity to play a leading and shaping role in this process, thereby ensuring its continuing attractiveness for authors to submit their work, and in consequence its high relevance for the wider GIScience discipline. 
 A timely adoption of the technological and procedural solutions may allow GIScience researchers, together with the entirety of academia, to level up and approach the challenges of the _"second phase of reproducible research"_ by tackling long-term funding for maintenance of code and data and building supporting infrastructure for reproducible research \cite{peng_reproducible_2020}.
 
 ```{r wordcount}

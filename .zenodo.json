@@ -1,11 +1,5 @@
 {
   "access_right": "open",
-  "access_right_category": "success",
-  "communities": [
-    {
-      "id": "research-compendium"
-    }
-  ],
   "creators": [
     {
       "affiliation": "Institute for Geoinformatics, University of Münster, Münster, Germany",
@@ -42,5 +36,13 @@
   "license": {
     "id": "other-open"
   },
-  "notes": "The documents in this repository are licensed under a Creative Commons Attribution 4.0 International License.\n\nAll contained code is licensed under the Apache License 2.0.\n\nThe data used is licensed under a Open Data Commons Attribution License."
+  "notes": "The documents in this repository are licensed under a Creative Commons Attribution 4.0 International License.\n\nAll contained code is licensed under the Apache License 2.0.\n\nThe data used is licensed under a Open Data Commons Attribution License.",
+  "related_identifiers": [
+      {
+        "identifier": "10.31223/X5ZK5V",
+        "relation": "compiles",
+        "resource_type": "publication-preprint",
+        "scheme": "doi"
+      }
+    ]
 }

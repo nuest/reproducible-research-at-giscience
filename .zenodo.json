@@ -44,5 +44,6 @@
         "resource_type": "publication-preprint",
         "scheme": "doi"
       }
-    ]
+    ],
+    "description": "<p>Data and code for research article <em>Reproducible Research and GIScience: an evaluation using GIScience conference papers</em>.</p>\n\n<p>This record is a preservation of the collaborative project at <a href=\"https://github.com/nuest/reproducible-research-at-giscience/\">https://github.com/nuest/reproducible-research-at-giscience/</a>. A preprint is publised on EarthArXiv at <a href=\"https://doi.org/10.31223/X5ZK5V\">https://doi.org/10.31223/X5ZK5V</a>.</p>",
 }

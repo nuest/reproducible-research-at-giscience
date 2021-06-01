@@ -116,6 +116,10 @@ make
     authors’ last names of the compared conferences based on a Jupyter
     Notebook; the contents of the file `author_counts.csv` are used in
     the article manuscript.
+  - `docs/*`: Prerendered HTML files of the analysis documents hosted
+    online at
+    <https://nuest.github.io/reproducible-research-at-giscience/>; files
+    can be rendered with `make docs`
 
 ## Deposition on Zenodo
 

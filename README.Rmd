@@ -67,6 +67,7 @@ make
 - `Dockerfile`: A recipe for the computational environment using [Docker](https://en.wikipedia.org/wiki/Docker_(software)).
 - `install.R`: R script file executed during creation of the Docker image to install required dependencies.
 - `author_analysis/*`: Data, code, and results simple comparison of authors' last names of the compared conferences based on a Jupyter Notebook; the contents of the file `author_counts.csv` are used in the article manuscript.
+- `docs/*`: Prerendered HTML files of the analysis documents hosted online at [https://nuest.github.io/reproducible-research-at-giscience/](https://nuest.github.io/reproducible-research-at-giscience/); files can be rendered with `make docs`
 
 ## Deposition on Zenodo
 

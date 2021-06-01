@@ -1,0 +1,3304 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Daniel Nüst, Carlos Granell" />
+
+
+<title>Reproducibility assessment data analysis for “Reproducible research and GIScience: an evaluation using GIScience conference papers”</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/navigation-1.1/codefolding.js"></script>
+<script src="libs/navigation-1.1/sourceembed.js"></script>
+<link href="libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Reproducibility assessment data analysis for “Reproducible research and GIScience: an evaluation using GIScience conference papers”</h1>
+<h4 class="author">Daniel Nüst, Carlos Granell</h4>
+<h4 class="date">01 June, 2021</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#reproduce-paper">Reproduce paper</a></li>
+<li><a href="#software-dependencies-and-code">Software dependencies and code</a></li>
+<li><a href="#load-data">Load data</a></li>
+<li><a href="#table-statistics-of-reproducibility-levels-per-criterion-for-non-conceptual-papers">Table: Statistics of reproducibility levels per criterion for non-conceptual papers</a></li>
+<li><a href="#data-points-for-text">Data points for text</a></li>
+<li><a href="#figure-barplots-of-reproducibility-assessment-results">Figure: Barplots of reproducibility assessment results</a></li>
+<li><a href="#figure-alluvial-diagramme-of-reproducibility-assessment-results-across-categories">Figure: Alluvial diagramme of reproducibility assessment results across categories</a></li>
+<li><a href="#table-mean-levels-per-criterion-for-non-conceptual-papers">Table: Mean levels per criterion for non-conceptual papers</a></li>
+<li><a href="#table-mean-levels-averaged-across-criteria-over-time-for-non-conceptual-papers">Table: Mean levels averaged across criteria over time for non-conceptual papers</a></li>
+<li><a href="#figure-mean-reproducibility-levels-per-category-over-time-for-non-conceptual-papers">Figure: Mean reproducibility levels per category over time for non-conceptual papers</a></li>
+<li><a href="#colophon">Colophon</a></li>
+</ul>
+</div>
+
+<style type="text/css">
+pre {
+  font-size: 12px;
+  overflow-x: auto;
+}
+pre code {
+  word-wrap: normal;
+  white-space: pre;
+}
+</style>
+<p>This document visualises the expert assessment for accepted full papers at the <a href="https://www.giscience.org/">GIScience conference series</a> for the following conferences and proceedings.</p>
+<ul>
+<li><p>2018: Tenth International Conference on Geographic Information Science, Melbourne, Australia</p>
+<p><em>Proceedings 10th International Conference on Geographic Information Science (GIScience 2018). 2018. In Winter, S., Griffin, A., Sester, M. (Eds.), LIPICS Vol. 114. ISBN 978-3-95977-083-5. <a href="http://www.dagstuhl.de/dagpub/978-3-95977-083-5" class="uri">http://www.dagstuhl.de/dagpub/978-3-95977-083-5</a> </em></p></li>
+<li><p>2016: Ninth International Conference on Geographic Information Science, Sep 27, 2016 - Sep 30, 2016, Montreal, Canada</p>
+<p><em>Geographic Information Science. 2016. In J. A. Miller, D. O’Sullivan, &amp; N. Wiegand (Eds.), Lecture Notes in Computer Science. Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-45738-3" class="uri">https://doi.org/10.1007/978-3-319-45738-3</a> </em></p></li>
+<li><p>2014: Eighth International Conference on Geographic Information Science, Sep 24, 2014 - Sep 26, 2014, Vienna, Austria &gt; Geographic Information Science. 2014. In M. Duckham, E. Pebesma, K. Stewart, &amp; A. U. Frank (Eds.), Lecture Notes in Computer Science. Springer International Publishing. <a href="https://doi.org/10.1007/978-3-319-11593-1" class="uri">https://doi.org/10.1007/978-3-319-11593-1</a></p></li>
+<li><p>2012: Seventh International Conference on Geographic Information Science, Sep 18, 2012 - Sep 21, 2012, Columbus, Ohio, USA &gt; Geographic Information Science. 2012. In N. Xiao, M.-P. Kwan, M. F. Goodchild, &amp; S. Shekhar (Eds.), Lecture Notes in Computer Science. Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/978-3-642-33024-7" class="uri">https://doi.org/10.1007/978-3-642-33024-7</a></p></li>
+</ul>
+<p>The analysis is based on the assessment first published in <em>“Reproducible research and GIScience: an evaluation using AGILE conference papers”</em> (<a href="https://doi.org/10.7717/peerj.5072">https://doi.org/10.7717/peerj.5072</a>), see <a href="https://github.com/nuest/reproducible-research-and-giscience">https://github.com/nuest/reproducible-research-and-giscience</a>.</p>
+<div id="reproduce-paper" class="section level2">
+<h2>Reproduce paper</h2>
+<p>To create the assessment result data and figures based on this document you can run the following commands in a new R session after completing the prerequisites with the original paper corpus data. If you have problems rendering the document you can execute each chunk independently in <a href="https://rstudio.com/products/rstudio/">RStudio</a>.</p>
+<pre class="r fold-show"><code># Following code is not executed when document is created
+require(&quot;knitr&quot;)
+require(&quot;rmarkdown&quot;)
+rmarkdown::render(&quot;giscience-reproducibility-assessment.Rmd&quot;)</code></pre>
+</div>
+<div id="software-dependencies-and-code" class="section level2">
+<h2>Software dependencies and code</h2>
+<p>This document does not install the required R packages by default. You can run the script <code>install.R</code> to install all required dependencies on a new R installation, or use <code>install.packages(..)</code> to install missing R packages. <em>This is not required if you use the Docker container provided by the authors.</em></p>
+<pre class="r"><code>source(&quot;install.R&quot;)</code></pre>
+<p>The plots and tables of survey data and evaluation use the packages <a href="http://ggplot2.tidyverse.org/"><code>ggplot2</code></a>, <a href="https://yihui.name/knitr/"><code>knitr::kable()</code></a>, <a href="https://hughjonesd.github.io/huxtable/"><code>huxtable</code></a>, and <a href="https://cran.r-project.org/package=kableExtra"><code>kableExtra</code></a>. Required libraries and runtime environment description are as follows.</p>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;tidyr&quot;)
+library(&quot;readr&quot;)
+library(&quot;ggplot2&quot;)
+library(&quot;reshape2&quot;)
+library(&quot;ggthemes&quot;)
+library(&quot;grid&quot;)
+library(&quot;gridBase&quot;)
+library(&quot;gridExtra&quot;)
+library(&quot;kableExtra&quot;)
+library(&quot;huxtable&quot;)
+library(&quot;here&quot;)
+library(&quot;googlesheets4&quot;)
+library(&quot;patchwork&quot;)
+library(&quot;knitr&quot;)
+library(&quot;kableExtra&quot;)
+library(&quot;ggalluvial&quot;)
+library(&quot;ggfittext&quot;)</code></pre>
+</div>
+<div id="load-data" class="section level2">
+<h2>Load data</h2>
+<pre class="r"><code>assessment_file &lt;- here::here(&quot;results/paper_assessment.csv&quot;)
+codebook_file &lt;- here::here(&quot;results/codebook.csv&quot;)</code></pre>
+<p>The data is loaded from a collaborative spreadsheet using the <a href="https://googlesheets4.tidyverse.org/"><code>googlesheets4</code></a> package. After a year is completed by all assessors, a <a href="https://support.google.com/a/users/answer/9331169?hl=en#">named version</a> of the spreadsheet is created. Then the data file <code>/home/rstudio/results/paper_assessment.csv</code> is updated from the online spreadsheet and committed to the git history. Afterwards the individual assessments are manually merged in the online spreadsheet and the data file is updated and committed once more.</p>
+<p>The following plots are based on the data file <code>/home/rstudio/results/paper_assessment.csv</code>, the result from the manual reproducibility assessment. The file <code>/home/rstudio/results/codebook.csv</code> contains a codebook with names, labels, and descriptions for the variables in the data file as documentation of the dataset outside of this computational notebook.</p>
+<pre class="r"><code>category_levels &lt;- c(&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;)
+paper_evaluation &lt;- readr::read_csv(assessment_file, 
+    col_types = readr::cols(
+      `conceptual paper` = readr::col_logical(),
+      `computational environment` = readr::col_factor(levels = category_levels),
+      `input data` = readr::col_factor(levels = category_levels),
+      `method/analysis/processing` = readr::col_factor(levels = category_levels),
+      preprocessing = readr::col_factor(levels = category_levels),
+      results = readr::col_factor(levels = category_levels)
+      ),
+    na = &quot;NA&quot;)</code></pre>
+<pre><code>## Warning: Missing column names filled in: &#39;X1&#39; [1]</code></pre>
+<pre class="r"><code>paper_evaluation_wo_conceptual &lt;- filter(paper_evaluation, `conceptual paper` == FALSE)
+
+categoryColumns &lt;- c(&quot;input data&quot;, 
+                     &quot;preprocessing&quot;,
+                     &quot;method/analysis/processing&quot;,
+                     &quot;computational environment&quot;,
+                     &quot;results&quot;)</code></pre>
+<pre class="r"><code>options(knitr.kable.NA = &#39;-&#39;)
+knitr::kable(paper_evaluation %&gt;% 
+               dplyr::select(-matches(&quot;X1|reviewer|conceptual|authors&quot;)),
+            format = &quot;html&quot;,
+            booktabs = TRUE,
+            caption = paste0(&quot;Reproducibility levels for paper corpus; &quot;,
+                             &quot;&#39;-&#39; is category not available&quot;)) %&gt;%
+  kableExtra::kable_styling(&quot;striped&quot;, full_width = FALSE)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Reproducibility levels for paper corpus; ‘-’ is category not available
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+paper
+</th>
+<th style="text-align:right;">
+year
+</th>
+<th style="text-align:left;">
+title
+</th>
+<th style="text-align:left;">
+input data
+</th>
+<th style="text-align:left;">
+preprocessing
+</th>
+<th style="text-align:left;">
+method/analysis/processing
+</th>
+<th style="text-align:left;">
+computational environment
+</th>
+<th style="text-align:left;">
+results
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+12018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Early Detection of Herding Behaviour during Emergency Evacuations
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+What Makes Spatial Data Big? A Discussion on How to Partition Spatial Data
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+32018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Intersections of Our World
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Considerations of Graphical Proximity and Geographical Nearness
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+52018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+An Empirical Study on the Names of Points of Interest and Their Changes with Geographic Distance
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+62018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Outlier Detection and Comparison of Origin-Destination Flows Using Data Depth
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+72018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Is Salience Robust? A Heterogeneity Analysis of Survey Ratings
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+82018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Labeling Points of Interest in Dynamic Maps using Disk Labels
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+92018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Improving Discovery of Open Civic Data
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+102018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Local Co-location Pattern Detection: A Summary of Results
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+112018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Detection and Localization of Traffic Signals with GPS Floating Car Data and Random Forest
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+122018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Heterogeneous Skeleton for Summarizing Continuously Distributed Demand in a Region
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+132018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+A Network Flow Model for the Analysis of Green Spaces in Urban Areas
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+142018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Continuous Obstructed Detour Queries
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+152018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+Enhanced Multi Criteria Decision Analysis for Planning Power Transmission Lines
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+162018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+FUTURES-AMR: Towards an Adaptive Mesh Refinement Framework for Geosimulations
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+172018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:left;">
+xNet+SC: Classifying Places Based on Images by Incorporating Spatial Contexts
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Computing River Floods Using Massive Terrain Data
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Partitioning Polygons via Graph Augmentation
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+32016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Hierarchical Prism Trees for Scalable Time Geographic Analysis
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Mining Network Hotspots with Holes: A Summary of Results
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+52016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Distance-Constrained k Spatial Sub-Networks: A Summary of Results
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+62016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+GIScience Considerations in Spatial Social Networks
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+72016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+On Distortion of Raster-Based Least-Cost Corridors
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+82016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Model-Based Clustering of Social Vulnerability to Urban Extreme Heat Events
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+92016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Representing the Spatial Extent of Places Based on Flickr Photos with a Representativeness-Weighted Kernel Density Estimation
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+102016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Scaling Behavior of Human Mobility Distributions
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+112016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+pFUTURES: A Parallel Framework for Cellular Automaton Based Urban Growth Models
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+122016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+From Data Streams to Fields: Extending Stream Data Models with Field Data Types
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+132016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Point Partitions: A Qualitative Representation for Region-Based Spatial Scenes in R2
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+142016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Fine Scale Spatio-Temporal Modelling of Urban Air Pollution
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+152016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Modeling Checkpoint-Based Movement with the Earth Mover’s Distance
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+162016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Exploratory Chronotopic Data Analysis
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+172016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Exploring the Notion of Spatial Lenses
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+182016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Moon Landing or Safari? A Study of Systematic Errors and Their Causes in Geographic Linked Data
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+192016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Circles in the Water: Towards Island Group Labeling
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+202016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+An Algorithmic Framework for Labeling Road Maps
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+212016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:left;">
+Measuring Cognitive Load for Map Tasks Through Pupil Diameter
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Map Schematization with Circular Arcs
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Travel-Time Maps: Linear Cartograms with Fixed Vertex Locations
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+32014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+3D Network Spatialization: Does It Add Depth to 2D Representations of Semantic Proximity?
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Uncertainty Analysis of Step-Selection Functions: The Effect of Model Parameters on Inferences about the Relationship between Animal Movement and the Environment
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+52014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Logic Scoring of Preference and Spatial Multicriteria Evaluation for Urban Residential Land Use Analysis
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+62014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Spatial Weights: Constructing Weight-Compatible Exchange Matrices from Proximity Matrices
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+72014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Spatial Graphs Cost and Efficiency: Exploring Edges Competition by MCMC
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+82014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Geosemantic Network-of-Interest Construction Social Media Data
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+92014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Data Quality Assurance for Volunteered Geographic Information
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+102014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Re-Envisioning Data Description Using Peirce’ Pragmatics
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+112014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Fields as a Generic Data Type for Big Spatial Data
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+122014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Linked Data - A Paradigm Shift for Geographic Information Science
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+132014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+An Ontology Design Pattern for Surface Water Features
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+142014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+An Indoor Navigation Ontology for Production Assets in a Production Environment
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+152014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Wayfinding Decision Situations: A Conceptual Model and Evaluation
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+162014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Understanding Information Requirements in “Text Only” Pedestrian Wayfinding Systems
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+172014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Automatic Itinerary Reconstruction from Texts
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+182014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Integrating Sensing and Routing for Indoor Evacuation
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+192014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Significant Route Discovery: A Summary of Results
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+202014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Location Oblivious Privacy Protection for Group Nearest Neighbor Queries
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+212014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Practical Approaches to Partially Guarding a Polyhedral Terrain
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+222014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+Oriented Regions for Linearly Conceptualized Features
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+232014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:left;">
+RCC<em>-9 and CBM</em>
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Combining Trip and Task Planning: How to Get from A to Passport
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Automated Centerline Delineation to Enrich the National Hydrography Dataset
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+32012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Evolution Strategies for Optimizing Rectangular Cartograms
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+42012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Context-Aware Similarity of Trajectories
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+52012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Generating Named Road Vector Data from Raster Maps
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+62012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+An Ordering of Convex Topological Relations
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+72012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Toward Web Mapping with Vector Data
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+82012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+<a href="mailto:spatial@linkedscience" class="email">spatial@linkedscience</a> – Exploring the Research Field of GIScience with Linked Data
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+92012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Crowdsourcing Satellite Imagery Analysis: Study of Parallel and Iterative Models
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+102012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Quantifying Resolution Sensitivity of Spatial Autocorrelation: A Resolution Correlogram Approach
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+112012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+LocalAlert: Simulating Decentralized Ad-Hoc Collaboration in Emergency Situations
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+122012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+High-Level Event Detection in Spatially Distributed Time Series
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+132012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Towards Vague Geographic Data Warehouses
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+142012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Measuring the Influence of Built Environment on Walking Behavior: An Accessibility Approach
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+152012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Social Welfare to Assess the Global Legibility of a Generalized Map
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+162012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Investigations into the Cognitive Conceptualization and Similarity Assessment of Spatial Scenes
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+172012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+A Qualitative Bigraph Model for Indoor Space
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+182012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Dynamic Refuse Collection Strategy Based on Adjacency Relationship between Euler Cycles
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+192012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Impact of Indoor Location Information Reliability on Users’ Trust of an Indoor Positioning System
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+202012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Ontology for the Engineering of Geospatial Systems
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+212012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Preserving Detail in a Combined Land Use Ontology
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+222012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+The Maptree: A Fine-Grained Formal Representation of Space
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:right;">
+232012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Automatic Creation of Crosswalk for Geospatial Metadata Standard Interoperability
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+242012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+A Dartboard Network Cut Based Approach to Evacuation Route Planning: A Summary of Results
+</td>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+252012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Hybrid Geo-spatial Query Methods on the Semantic Web with a Spatially-Enhanced Index of DBpedia
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+262012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:left;">
+Extracting Dynamic Urban Mobility Patterns from Mobile Phone Data
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+<div id="table-statistics-of-reproducibility-levels-per-criterion-for-non-conceptual-papers" class="section level2">
+<h2>Table: Statistics of reproducibility levels per criterion for non-conceptual papers</h2>
+<pre class="r"><code>evaldata_numeric &lt;- paper_evaluation_wo_conceptual %&gt;%
+  # must convert factors to numbers to calculate the mean and median
+  dplyr::mutate_if(is.factor, list(~ as.integer(as.character(.))))
+
+# https://stackoverflow.com/questions/32011873/force-summary-to-report-the-number-of-nas-even-if-none
+summaryna &lt;- function (v) {
+  if(!any(is.na(v))){
+    res &lt;- c(summary(v),&quot;NA&#39;s&quot;=0)
+  } else{
+    res &lt;- summary(v)
+  }
+  return(res)
+}
+
+# apply summary independently to format as table
+summaries &lt;- sapply(evaldata_numeric[,categoryColumns], summaryna)
+exclude_values_summary &lt;- c(&quot;1st Qu.&quot;, &quot;3rd Qu.&quot;)
+
+kable(subset(summaries, !(rownames(summaries) %in% exclude_values_summary)), 
+      digits = 1,
+      col.names = c(&quot;input data&quot;, &quot;preproc.&quot;, &quot;method/analysis/proc.&quot;,
+                    &quot;comp. env.&quot;, &quot;results&quot;),
+      caption = &quot;Statistics of reproducibility levels per criterion (rounded to one decimal place)&quot;) %&gt;%
+  kableExtra::row_spec(0, bold = TRUE) %&gt;%
+  kableExtra::kable_styling(latex_options = c(&quot;striped&quot;),
+                            font_size = 8)</code></pre>
+<table class="table" style="font-size: 8px; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+Statistics of reproducibility levels per criterion (rounded to one decimal place)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+</th>
+<th style="text-align:right;font-weight: bold;">
+input data
+</th>
+<th style="text-align:right;font-weight: bold;">
+preproc.
+</th>
+<th style="text-align:right;font-weight: bold;">
+method/analysis/proc.
+</th>
+<th style="text-align:right;font-weight: bold;">
+comp. env.
+</th>
+<th style="text-align:right;font-weight: bold;">
+results
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Min.
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Median
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean
+</td>
+<td style="text-align:right;">
+0.7
+</td>
+<td style="text-align:right;">
+0.8
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.3
+</td>
+<td style="text-align:right;">
+1.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Max.
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA’s
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>The preprocessing has 51 values, with <code>0</code> and <code>1</code> around the “middle” resulting in a fraction as the median.</p>
+</div>
+<div id="data-points-for-text" class="section level2">
+<h2>Data points for text</h2>
+<pre class="r"><code>data_level_zero &lt;- paper_evaluation_wo_conceptual %&gt;% 
+  filter(`input data` == 0) %&gt;% 
+  count() %&gt;% .$n
+
+data_level_two &lt;- paper_evaluation_wo_conceptual %&gt;% 
+  filter(`input data` == 2) %&gt;% 
+  count() %&gt;% .$n
+
+preprocessing_included &lt;- paper_evaluation_wo_conceptual %&gt;% 
+  filter(!is.na(preprocessing)) %&gt;% 
+  count() %&gt;% .$n
+
+preprocessing_level_one &lt;- paper_evaluation_wo_conceptual %&gt;% 
+  filter(preprocessing == 1) %&gt;% 
+  count() %&gt;% .$n
+
+methods_and_results_eq_one &lt;- paper_evaluation_wo_conceptual %&gt;% 
+  filter(`method/analysis/processing` == 1 &amp; results == 1) %&gt;% 
+  count() %&gt;% .$n
+  
+compenv_level_zero &lt;- paper_evaluation_wo_conceptual %&gt;% 
+  filter(`computational environment` == 0) %&gt;% 
+  count() %&gt;% .$n</code></pre>
+<p>33 papers have level <code>0</code> and 12 have level <code>2</code> in the data criterion.</p>
+<p>51 papers include some kind of preprocessing.</p>
+<p>65 papers have level <code>1</code> in both methods and results criterion.</p>
+</div>
+<div id="figure-barplots-of-reproducibility-assessment-results" class="section level2">
+<h2>Figure: Barplots of reproducibility assessment results</h2>
+<pre class="r"><code># match the colours to time series plot below
+colours &lt;- RColorBrewer::brewer.pal(length(categoryColumns), &quot;Set1&quot;)
+level_names &lt;- c(&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;3&quot;, NA)
+breaks &lt;- seq(from = 0, to = nrow(paper_evaluation_wo_conceptual), by = 10)
+
+criteriaBarplot = function(category, main, colour) {
+  cat &lt;- enquo(category)
+  ggplot2::ggplot(data = paper_evaluation_wo_conceptual,
+                aes(!!cat),
+                show.legend = FALSE) +
+    ggplot2::geom_bar(fill = colours[colour], color = &quot;black&quot;) +
+    ggplot2::ggtitle(main) +
+    ggplot2::xlab(&quot;Level&quot;) +
+    ggplot2::xlim(level_names) +
+    ggplot2::ylab(&quot;&quot;) +
+    ggplot2::scale_y_continuous(breaks = breaks,
+                                limits = range(breaks)) +
+    ggthemes::theme_tufte(base_size = 8) + theme(axis.ticks.x = element_blank())
+}
+
+fig_barplot &lt;- patchwork::wrap_plots(
+  ncol = 5,
+  criteriaBarplot(`input data`,    main = &quot;Input data&quot;,    colour = 1),
+  criteriaBarplot(`preprocessing`, main = &quot;Preprocessing&quot;, colour = 2),
+  criteriaBarplot(`method/analysis/processing`,
+                  main = &quot;Methods/Analysis/\nProcessing&quot;,  colour = 3),
+  criteriaBarplot(`computational environment`,
+                  main = &quot;Computational\nEnvironment&quot;, colour = 4),
+  criteriaBarplot(results,         main = &quot;Results&quot;, colour = 5)
+)
+
+fig_barplot</code></pre>
+<p><img src="giscience-reproducibility-assessment_files/figure-html/fig_assessment_results-1.png" width="1152" /></p>
+</div>
+<div id="figure-alluvial-diagramme-of-reproducibility-assessment-results-across-categories" class="section level2">
+<h2>Figure: Alluvial diagramme of reproducibility assessment results across categories</h2>
+<p>This figure is based on package <a href="https://corybrunson.github.io/ggalluvial/"><code>ggalluvial</code></a>. It does not include the category <code>preprocessing</code> because it was discovered to be quite hard to assess, and subsequently has a large share of missing values. The figure also does <em>not</em> include any papers who have one or more categories as <code>NA</code>, as that means “not assessable”.</p>
+<pre class="r"><code>papers_wo_na_wo_prepr &lt;- paper_evaluation_wo_conceptual %&gt;%
+  drop_na() %&gt;%
+  mutate_if(is.factor, forcats::fct_rev) %&gt;%
+  group_by(`input data`,
+           `method/analysis/processing`,
+           `computational environment`,
+           results) %&gt;%
+  tally() %&gt;%
+  mutate(`Category levels (#)` = paste0(`input data`, &quot; &quot;,
+                       `method/analysis/processing`, &quot; &quot;,
+                       `computational environment`, &quot; &quot;,
+                       results, &quot; (&quot;, n, &quot;)&quot;))</code></pre>
+<pre class="r"><code>fig_alluvial &lt;- ggplot(data = papers_wo_na_wo_prepr,
+       aes(axis1 = `input data`,
+           axis2 = `method/analysis/processing`,
+           axis3 = `computational environment`,
+           axis4 = results,
+           y = n)
+       ) +
+  ggplot2::scale_x_discrete(limits = c(&quot;Input Data&quot;,
+                              &quot;Methods/\nAnalysis/\nProcessing&quot;,
+                              &quot;Computational\nEnvironment&quot;,
+                              &quot;Results&quot;),
+                   expand = c(.1, 0)
+                   ) +
+  xlab(&quot;Category&quot;) +
+  ylab(&quot;Number of papers&quot;) +
+  ggplot2::scale_fill_manual(values = c(
+    RColorBrewer::brewer.pal(9, &quot;Set1&quot;),            # colours from the other plots
+    RColorBrewer::brewer.pal(4, &quot;Dark2&quot;)[c(1,3,4)]) # manually chosen from another palette
+    ) +
+  ggalluvial::geom_alluvium(aes(fill = `Category levels (#)`), width = 1/3) +
+  ggalluvial::geom_stratum(alpha = 1) +
+  ggfittext::geom_fit_text(stat = &quot;stratum&quot;, aes(label = after_stat(stratum)), min.size = 1) +
+  ggthemes::theme_tufte()
+
+fig_alluvial</code></pre>
+<p><img src="giscience-reproducibility-assessment_files/figure-html/fig_alluvial-1.png" width="672" /></p>
+</div>
+<div id="table-mean-levels-per-criterion-for-non-conceptual-papers" class="section level2">
+<h2>Table: Mean levels per criterion for non-conceptual papers</h2>
+<pre class="r"><code>means &lt;- lapply(evaldata_numeric %&gt;%
+                      select(all_of(categoryColumns)),
+                    summary) %&gt;%
+    lapply(`[[`, &quot;Mean&quot;) %&gt;%
+    as.data.frame()
+
+kable(means,
+      digits = 2,
+      col.names = c(&quot;input data&quot;, &quot;preproc.&quot;, &quot;method/analysis/proc.&quot;, &quot;comp. env.&quot;, &quot;results&quot;),
+      caption = &quot;Mean levels per criterion for non-conceptual papers&quot;) %&gt;%
+  kableExtra::kable_styling(&quot;striped&quot;, full_width = FALSE)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+Mean levels per criterion for non-conceptual papers
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+input data
+</th>
+<th style="text-align:right;">
+preproc.
+</th>
+<th style="text-align:right;">
+method/analysis/proc.
+</th>
+<th style="text-align:right;">
+comp. env.
+</th>
+<th style="text-align:right;">
+results
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.72
+</td>
+<td style="text-align:right;">
+0.8
+</td>
+<td style="text-align:right;">
+1.03
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+1.05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="table-mean-levels-averaged-across-criteria-over-time-for-non-conceptual-papers" class="section level2">
+<h2>Table: Mean levels averaged across criteria over time for non-conceptual papers</h2>
+<pre class="r"><code>means_years &lt;- evaldata_numeric %&gt;%
+  filter(`conceptual paper` == FALSE) %&gt;%
+  group_by(year) %&gt;%
+  summarise(mean = mean(c(`input data`, 
+                          preprocessing, 
+                          `method/analysis/processing`, 
+                          `computational environment`, 
+                          `results`),
+                        na.rm = TRUE),
+            `paper count` = n())
+
+means_years_table &lt;- means_years %&gt;% 
+        mutate(mean = round(mean, 2), 
+               `paper count` = as.character(`paper count`)) %&gt;%
+        mutate(labels = str_c(year, &quot; (n = &quot;, `paper count`, &quot;)&quot;)) %&gt;%
+        column_to_rownames(&quot;labels&quot;) %&gt;%
+        select(mean) %&gt;%
+        t()
+
+kable(means_years_table,
+      caption = &quot;Summarised mean values over all criteria over time (non-conceptual papers)&quot;) %&gt;%
+  kableExtra::kable_styling(&quot;striped&quot;, full_width = TRUE)</code></pre>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+Summarised mean values over all criteria over time (non-conceptual papers)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+2012 (n = 22)
+</th>
+<th style="text-align:right;">
+2014 (n = 18)
+</th>
+<th style="text-align:right;">
+2016 (n = 18)
+</th>
+<th style="text-align:right;">
+2018 (n = 17)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mean
+</td>
+<td style="text-align:right;">
+0.84
+</td>
+<td style="text-align:right;">
+0.73
+</td>
+<td style="text-align:right;">
+0.82
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="figure-mean-reproducibility-levels-per-category-over-time-for-non-conceptual-papers" class="section level2">
+<h2>Figure: Mean reproducibility levels per category over time for non-conceptual papers</h2>
+<pre class="r"><code>evaldata_years &lt;- evaldata_numeric %&gt;%
+  filter(`conceptual paper` == FALSE) %&gt;%
+  group_by(year) %&gt;%
+  summarise(input = mean(`input data`, na.rm = TRUE),
+         preprocessing = mean(preprocessing, na.rm = TRUE),
+            method = mean(`method/analysis/processing`, na.rm = TRUE),
+            environment = mean(`computational environment`, na.rm = TRUE),
+            results = mean(results, na.rm = TRUE))
+paper_count_years &lt;- evaldata_numeric %&gt;%
+  filter(`conceptual paper` == FALSE) %&gt;%
+  group_by(year) %&gt;%
+  summarise(`paper count` = n())
+
+evaldata_years_long &lt;- melt(evaldata_years, id.vars = c(&quot;year&quot;))
+fig_mean_over_time &lt;- ggplot(evaldata_years_long, aes(year, value)) +
+  geom_bar(aes(fill = variable), position = &quot;dodge&quot;, stat = &quot;identity&quot;) +
+  #geom_errorbar(stat = &quot;summary&quot;, fun.data = &quot;mean_sdl&quot;, 
+  #                fun.args = list(mult = 1),
+  #                position =  position_dodge(width = 0.9)) +
+  ylab(&quot;mean value of criterion level&quot;) + 
+  scale_x_continuous(breaks = evaldata_years$year,
+                     labels = paste0(paper_count_years$year, 
+                                     &quot; (n=&quot;, 
+                                     paper_count_years$`paper count`, 
+                                     &quot;)&quot;)) +
+  scale_fill_brewer(palette = &quot;Set1&quot;, name = &quot;Category&quot;) +
+  ggthemes::theme_tufte(base_size = 18) +
+  theme(legend.position = c(0.15,0.75), 
+        legend.text = element_text(size = 14)) +
+  ylim(0, 3) +
+  stat_summary(fun = mean, fun.min = mean, fun.max = mean, shape = &quot;-&quot;, size = 2) +
+  stat_summary(fun = mean, geom = &quot;line&quot;, linetype = &quot;dotted&quot;, mapping = aes(group = 1))
+
+fig_mean_over_time</code></pre>
+<p><img src="giscience-reproducibility-assessment_files/figure-html/Fig4-1.png" width="2100" /></p>
+</div>
+<div id="colophon" class="section level2">
+<h2>Colophon</h2>
+<p>This document is licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. All contained code is licensed under the <a href="https://choosealicense.com/licenses/apache-2.0/">Apache License 2.0</a>. This document is versioned in a public <a href="https://git-scm.com/">git</a> repository, <a href="https://github.com/nuest/reproducible-research-at-giscience">https://github.com/nuest/reproducible-research-at-giscience</a>, and archived on Zenodo at <a href="https://doi.org/10.5281/zenodo.4032875">https://doi.org/10.5281/zenodo.4032875</a>.</p>
+<p><strong>Runtime environment description:</strong></p>
+<pre><code>## ─ Session info ───────────────────────────────────────────────────────────────────────────────────
+##  setting  value                       
+##  version  R version 3.6.3 (2020-02-29)
+##  os       Debian GNU/Linux 10 (buster)
+##  system   x86_64, linux-gnu           
+##  ui       X11                         
+##  language (EN)                        
+##  collate  en_US.UTF-8                 
+##  ctype    en_US.UTF-8                 
+##  tz       Etc/UTC                     
+##  date     2021-06-01                  
+## 
+## ─ Packages ───────────────────────────────────────────────────────────────────────────────────────
+##  package       * version date       lib source                                  
+##  assertthat      0.2.1   2019-03-21 [1] CRAN (R 3.6.3)                          
+##  backports       1.1.6   2020-04-05 [1] CRAN (R 3.6.3)                          
+##  base          * 3.6.3   2020-05-14 [2] local                                   
+##  broom           0.5.6   2020-04-20 [1] CRAN (R 3.6.3)                          
+##  callr           3.4.3   2020-03-28 [1] CRAN (R 3.6.3)                          
+##  cellranger      1.1.0   2016-07-27 [1] CRAN (R 3.6.3)                          
+##  cli             2.0.2   2020-02-28 [1] CRAN (R 3.6.3)                          
+##  colorspace      1.4-1   2019-03-18 [1] CRAN (R 3.6.3)                          
+##  compiler        3.6.3   2020-05-14 [2] local                                   
+##  crayon          1.3.4   2017-09-16 [1] CRAN (R 3.6.3)                          
+##  datasets      * 3.6.3   2020-05-14 [2] local                                   
+##  DBI             1.1.0   2019-12-15 [1] CRAN (R 3.6.3)                          
+##  dbplyr          1.4.3   2020-04-19 [1] CRAN (R 3.6.3)                          
+##  desc            1.2.0   2018-05-01 [1] CRAN (R 3.6.3)                          
+##  devtools        2.3.0   2020-04-10 [1] CRAN (R 3.6.3)                          
+##  digest          0.6.25  2020-02-23 [1] CRAN (R 3.6.3)                          
+##  dplyr         * 0.8.5   2020-03-07 [1] CRAN (R 3.6.3)                          
+##  ellipsis        0.3.0   2019-09-20 [1] CRAN (R 3.6.3)                          
+##  evaluate        0.14    2019-05-28 [1] CRAN (R 3.6.3)                          
+##  fansi           0.4.1   2020-01-08 [1] CRAN (R 3.6.3)                          
+##  farver          2.0.3   2020-01-16 [1] CRAN (R 3.6.3)                          
+##  forcats       * 0.5.0   2020-03-01 [1] CRAN (R 3.6.3)                          
+##  fs              1.4.1   2020-04-04 [1] CRAN (R 3.6.3)                          
+##  generics        0.0.2   2018-11-29 [1] CRAN (R 3.6.3)                          
+##  ggalluvial    * 0.11.3  2020-04-16 [1] CRAN (R 3.6.3)                          
+##  ggfittext     * 0.8.1   2019-07-18 [1] CRAN (R 3.6.3)                          
+##  ggplot2       * 3.3.0   2020-03-05 [1] CRAN (R 3.6.3)                          
+##  ggthemes      * 4.2.0   2019-05-13 [1] CRAN (R 3.6.3)                          
+##  glue            1.4.0   2020-04-03 [1] CRAN (R 3.6.3)                          
+##  googlesheets4 * 0.1.1   2021-06-01 [1] Github (tidyverse/googlesheets4@ec3946b)
+##  graphics      * 3.6.3   2020-05-14 [2] local                                   
+##  grDevices     * 3.6.3   2020-05-14 [2] local                                   
+##  grid          * 3.6.3   2020-05-14 [2] local                                   
+##  gridBase      * 0.4-7   2014-02-24 [1] CRAN (R 3.6.3)                          
+##  gridExtra     * 2.3     2017-09-09 [1] CRAN (R 3.6.3)                          
+##  gtable          0.3.0   2019-03-25 [1] CRAN (R 3.6.3)                          
+##  haven           2.2.0   2019-11-08 [1] CRAN (R 3.6.3)                          
+##  here          * 0.1     2017-05-28 [1] CRAN (R 3.6.3)                          
+##  highr           0.8     2019-03-20 [1] CRAN (R 3.6.3)                          
+##  hms             0.5.3   2020-01-08 [1] CRAN (R 3.6.3)                          
+##  htmltools       0.4.0   2019-10-04 [1] CRAN (R 3.6.3)                          
+##  httr            1.4.1   2019-08-05 [1] CRAN (R 3.6.3)                          
+##  huxtable      * 4.7.1   2020-01-08 [1] CRAN (R 3.6.3)                          
+##  jsonlite        1.6.1   2020-02-02 [1] CRAN (R 3.6.3)                          
+##  kableExtra    * 1.1.0   2019-03-16 [1] CRAN (R 3.6.3)                          
+##  knitr         * 1.28    2020-02-06 [1] CRAN (R 3.6.3)                          
+##  labeling        0.3     2014-08-23 [1] CRAN (R 3.6.3)                          
+##  lattice         0.20-38 2018-11-04 [2] CRAN (R 3.6.3)                          
+##  lifecycle       0.2.0   2020-03-06 [1] CRAN (R 3.6.3)                          
+##  lubridate       1.7.8   2020-04-06 [1] CRAN (R 3.6.3)                          
+##  magrittr        1.5     2014-11-22 [1] CRAN (R 3.6.3)                          
+##  memoise         1.1.0   2017-04-21 [1] CRAN (R 3.6.3)                          
+##  methods       * 3.6.3   2020-05-14 [2] local                                   
+##  modelr          0.1.6   2020-02-22 [1] CRAN (R 3.6.3)                          
+##  munsell         0.5.0   2018-06-12 [1] CRAN (R 3.6.3)                          
+##  nlme            3.1-144 2020-02-06 [2] CRAN (R 3.6.3)                          
+##  patchwork     * 1.1.0   2021-06-01 [1] Github (thomasp85/patchwork@48819a9)    
+##  pillar          1.4.3   2019-12-20 [1] CRAN (R 3.6.3)                          
+##  pkgbuild        1.0.6   2019-10-09 [1] CRAN (R 3.6.3)                          
+##  pkgconfig       2.0.3   2019-09-22 [1] CRAN (R 3.6.3)                          
+##  pkgload         1.0.2   2018-10-29 [1] CRAN (R 3.6.3)                          
+##  plyr            1.8.6   2020-03-03 [1] CRAN (R 3.6.3)                          
+##  prettyunits     1.1.1   2020-01-24 [1] CRAN (R 3.6.3)                          
+##  processx        3.4.2   2020-02-09 [1] CRAN (R 3.6.3)                          
+##  ps              1.3.2   2020-02-13 [1] CRAN (R 3.6.3)                          
+##  purrr         * 0.3.4   2020-04-17 [1] CRAN (R 3.6.3)                          
+##  R6              2.4.1   2019-11-12 [1] CRAN (R 3.6.3)                          
+##  RColorBrewer    1.1-2   2014-12-07 [1] CRAN (R 3.6.3)                          
+##  Rcpp            1.0.4.6 2020-04-09 [1] CRAN (R 3.6.3)                          
+##  readr         * 1.3.1   2018-12-21 [1] CRAN (R 3.6.3)                          
+##  readxl          1.3.1   2019-03-13 [1] CRAN (R 3.6.3)                          
+##  remotes         2.1.1   2020-02-15 [1] CRAN (R 3.6.3)                          
+##  reprex          0.3.0   2019-05-16 [1] CRAN (R 3.6.3)                          
+##  reshape2      * 1.4.4   2020-04-09 [1] CRAN (R 3.6.3)                          
+##  rlang           0.4.5   2020-03-01 [1] CRAN (R 3.6.3)                          
+##  rmarkdown       2.5     2021-06-01 [1] Github (rstudio/rmarkdown@4ff2093)      
+##  rprojroot       1.3-2   2018-01-03 [1] CRAN (R 3.6.3)                          
+##  rstudioapi      0.11    2020-02-07 [1] CRAN (R 3.6.3)                          
+##  rvest           0.3.5   2019-11-08 [1] CRAN (R 3.6.3)                          
+##  scales          1.1.0   2019-11-18 [1] CRAN (R 3.6.3)                          
+##  sessioninfo     1.1.1   2018-11-05 [1] CRAN (R 3.6.3)                          
+##  stats         * 3.6.3   2020-05-14 [2] local                                   
+##  stringi         1.4.6   2020-02-17 [1] CRAN (R 3.6.3)                          
+##  stringr       * 1.4.0   2019-02-10 [1] CRAN (R 3.6.3)                          
+##  testthat        2.3.2   2020-03-02 [1] CRAN (R 3.6.3)                          
+##  tibble        * 3.0.1   2020-04-20 [1] CRAN (R 3.6.3)                          
+##  tidyr         * 1.0.2   2020-01-24 [1] CRAN (R 3.6.3)                          
+##  tidyselect      1.0.0   2020-01-27 [1] CRAN (R 3.6.3)                          
+##  tidyverse     * 1.3.0   2019-11-21 [1] CRAN (R 3.6.3)                          
+##  tools           3.6.3   2020-05-14 [2] local                                   
+##  usethis         1.6.0   2020-04-09 [1] CRAN (R 3.6.3)                          
+##  utils         * 3.6.3   2020-05-14 [2] local                                   
+##  vctrs           0.2.4   2020-03-10 [1] CRAN (R 3.6.3)                          
+##  viridisLite     0.3.0   2018-02-01 [1] CRAN (R 3.6.3)                          
+##  webshot         0.5.2   2019-11-22 [1] CRAN (R 3.6.3)                          
+##  withr           2.2.0   2020-04-20 [1] CRAN (R 3.6.3)                          
+##  xfun            0.15    2021-06-01 [1] Github (yihui/xfun@06e86a6)             
+##  xml2            1.3.2   2020-04-23 [1] CRAN (R 3.6.3)                          
+##  yaml            2.2.1   2020-02-01 [1] CRAN (R 3.6.3)                          
+## 
+## [1] /usr/local/lib/R/site-library
+## [2] /usr/local/lib/R/library</code></pre>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAnUmVwcm9kdWNpYmlsaXR5IGFzc2Vzc21lbnQgZGF0YSBhbmFseXNpcyBmb3IgIlJlcHJvZHVjaWJsZSByZXNlYXJjaCBhbmQgR0lTY2llbmNlOiBhbiBldmFsdWF0aW9uIHVzaW5nIEdJU2NpZW5jZSBjb25mZXJlbmNlIHBhcGVycyInCmF1dGhvcjogIkRhbmllbCBOw7xzdCwgQ2FybG9zIEdyYW5lbGwiCmRhdGU6ICJgciBmb3JtYXQoU3lzLnRpbWUoKSwgJyVkICVCLCAlWScpYCIKb3V0cHV0OgogIGh0bWxfZG9jdW1lbnQ6CiAgICBkZl9wcmludDogcGFnZWQKICAgIHRvYzogeWVzCiAgICBjb2RlX2Rvd25sb2FkOiB0cnVlCiAgICBjb2RlX2ZvbGRpbmc6IGhpZGUKICAgIHNlbGZfY29udGFpbmVkOiBmYWxzZQogICAgbGliX2RpcjogbGlicwp1cmxjb2xvcjogYmx1ZQotLS0KCmBgYHtjc3MsIGVjaG89RkFMU0V9CnByZSB7CiAgZm9udC1zaXplOiAxMnB4OwogIG92ZXJmbG93LXg6IGF1dG87Cn0KcHJlIGNvZGUgewogIHdvcmQtd3JhcDogbm9ybWFsOwogIHdoaXRlLXNwYWNlOiBwcmU7Cn0KYGBgCgpUaGlzIGRvY3VtZW50IHZpc3VhbGlzZXMgdGhlIGV4cGVydCBhc3Nlc3NtZW50IGZvciBhY2NlcHRlZCBmdWxsIHBhcGVycyBhdCB0aGUgW0dJU2NpZW5jZSBjb25mZXJlbmNlIHNlcmllc10oaHR0cHM6Ly93d3cuZ2lzY2llbmNlLm9yZy8pIGZvciB0aGUgZm9sbG93aW5nIGNvbmZlcmVuY2VzIGFuZCBwcm9jZWVkaW5ncy4KCi0gMjAxODogVGVudGggSW50ZXJuYXRpb25hbCBDb25mZXJlbmNlIG9uIEdlb2dyYXBoaWMgSW5mb3JtYXRpb24gU2NpZW5jZSwgTWVsYm91cm5lLCBBdXN0cmFsaWEKICAKICBfUHJvY2VlZGluZ3MgMTB0aCBJbnRlcm5hdGlvbmFsIENvbmZlcmVuY2Ugb24gR2VvZ3JhcGhpYyBJbmZvcm1hdGlvbiBTY2llbmNlIChHSVNjaWVuY2UgMjAxOCkuIDIwMTguIEluIFdpbnRlciwgUy4sIEdyaWZmaW4sIEEuLCBTZXN0ZXIsIE0uIChFZHMuKSwgTElQSUNTIFZvbC4gMTE0LiBJU0JOIDk3OC0zLTk1OTc3LTA4My01LiBodHRwOi8vd3d3LmRhZ3N0dWhsLmRlL2RhZ3B1Yi85NzgtMy05NTk3Ny0wODMtNSBfCgotIDIwMTY6IE5pbnRoIEludGVybmF0aW9uYWwgQ29uZmVyZW5jZSBvbiBHZW9ncmFwaGljIEluZm9ybWF0aW9uIFNjaWVuY2UsIFNlcCAyNywgMjAxNiAtIFNlcCAzMCwgMjAxNiwgCU1vbnRyZWFsLCBDYW5hZGEKICAKICBfR2VvZ3JhcGhpYyBJbmZvcm1hdGlvbiBTY2llbmNlLiAyMDE2LiBJbiBKLiBBLiBNaWxsZXIsIEQuIE/igJlTdWxsaXZhbiwgJiBOLiBXaWVnYW5kIChFZHMuKSwgTGVjdHVyZSBOb3RlcyBpbiBDb21wdXRlciBTY2llbmNlLiBTcHJpbmdlciBJbnRlcm5hdGlvbmFsIFB1Ymxpc2hpbmcuIGh0dHBzOi8vZG9pLm9yZy8xMC4xMDA3Lzk3OC0zLTMxOS00NTczOC0zIF8KCi0gMjAxNDogRWlnaHRoIEludGVybmF0aW9uYWwgQ29uZmVyZW5jZSBvbiBHZW9ncmFwaGljIEluZm9ybWF0aW9uIFNjaWVuY2UsIFNlcCAyNCwgMjAxNCAtIFNlcCAyNiwgMjAxNCwgCVZpZW5uYSwgQXVzdHJpYQogID4gR2VvZ3JhcGhpYyBJbmZvcm1hdGlvbiBTY2llbmNlLiAyMDE0LiBJbiBNLiBEdWNraGFtLCBFLiBQZWJlc21hLCBLLiBTdGV3YXJ0LCAmIEEuIFUuIEZyYW5rIChFZHMuKSwgTGVjdHVyZSBOb3RlcyBpbiBDb21wdXRlciBTY2llbmNlLiBTcHJpbmdlciBJbnRlcm5hdGlvbmFsIFB1Ymxpc2hpbmcuIGh0dHBzOi8vZG9pLm9yZy8xMC4xMDA3Lzk3OC0zLTMxOS0xMTU5My0xCgotIDIwMTI6IFNldmVudGggSW50ZXJuYXRpb25hbCBDb25mZXJlbmNlIG9uIEdlb2dyYXBoaWMgSW5mb3JtYXRpb24gU2NpZW5jZSwgU2VwIDE4LCAyMDEyIC0gU2VwIDIxLCAyMDEyLCBDb2x1bWJ1cywgT2hpbywgVVNBCiAgPiBHZW9ncmFwaGljIEluZm9ybWF0aW9uIFNjaWVuY2UuIDIwMTIuIEluIE4uIFhpYW8sIE0uLVAuIEt3YW4sIE0uIEYuIEdvb2RjaGlsZCwgJiBTLiBTaGVraGFyIChFZHMuKSwgTGVjdHVyZSBOb3RlcyBpbiBDb21wdXRlciBTY2llbmNlLiBTcHJpbmdlciBCZXJsaW4gSGVpZGVsYmVyZy4gaHR0cHM6Ly9kb2kub3JnLzEwLjEwMDcvOTc4LTMtNjQyLTMzMDI0LTcKClRoZSBhbmFseXNpcyBpcyBiYXNlZCBvbiB0aGUgYXNzZXNzbWVudCBmaXJzdCBwdWJsaXNoZWQgaW4gXyJSZXByb2R1Y2libGUgcmVzZWFyY2ggYW5kIEdJU2NpZW5jZTogYW4gZXZhbHVhdGlvbiB1c2luZyBBR0lMRSBjb25mZXJlbmNlIHBhcGVycyJfIChbaHR0cHM6Ly9kb2kub3JnLzEwLjc3MTcvcGVlcmouNTA3Ml0oaHR0cHM6Ly9kb2kub3JnLzEwLjc3MTcvcGVlcmouNTA3MikpLCBzZWUgW2h0dHBzOi8vZ2l0aHViLmNvbS9udWVzdC9yZXByb2R1Y2libGUtcmVzZWFyY2gtYW5kLWdpc2NpZW5jZV0oaHR0cHM6Ly9naXRodWIuY29tL251ZXN0L3JlcHJvZHVjaWJsZS1yZXNlYXJjaC1hbmQtZ2lzY2llbmNlKS4KCiMjIFJlcHJvZHVjZSBwYXBlcgoKVG8gY3JlYXRlIHRoZSBhc3Nlc3NtZW50IHJlc3VsdCBkYXRhIGFuZCBmaWd1cmVzIGJhc2VkIG9uIHRoaXMgZG9jdW1lbnQgeW91IGNhbiBydW4gdGhlIGZvbGxvd2luZyBjb21tYW5kcyBpbiBhIG5ldyBSIHNlc3Npb24gYWZ0ZXIgY29tcGxldGluZyB0aGUgcHJlcmVxdWlzaXRlcyB3aXRoIHRoZSBvcmlnaW5hbCBwYXBlciBjb3JwdXMgZGF0YS4KSWYgeW91IGhhdmUgcHJvYmxlbXMgcmVuZGVyaW5nIHRoZSBkb2N1bWVudCB5b3UgY2FuIGV4ZWN1dGUgZWFjaCBjaHVuayBpbmRlcGVuZGVudGx5IGluIFtSU3R1ZGlvXShodHRwczovL3JzdHVkaW8uY29tL3Byb2R1Y3RzL3JzdHVkaW8vKS4KCmBgYHtyIHJlbmRlcl93aXRoX3JtYXJrZG93biwgZXZhbD1GQUxTRSwgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyJ9CiMgRm9sbG93aW5nIGNvZGUgaXMgbm90IGV4ZWN1dGVkIHdoZW4gZG9jdW1lbnQgaXMgY3JlYXRlZApyZXF1aXJlKCJrbml0ciIpCnJlcXVpcmUoInJtYXJrZG93biIpCnJtYXJrZG93bjo6cmVuZGVyKCJnaXNjaWVuY2UtcmVwcm9kdWNpYmlsaXR5LWFzc2Vzc21lbnQuUm1kIikKYGBgCgojIyBTb2Z0d2FyZSBkZXBlbmRlbmNpZXMgYW5kIGNvZGUKClRoaXMgZG9jdW1lbnQgZG9lcyBub3QgaW5zdGFsbCB0aGUgcmVxdWlyZWQgUiBwYWNrYWdlcyBieSBkZWZhdWx0LgpZb3UgY2FuIHJ1biB0aGUgc2NyaXB0IGBpbnN0YWxsLlJgIHRvIGluc3RhbGwgYWxsIHJlcXVpcmVkIGRlcGVuZGVuY2llcyBvbiBhIG5ldyBSIGluc3RhbGxhdGlvbiwgb3IgdXNlIGBpbnN0YWxsLnBhY2thZ2VzKC4uKWAgdG8gaW5zdGFsbCBtaXNzaW5nIFIgcGFja2FnZXMuCl9UaGlzIGlzIG5vdCByZXF1aXJlZCBpZiB5b3UgdXNlIHRoZSBEb2NrZXIgY29udGFpbmVyIHByb3ZpZGVkIGJ5IHRoZSBhdXRob3JzLl8KCmBgYHtyIGluc3RhbGxfciwgZXZhbD1GQUxTRX0Kc291cmNlKCJpbnN0YWxsLlIiKQpgYGAKClRoZSBwbG90cyBhbmQgdGFibGVzIG9mIHN1cnZleSBkYXRhIGFuZCBldmFsdWF0aW9uIHVzZSB0aGUgcGFja2FnZXMgW2BnZ3Bsb3QyYF0oaHR0cDovL2dncGxvdDIudGlkeXZlcnNlLm9yZy8pLCBbYGtuaXRyOjprYWJsZSgpYF0oaHR0cHM6Ly95aWh1aS5uYW1lL2tuaXRyLyksIFtgaHV4dGFibGVgXShodHRwczovL2h1Z2hqb25lc2QuZ2l0aHViLmlvL2h1eHRhYmxlLyksIGFuZCBbYGthYmxlRXh0cmFgXShodHRwczovL2NyYW4uci1wcm9qZWN0Lm9yZy9wYWNrYWdlPWthYmxlRXh0cmEpLgpSZXF1aXJlZCBsaWJyYXJpZXMgYW5kIHJ1bnRpbWUgZW52aXJvbm1lbnQgZGVzY3JpcHRpb24gYXJlIGFzIGZvbGxvd3MuCgpgYGB7ciBsb2FkX2xpYnJhcmllcywgZWNobz1UUlVFLCBtZXNzYWdlPUZBTFNFfQpsaWJyYXJ5KCJ0aWR5dmVyc2UiKQpsaWJyYXJ5KCJ0aWR5ciIpCmxpYnJhcnkoInJlYWRyIikKbGlicmFyeSgiZ2dwbG90MiIpCmxpYnJhcnkoInJlc2hhcGUyIikKbGlicmFyeSgiZ2d0aGVtZXMiKQpsaWJyYXJ5KCJncmlkIikKbGlicmFyeSgiZ3JpZEJhc2UiKQpsaWJyYXJ5KCJncmlkRXh0cmEiKQpsaWJyYXJ5KCJrYWJsZUV4dHJhIikKbGlicmFyeSgiaHV4dGFibGUiKQpsaWJyYXJ5KCJoZXJlIikKbGlicmFyeSgiZ29vZ2xlc2hlZXRzNCIpCmxpYnJhcnkoInBhdGNod29yayIpCmxpYnJhcnkoImtuaXRyIikKbGlicmFyeSgia2FibGVFeHRyYSIpCmxpYnJhcnkoImdnYWxsdXZpYWwiKQpsaWJyYXJ5KCJnZ2ZpdHRleHQiKQpgYGAKCiMjIExvYWQgZGF0YQoKYGBge3IgZXZhbGRhdGFfZmlsZX0KYXNzZXNzbWVudF9maWxlIDwtIGhlcmU6OmhlcmUoInJlc3VsdHMvcGFwZXJfYXNzZXNzbWVudC5jc3YiKQpjb2RlYm9va19maWxlIDwtIGhlcmU6OmhlcmUoInJlc3VsdHMvY29kZWJvb2suY3N2IikKYGBgCgpUaGUgZGF0YSBpcyBsb2FkZWQgZnJvbSBhIGNvbGxhYm9yYXRpdmUgc3ByZWFkc2hlZXQgdXNpbmcgdGhlIFtgZ29vZ2xlc2hlZXRzNGBdKGh0dHBzOi8vZ29vZ2xlc2hlZXRzNC50aWR5dmVyc2Uub3JnLykgcGFja2FnZS4KQWZ0ZXIgYSB5ZWFyIGlzIGNvbXBsZXRlZCBieSBhbGwgYXNzZXNzb3JzLCBhIFtuYW1lZCB2ZXJzaW9uXShodHRwczovL3N1cHBvcnQuZ29vZ2xlLmNvbS9hL3VzZXJzL2Fuc3dlci85MzMxMTY5P2hsPWVuIykgb2YgdGhlIHNwcmVhZHNoZWV0IGlzIGNyZWF0ZWQuClRoZW4gdGhlIGRhdGEgZmlsZSBgYCBgciBhc3Nlc3NtZW50X2ZpbGVgIGBgIGlzIHVwZGF0ZWQgZnJvbSB0aGUgb25saW5lIHNwcmVhZHNoZWV0IGFuZCBjb21taXR0ZWQgdG8gdGhlIGdpdCBoaXN0b3J5LgpBZnRlcndhcmRzIHRoZSBpbmRpdmlkdWFsIGFzc2Vzc21lbnRzIGFyZSBtYW51YWxseSBtZXJnZWQgaW4gdGhlIG9ubGluZSBzcHJlYWRzaGVldCBhbmQgdGhlIGRhdGEgZmlsZSBpcyB1cGRhdGVkIGFuZCBjb21taXR0ZWQgb25jZSBtb3JlLgoKYGBge3IgZ29vZ2xlc2hlZXRzX2F1dGgsIGVjaG89RkFMU0UsIGV2YWw9RkFMU0V9CiMgcnVuIG9uY2UKZ29vZ2xlc2hlZXRzNDo6c2hlZXRzX2F1dGgodXNlX29vYiA9IFRSVUUpCmBgYAoKYGBge3IgZXZhbGRhdGFfZG93bmxvYWQsIGVjaG89RkFMU0UsIGV2YWw9RkFMU0V9CmFzc2Vzc21lbnRfc2hlZXQgPC0gZ29vZ2xlc2hlZXRzNDo6cmVhZF9zaGVldCgKICBzcyA9ICJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9zcHJlYWRzaGVldHMvZC8xRGYwelg1eXFEdURTQ3pISFZhdWNOdFRoc2VITDVMMzJVMnNXVFBoeWwwSS9lZGl0I2dpZD0wIiwKICBzaGVldCA9ICJhc3Nlc3NtZW50IiwKICAjIGZpeCB0eXBlIGZvciBkb3dubG9hZGluZyBkYXRhOiB0dXJuIGFsbCBkYXRhIGludG8gY2hhcmFjdGVyIHN0cmluZ3M7IHR5cGUgc2V0IGxhdGVyIGluIGxvYWQKICBjb2xfdHlwZXMgPSAiYyIsCiAgcmFuZ2UgPSBnb29nbGVzaGVldHM0OjpjZWxsX3Jvd3MoMTo4OCkgIyAyMDE4LCAyMDE2LCAyMDE0LCAyMDEyCikKCndyaXRlLmNzdihhc3Nlc3NtZW50X3NoZWV0LCBmaWxlID0gYXNzZXNzbWVudF9maWxlKQpgYGAKClRoZSBmb2xsb3dpbmcgcGxvdHMgYXJlIGJhc2VkIG9uIHRoZSBkYXRhIGZpbGUgYGAgYHIgYXNzZXNzbWVudF9maWxlYCBgYCwgdGhlIHJlc3VsdCBmcm9tIHRoZSBtYW51YWwgcmVwcm9kdWNpYmlsaXR5IGFzc2Vzc21lbnQuClRoZSBmaWxlIGBgIGByIGNvZGVib29rX2ZpbGVgIGBgIGNvbnRhaW5zIGEgY29kZWJvb2sgd2l0aCBuYW1lcywgbGFiZWxzLCBhbmQgZGVzY3JpcHRpb25zIGZvciB0aGUgdmFyaWFibGVzIGluIHRoZSBkYXRhIGZpbGUgYXMgZG9jdW1lbnRhdGlvbiBvZiB0aGUgZGF0YXNldCBvdXRzaWRlIG9mIHRoaXMgY29tcHV0YXRpb25hbCBub3RlYm9vay4KCmBgYHtyIGxvYWRfZXZhbGRhdGF9CmNhdGVnb3J5X2xldmVscyA8LSBjKCIwIiwgIjEiLCAiMiIsICIzIikKcGFwZXJfZXZhbHVhdGlvbiA8LSByZWFkcjo6cmVhZF9jc3YoYXNzZXNzbWVudF9maWxlLCAKICAgIGNvbF90eXBlcyA9IHJlYWRyOjpjb2xzKAogICAgICBgY29uY2VwdHVhbCBwYXBlcmAgPSByZWFkcjo6Y29sX2xvZ2ljYWwoKSwKICAgICAgYGNvbXB1dGF0aW9uYWwgZW52aXJvbm1lbnRgID0gcmVhZHI6OmNvbF9mYWN0b3IobGV2ZWxzID0gY2F0ZWdvcnlfbGV2ZWxzKSwKICAgICAgYGlucHV0IGRhdGFgID0gcmVhZHI6OmNvbF9mYWN0b3IobGV2ZWxzID0gY2F0ZWdvcnlfbGV2ZWxzKSwKICAgICAgYG1ldGhvZC9hbmFseXNpcy9wcm9jZXNzaW5nYCA9IHJlYWRyOjpjb2xfZmFjdG9yKGxldmVscyA9IGNhdGVnb3J5X2xldmVscyksCiAgICAgIHByZXByb2Nlc3NpbmcgPSByZWFkcjo6Y29sX2ZhY3RvcihsZXZlbHMgPSBjYXRlZ29yeV9sZXZlbHMpLAogICAgICByZXN1bHRzID0gcmVhZHI6OmNvbF9mYWN0b3IobGV2ZWxzID0gY2F0ZWdvcnlfbGV2ZWxzKQogICAgICApLAogICAgbmEgPSAiTkEiKQoKcGFwZXJfZXZhbHVhdGlvbl93b19jb25jZXB0dWFsIDwtIGZpbHRlcihwYXBlcl9ldmFsdWF0aW9uLCBgY29uY2VwdHVhbCBwYXBlcmAgPT0gRkFMU0UpCgpjYXRlZ29yeUNvbHVtbnMgPC0gYygiaW5wdXQgZGF0YSIsIAogICAgICAgICAgICAgICAgICAgICAicHJlcHJvY2Vzc2luZyIsCiAgICAgICAgICAgICAgICAgICAgICJtZXRob2QvYW5hbHlzaXMvcHJvY2Vzc2luZyIsCiAgICAgICAgICAgICAgICAgICAgICJjb21wdXRhdGlvbmFsIGVudmlyb25tZW50IiwKICAgICAgICAgICAgICAgICAgICAgInJlc3VsdHMiKQpgYGAKCmBgYHtyIGNvcnB1c190YWJsZX0Kb3B0aW9ucyhrbml0ci5rYWJsZS5OQSA9ICctJykKa25pdHI6OmthYmxlKHBhcGVyX2V2YWx1YXRpb24gJT4lIAogICAgICAgICAgICAgICBkcGx5cjo6c2VsZWN0KC1tYXRjaGVzKCJYMXxyZXZpZXdlcnxjb25jZXB0dWFsfGF1dGhvcnMiKSksCiAgICAgICAgICAgIGZvcm1hdCA9ICJodG1sIiwKICAgICAgICAgICAgYm9va3RhYnMgPSBUUlVFLAogICAgICAgICAgICBjYXB0aW9uID0gcGFzdGUwKCJSZXByb2R1Y2liaWxpdHkgbGV2ZWxzIGZvciBwYXBlciBjb3JwdXM7ICIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIictJyBpcyBjYXRlZ29yeSBub3QgYXZhaWxhYmxlIikpICU+JQogIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoInN0cmlwZWQiLCBmdWxsX3dpZHRoID0gRkFMU0UpCmBgYAoKIyMgVGFibGU6IFN0YXRpc3RpY3Mgb2YgcmVwcm9kdWNpYmlsaXR5IGxldmVscyBwZXIgY3JpdGVyaW9uIGZvciBub24tY29uY2VwdHVhbCBwYXBlcnMKCmBgYHtyIHN1bW1hcnlfZXZhbGRhdGF9CmV2YWxkYXRhX251bWVyaWMgPC0gcGFwZXJfZXZhbHVhdGlvbl93b19jb25jZXB0dWFsICU+JQogICMgbXVzdCBjb252ZXJ0IGZhY3RvcnMgdG8gbnVtYmVycyB0byBjYWxjdWxhdGUgdGhlIG1lYW4gYW5kIG1lZGlhbgogIGRwbHlyOjptdXRhdGVfaWYoaXMuZmFjdG9yLCBsaXN0KH4gYXMuaW50ZWdlcihhcy5jaGFyYWN0ZXIoLikpKSkKCiMgaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMzIwMTE4NzMvZm9yY2Utc3VtbWFyeS10by1yZXBvcnQtdGhlLW51bWJlci1vZi1uYXMtZXZlbi1pZi1ub25lCnN1bW1hcnluYSA8LSBmdW5jdGlvbiAodikgewogIGlmKCFhbnkoaXMubmEodikpKXsKICAgIHJlcyA8LSBjKHN1bW1hcnkodiksIk5BJ3MiPTApCiAgfSBlbHNlewogICAgcmVzIDwtIHN1bW1hcnkodikKICB9CiAgcmV0dXJuKHJlcykKfQoKIyBhcHBseSBzdW1tYXJ5IGluZGVwZW5kZW50bHkgdG8gZm9ybWF0IGFzIHRhYmxlCnN1bW1hcmllcyA8LSBzYXBwbHkoZXZhbGRhdGFfbnVtZXJpY1ssY2F0ZWdvcnlDb2x1bW5zXSwgc3VtbWFyeW5hKQpleGNsdWRlX3ZhbHVlc19zdW1tYXJ5IDwtIGMoIjFzdCBRdS4iLCAiM3JkIFF1LiIpCgprYWJsZShzdWJzZXQoc3VtbWFyaWVzLCAhKHJvd25hbWVzKHN1bW1hcmllcykgJWluJSBleGNsdWRlX3ZhbHVlc19zdW1tYXJ5KSksIAogICAgICBkaWdpdHMgPSAxLAogICAgICBjb2wubmFtZXMgPSBjKCJpbnB1dCBkYXRhIiwgInByZXByb2MuIiwgIm1ldGhvZC9hbmFseXNpcy9wcm9jLiIsCiAgICAgICAgICAgICAgICAgICAgImNvbXAuIGVudi4iLCAicmVzdWx0cyIpLAogICAgICBjYXB0aW9uID0gIlN0YXRpc3RpY3Mgb2YgcmVwcm9kdWNpYmlsaXR5IGxldmVscyBwZXIgY3JpdGVyaW9uIChyb3VuZGVkIHRvIG9uZSBkZWNpbWFsIHBsYWNlKSIpICU+JQogIGthYmxlRXh0cmE6OnJvd19zcGVjKDAsIGJvbGQgPSBUUlVFKSAlPiUKICBrYWJsZUV4dHJhOjprYWJsZV9zdHlsaW5nKGxhdGV4X29wdGlvbnMgPSBjKCJzdHJpcGVkIiksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBmb250X3NpemUgPSA4KQpgYGAKClRoZSBwcmVwcm9jZXNzaW5nIGhhcyBgciBzdW0oIWlzLm5hKGV2YWxkYXRhX251bWVyaWMkcHJlcHJvY2Vzc2luZykpYCB2YWx1ZXMsIHdpdGggYDBgIGFuZCBgMWAgYXJvdW5kIHRoZSAibWlkZGxlIiByZXN1bHRpbmcgaW4gYSBmcmFjdGlvbiBhcyB0aGUgbWVkaWFuLgoKIyMgRGF0YSBwb2ludHMgZm9yIHRleHQKCmBgYHtyIGNyaXRlcmlhX251bWJlcnN9CmRhdGFfbGV2ZWxfemVybyA8LSBwYXBlcl9ldmFsdWF0aW9uX3dvX2NvbmNlcHR1YWwgJT4lIAogIGZpbHRlcihgaW5wdXQgZGF0YWAgPT0gMCkgJT4lIAogIGNvdW50KCkgJT4lIC4kbgoKZGF0YV9sZXZlbF90d28gPC0gcGFwZXJfZXZhbHVhdGlvbl93b19jb25jZXB0dWFsICU+JSAKICBmaWx0ZXIoYGlucHV0IGRhdGFgID09IDIpICU+JSAKICBjb3VudCgpICU+JSAuJG4KCnByZXByb2Nlc3NpbmdfaW5jbHVkZWQgPC0gcGFwZXJfZXZhbHVhdGlvbl93b19jb25jZXB0dWFsICU+JSAKICBmaWx0ZXIoIWlzLm5hKHByZXByb2Nlc3NpbmcpKSAlPiUgCiAgY291bnQoKSAlPiUgLiRuCgpwcmVwcm9jZXNzaW5nX2xldmVsX29uZSA8LSBwYXBlcl9ldmFsdWF0aW9uX3dvX2NvbmNlcHR1YWwgJT4lIAogIGZpbHRlcihwcmVwcm9jZXNzaW5nID09IDEpICU+JSAKICBjb3VudCgpICU+JSAuJG4KCm1ldGhvZHNfYW5kX3Jlc3VsdHNfZXFfb25lIDwtIHBhcGVyX2V2YWx1YXRpb25fd29fY29uY2VwdHVhbCAlPiUgCiAgZmlsdGVyKGBtZXRob2QvYW5hbHlzaXMvcHJvY2Vzc2luZ2AgPT0gMSAmIHJlc3VsdHMgPT0gMSkgJT4lIAogIGNvdW50KCkgJT4lIC4kbgogIApjb21wZW52X2xldmVsX3plcm8gPC0gcGFwZXJfZXZhbHVhdGlvbl93b19jb25jZXB0dWFsICU+JSAKICBmaWx0ZXIoYGNvbXB1dGF0aW9uYWwgZW52aXJvbm1lbnRgID09IDApICU+JSAKICBjb3VudCgpICU+JSAuJG4KYGBgCgpgciBkYXRhX2xldmVsX3plcm9gIHBhcGVycyBoYXZlIGxldmVsIGAwYCBhbmQgYHIgZGF0YV9sZXZlbF90d29gIGhhdmUgbGV2ZWwgYDJgIGluIHRoZSBkYXRhIGNyaXRlcmlvbi4KCmByIHByZXByb2Nlc3NpbmdfaW5jbHVkZWRgIHBhcGVycyBpbmNsdWRlIHNvbWUga2luZCBvZiBwcmVwcm9jZXNzaW5nLgoKYHIgbWV0aG9kc19hbmRfcmVzdWx0c19lcV9vbmVgIHBhcGVycyBoYXZlIGxldmVsIGAxYCBpbiBib3RoIG1ldGhvZHMgYW5kIHJlc3VsdHMgY3JpdGVyaW9uLgoKIyMgRmlndXJlOiBCYXJwbG90cyBvZiByZXByb2R1Y2liaWxpdHkgYXNzZXNzbWVudCByZXN1bHRzCgpgYGB7ciBmaWdfYXNzZXNzbWVudF9yZXN1bHRzLCBmaWcud2lkdGg9MTJ9CiMgbWF0Y2ggdGhlIGNvbG91cnMgdG8gdGltZSBzZXJpZXMgcGxvdCBiZWxvdwpjb2xvdXJzIDwtIFJDb2xvckJyZXdlcjo6YnJld2VyLnBhbChsZW5ndGgoY2F0ZWdvcnlDb2x1bW5zKSwgIlNldDEiKQpsZXZlbF9uYW1lcyA8LSBjKCIwIiwgIjEiLCAiMiIsICIzIiwgTkEpCmJyZWFrcyA8LSBzZXEoZnJvbSA9IDAsIHRvID0gbnJvdyhwYXBlcl9ldmFsdWF0aW9uX3dvX2NvbmNlcHR1YWwpLCBieSA9IDEwKQoKY3JpdGVyaWFCYXJwbG90ID0gZnVuY3Rpb24oY2F0ZWdvcnksIG1haW4sIGNvbG91cikgewogIGNhdCA8LSBlbnF1byhjYXRlZ29yeSkKICBnZ3Bsb3QyOjpnZ3Bsb3QoZGF0YSA9IHBhcGVyX2V2YWx1YXRpb25fd29fY29uY2VwdHVhbCwKICAgICAgICAgICAgICAgIGFlcyghIWNhdCksCiAgICAgICAgICAgICAgICBzaG93LmxlZ2VuZCA9IEZBTFNFKSArCiAgICBnZ3Bsb3QyOjpnZW9tX2JhcihmaWxsID0gY29sb3Vyc1tjb2xvdXJdLCBjb2xvciA9ICJibGFjayIpICsKICAgIGdncGxvdDI6OmdndGl0bGUobWFpbikgKwogICAgZ2dwbG90Mjo6eGxhYigiTGV2ZWwiKSArCiAgICBnZ3Bsb3QyOjp4bGltKGxldmVsX25hbWVzKSArCiAgICBnZ3Bsb3QyOjp5bGFiKCIiKSArCiAgICBnZ3Bsb3QyOjpzY2FsZV95X2NvbnRpbnVvdXMoYnJlYWtzID0gYnJlYWtzLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGxpbWl0cyA9IHJhbmdlKGJyZWFrcykpICsKICAgIGdndGhlbWVzOjp0aGVtZV90dWZ0ZShiYXNlX3NpemUgPSA4KSArIHRoZW1lKGF4aXMudGlja3MueCA9IGVsZW1lbnRfYmxhbmsoKSkKfQoKZmlnX2JhcnBsb3QgPC0gcGF0Y2h3b3JrOjp3cmFwX3Bsb3RzKAogIG5jb2wgPSA1LAogIGNyaXRlcmlhQmFycGxvdChgaW5wdXQgZGF0YWAsICAgIG1haW4gPSAiSW5wdXQgZGF0YSIsICAgIGNvbG91ciA9IDEpLAogIGNyaXRlcmlhQmFycGxvdChgcHJlcHJvY2Vzc2luZ2AsIG1haW4gPSAiUHJlcHJvY2Vzc2luZyIsIGNvbG91ciA9IDIpLAogIGNyaXRlcmlhQmFycGxvdChgbWV0aG9kL2FuYWx5c2lzL3Byb2Nlc3NpbmdgLAogICAgICAgICAgICAgICAgICBtYWluID0gIk1ldGhvZHMvQW5hbHlzaXMvXG5Qcm9jZXNzaW5nIiwgIGNvbG91ciA9IDMpLAogIGNyaXRlcmlhQmFycGxvdChgY29tcHV0YXRpb25hbCBlbnZpcm9ubWVudGAsCiAgICAgICAgICAgICAgICAgIG1haW4gPSAiQ29tcHV0YXRpb25hbFxuRW52aXJvbm1lbnQiLCBjb2xvdXIgPSA0KSwKICBjcml0ZXJpYUJhcnBsb3QocmVzdWx0cywgICAgICAgICBtYWluID0gIlJlc3VsdHMiLCBjb2xvdXIgPSA1KQopCgpmaWdfYmFycGxvdApgYGAKCiMjIEZpZ3VyZTogQWxsdXZpYWwgZGlhZ3JhbW1lIG9mIHJlcHJvZHVjaWJpbGl0eSBhc3Nlc3NtZW50IHJlc3VsdHMgYWNyb3NzIGNhdGVnb3JpZXMKClRoaXMgZmlndXJlIGlzIGJhc2VkIG9uIHBhY2thZ2UgW2BnZ2FsbHV2aWFsYF0oaHR0cHM6Ly9jb3J5YnJ1bnNvbi5naXRodWIuaW8vZ2dhbGx1dmlhbC8pLgpJdCBkb2VzIG5vdCBpbmNsdWRlIHRoZSBjYXRlZ29yeSBgcHJlcHJvY2Vzc2luZ2AgYmVjYXVzZSBpdCB3YXMgZGlzY292ZXJlZCB0byBiZSBxdWl0ZSBoYXJkIHRvIGFzc2VzcywgYW5kIHN1YnNlcXVlbnRseSBoYXMgYSBsYXJnZSBzaGFyZSBvZiBtaXNzaW5nIHZhbHVlcy4KVGhlIGZpZ3VyZSBhbHNvIGRvZXMgX25vdF8gaW5jbHVkZSBhbnkgcGFwZXJzIHdobyBoYXZlIG9uZSBvciBtb3JlIGNhdGVnb3JpZXMgYXMgYE5BYCwgYXMgdGhhdCBtZWFucyAibm90IGFzc2Vzc2FibGUiLgoKYGBge3IgZGF0YV9hbGx1dmlhbH0KcGFwZXJzX3dvX25hX3dvX3ByZXByIDwtIHBhcGVyX2V2YWx1YXRpb25fd29fY29uY2VwdHVhbCAlPiUKICBkcm9wX25hKCkgJT4lCiAgbXV0YXRlX2lmKGlzLmZhY3RvciwgZm9yY2F0czo6ZmN0X3JldikgJT4lCiAgZ3JvdXBfYnkoYGlucHV0IGRhdGFgLAogICAgICAgICAgIGBtZXRob2QvYW5hbHlzaXMvcHJvY2Vzc2luZ2AsCiAgICAgICAgICAgYGNvbXB1dGF0aW9uYWwgZW52aXJvbm1lbnRgLAogICAgICAgICAgIHJlc3VsdHMpICU+JQogIHRhbGx5KCkgJT4lCiAgbXV0YXRlKGBDYXRlZ29yeSBsZXZlbHMgKCMpYCA9IHBhc3RlMChgaW5wdXQgZGF0YWAsICIgIiwKICAgICAgICAgICAgICAgICAgICAgICBgbWV0aG9kL2FuYWx5c2lzL3Byb2Nlc3NpbmdgLCAiICIsCiAgICAgICAgICAgICAgICAgICAgICAgYGNvbXB1dGF0aW9uYWwgZW52aXJvbm1lbnRgLCAiICIsCiAgICAgICAgICAgICAgICAgICAgICAgcmVzdWx0cywgIiAoIiwgbiwgIikiKSkKYGBgCgpgYGB7ciBmaWdfYWxsdXZpYWwsIHdhcm5pbmc9RkFMU0V9CmZpZ19hbGx1dmlhbCA8LSBnZ3Bsb3QoZGF0YSA9IHBhcGVyc193b19uYV93b19wcmVwciwKICAgICAgIGFlcyhheGlzMSA9IGBpbnB1dCBkYXRhYCwKICAgICAgICAgICBheGlzMiA9IGBtZXRob2QvYW5hbHlzaXMvcHJvY2Vzc2luZ2AsCiAgICAgICAgICAgYXhpczMgPSBgY29tcHV0YXRpb25hbCBlbnZpcm9ubWVudGAsCiAgICAgICAgICAgYXhpczQgPSByZXN1bHRzLAogICAgICAgICAgIHkgPSBuKQogICAgICAgKSArCiAgZ2dwbG90Mjo6c2NhbGVfeF9kaXNjcmV0ZShsaW1pdHMgPSBjKCJJbnB1dCBEYXRhIiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk1ldGhvZHMvXG5BbmFseXNpcy9cblByb2Nlc3NpbmciLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiQ29tcHV0YXRpb25hbFxuRW52aXJvbm1lbnQiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiUmVzdWx0cyIpLAogICAgICAgICAgICAgICAgICAgZXhwYW5kID0gYyguMSwgMCkKICAgICAgICAgICAgICAgICAgICkgKwogIHhsYWIoIkNhdGVnb3J5IikgKwogIHlsYWIoIk51bWJlciBvZiBwYXBlcnMiKSArCiAgZ2dwbG90Mjo6c2NhbGVfZmlsbF9tYW51YWwodmFsdWVzID0gYygKICAgIFJDb2xvckJyZXdlcjo6YnJld2VyLnBhbCg5LCAiU2V0MSIpLCAgICAgICAgICAgICMgY29sb3VycyBmcm9tIHRoZSBvdGhlciBwbG90cwogICAgUkNvbG9yQnJld2VyOjpicmV3ZXIucGFsKDQsICJEYXJrMiIpW2MoMSwzLDQpXSkgIyBtYW51YWxseSBjaG9zZW4gZnJvbSBhbm90aGVyIHBhbGV0dGUKICAgICkgKwogIGdnYWxsdXZpYWw6Omdlb21fYWxsdXZpdW0oYWVzKGZpbGwgPSBgQ2F0ZWdvcnkgbGV2ZWxzICgjKWApLCB3aWR0aCA9IDEvMykgKwogIGdnYWxsdXZpYWw6Omdlb21fc3RyYXR1bShhbHBoYSA9IDEpICsKICBnZ2ZpdHRleHQ6Omdlb21fZml0X3RleHQoc3RhdCA9ICJzdHJhdHVtIiwgYWVzKGxhYmVsID0gYWZ0ZXJfc3RhdChzdHJhdHVtKSksIG1pbi5zaXplID0gMSkgKwogIGdndGhlbWVzOjp0aGVtZV90dWZ0ZSgpCgpmaWdfYWxsdXZpYWwKYGBgCgojIyBUYWJsZTogTWVhbiBsZXZlbHMgcGVyIGNyaXRlcmlvbiBmb3Igbm9uLWNvbmNlcHR1YWwgcGFwZXJzCgpgYGB7ciBzdW1tYXJ5X2V2YWxkYXRhX2dyb3VwZWR9Cm1lYW5zIDwtIGxhcHBseShldmFsZGF0YV9udW1lcmljICU+JQogICAgICAgICAgICAgICAgICAgICAgc2VsZWN0KGFsbF9vZihjYXRlZ29yeUNvbHVtbnMpKSwKICAgICAgICAgICAgICAgICAgICBzdW1tYXJ5KSAlPiUKICAgIGxhcHBseShgW1tgLCAiTWVhbiIpICU+JQogICAgYXMuZGF0YS5mcmFtZSgpCgprYWJsZShtZWFucywKICAgICAgZGlnaXRzID0gMiwKICAgICAgY29sLm5hbWVzID0gYygiaW5wdXQgZGF0YSIsICJwcmVwcm9jLiIsICJtZXRob2QvYW5hbHlzaXMvcHJvYy4iLCAiY29tcC4gZW52LiIsICJyZXN1bHRzIiksCiAgICAgIGNhcHRpb24gPSAiTWVhbiBsZXZlbHMgcGVyIGNyaXRlcmlvbiBmb3Igbm9uLWNvbmNlcHR1YWwgcGFwZXJzIikgJT4lCiAga2FibGVFeHRyYTo6a2FibGVfc3R5bGluZygic3RyaXBlZCIsIGZ1bGxfd2lkdGggPSBGQUxTRSkKYGBgCgojIyBUYWJsZTogTWVhbiBsZXZlbHMgYXZlcmFnZWQgYWNyb3NzIGNyaXRlcmlhIG92ZXIgdGltZSBmb3Igbm9uLWNvbmNlcHR1YWwgcGFwZXJzCgpgYGB7ciBldmFsZGF0YV9zdW1tYXJ5X2J5X3llYXJfbWVhbn0KbWVhbnNfeWVhcnMgPC0gZXZhbGRhdGFfbnVtZXJpYyAlPiUKICBmaWx0ZXIoYGNvbmNlcHR1YWwgcGFwZXJgID09IEZBTFNFKSAlPiUKICBncm91cF9ieSh5ZWFyKSAlPiUKICBzdW1tYXJpc2UobWVhbiA9IG1lYW4oYyhgaW5wdXQgZGF0YWAsIAogICAgICAgICAgICAgICAgICAgICAgICAgIHByZXByb2Nlc3NpbmcsIAogICAgICAgICAgICAgICAgICAgICAgICAgIGBtZXRob2QvYW5hbHlzaXMvcHJvY2Vzc2luZ2AsIAogICAgICAgICAgICAgICAgICAgICAgICAgIGBjb21wdXRhdGlvbmFsIGVudmlyb25tZW50YCwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgYHJlc3VsdHNgKSwKICAgICAgICAgICAgICAgICAgICAgICAgbmEucm0gPSBUUlVFKSwKICAgICAgICAgICAgYHBhcGVyIGNvdW50YCA9IG4oKSkKCm1lYW5zX3llYXJzX3RhYmxlIDwtIG1lYW5zX3llYXJzICU+JSAKICAgICAgICBtdXRhdGUobWVhbiA9IHJvdW5kKG1lYW4sIDIpLCAKICAgICAgICAgICAgICAgYHBhcGVyIGNvdW50YCA9IGFzLmNoYXJhY3RlcihgcGFwZXIgY291bnRgKSkgJT4lCiAgICAgICAgbXV0YXRlKGxhYmVscyA9IHN0cl9jKHllYXIsICIgKG4gPSAiLCBgcGFwZXIgY291bnRgLCAiKSIpKSAlPiUKICAgICAgICBjb2x1bW5fdG9fcm93bmFtZXMoImxhYmVscyIpICU+JQogICAgICAgIHNlbGVjdChtZWFuKSAlPiUKICAgICAgICB0KCkKCmthYmxlKG1lYW5zX3llYXJzX3RhYmxlLAogICAgICBjYXB0aW9uID0gIlN1bW1hcmlzZWQgbWVhbiB2YWx1ZXMgb3ZlciBhbGwgY3JpdGVyaWEgb3ZlciB0aW1lIChub24tY29uY2VwdHVhbCBwYXBlcnMpIikgJT4lCiAga2FibGVFeHRyYTo6a2FibGVfc3R5bGluZygic3RyaXBlZCIsIGZ1bGxfd2lkdGggPSBUUlVFKQpgYGAKCiMjIEZpZ3VyZTogTWVhbiByZXByb2R1Y2liaWxpdHkgbGV2ZWxzIHBlciBjYXRlZ29yeSBvdmVyIHRpbWUgZm9yIG5vbi1jb25jZXB0dWFsIHBhcGVycwoKYGBge3IgRmlnNCxmaWcuaGVpZ2h0PTQsZHBpPTMwMH0KZXZhbGRhdGFfeWVhcnMgPC0gZXZhbGRhdGFfbnVtZXJpYyAlPiUKICBmaWx0ZXIoYGNvbmNlcHR1YWwgcGFwZXJgID09IEZBTFNFKSAlPiUKICBncm91cF9ieSh5ZWFyKSAlPiUKICBzdW1tYXJpc2UoaW5wdXQgPSBtZWFuKGBpbnB1dCBkYXRhYCwgbmEucm0gPSBUUlVFKSwKICAgICAgICAgcHJlcHJvY2Vzc2luZyA9IG1lYW4ocHJlcHJvY2Vzc2luZywgbmEucm0gPSBUUlVFKSwKICAgICAgICAgICAgbWV0aG9kID0gbWVhbihgbWV0aG9kL2FuYWx5c2lzL3Byb2Nlc3NpbmdgLCBuYS5ybSA9IFRSVUUpLAogICAgICAgICAgICBlbnZpcm9ubWVudCA9IG1lYW4oYGNvbXB1dGF0aW9uYWwgZW52aXJvbm1lbnRgLCBuYS5ybSA9IFRSVUUpLAogICAgICAgICAgICByZXN1bHRzID0gbWVhbihyZXN1bHRzLCBuYS5ybSA9IFRSVUUpKQpwYXBlcl9jb3VudF95ZWFycyA8LSBldmFsZGF0YV9udW1lcmljICU+JQogIGZpbHRlcihgY29uY2VwdHVhbCBwYXBlcmAgPT0gRkFMU0UpICU+JQogIGdyb3VwX2J5KHllYXIpICU+JQogIHN1bW1hcmlzZShgcGFwZXIgY291bnRgID0gbigpKQoKZXZhbGRhdGFfeWVhcnNfbG9uZyA8LSBtZWx0KGV2YWxkYXRhX3llYXJzLCBpZC52YXJzID0gYygieWVhciIpKQpmaWdfbWVhbl9vdmVyX3RpbWUgPC0gZ2dwbG90KGV2YWxkYXRhX3llYXJzX2xvbmcsIGFlcyh5ZWFyLCB2YWx1ZSkpICsKICBnZW9tX2JhcihhZXMoZmlsbCA9IHZhcmlhYmxlKSwgcG9zaXRpb24gPSAiZG9kZ2UiLCBzdGF0ID0gImlkZW50aXR5IikgKwogICNnZW9tX2Vycm9yYmFyKHN0YXQgPSAic3VtbWFyeSIsIGZ1bi5kYXRhID0gIm1lYW5fc2RsIiwgCiAgIyAgICAgICAgICAgICAgICBmdW4uYXJncyA9IGxpc3QobXVsdCA9IDEpLAogICMgICAgICAgICAgICAgICAgcG9zaXRpb24gPSAgcG9zaXRpb25fZG9kZ2Uod2lkdGggPSAwLjkpKSArCiAgeWxhYigibWVhbiB2YWx1ZSBvZiBjcml0ZXJpb24gbGV2ZWwiKSArIAogIHNjYWxlX3hfY29udGludW91cyhicmVha3MgPSBldmFsZGF0YV95ZWFycyR5ZWFyLAogICAgICAgICAgICAgICAgICAgICBsYWJlbHMgPSBwYXN0ZTAocGFwZXJfY291bnRfeWVhcnMkeWVhciwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiIChuPSIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFwZXJfY291bnRfeWVhcnMkYHBhcGVyIGNvdW50YCwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiKSIpKSArCiAgc2NhbGVfZmlsbF9icmV3ZXIocGFsZXR0ZSA9ICJTZXQxIiwgbmFtZSA9ICJDYXRlZ29yeSIpICsKICBnZ3RoZW1lczo6dGhlbWVfdHVmdGUoYmFzZV9zaXplID0gMTgpICsKICB0aGVtZShsZWdlbmQucG9zaXRpb24gPSBjKDAuMTUsMC43NSksIAogICAgICAgIGxlZ2VuZC50ZXh0ID0gZWxlbWVudF90ZXh0KHNpemUgPSAxNCkpICsKICB5bGltKDAsIDMpICsKICBzdGF0X3N1bW1hcnkoZnVuID0gbWVhbiwgZnVuLm1pbiA9IG1lYW4sIGZ1bi5tYXggPSBtZWFuLCBzaGFwZSA9ICItIiwgc2l6ZSA9IDIpICsKICBzdGF0X3N1bW1hcnkoZnVuID0gbWVhbiwgZ2VvbSA9ICJsaW5lIiwgbGluZXR5cGUgPSAiZG90dGVkIiwgbWFwcGluZyA9IGFlcyhncm91cCA9IDEpKQoKZmlnX21lYW5fb3Zlcl90aW1lCmBgYAoKIyMgQ29sb3Bob24KClRoaXMgZG9jdW1lbnQgaXMgbGljZW5zZWQgdW5kZXIgYSBbQ3JlYXRpdmUgQ29tbW9ucyBBdHRyaWJ1dGlvbiA0LjAgSW50ZXJuYXRpb25hbCBMaWNlbnNlXShodHRwczovL2NyZWF0aXZlY29tbW9ucy5vcmcvbGljZW5zZXMvYnkvNC4wLykuCkFsbCBjb250YWluZWQgY29kZSBpcyBsaWNlbnNlZCB1bmRlciB0aGUgW0FwYWNoZSBMaWNlbnNlIDIuMF0oaHR0cHM6Ly9jaG9vc2VhbGljZW5zZS5jb20vbGljZW5zZXMvYXBhY2hlLTIuMC8pLgpUaGlzIGRvY3VtZW50IGlzIHZlcnNpb25lZCBpbiBhIHB1YmxpYyBbZ2l0XShodHRwczovL2dpdC1zY20uY29tLykgcmVwb3NpdG9yeSwgW2h0dHBzOi8vZ2l0aHViLmNvbS9udWVzdC9yZXByb2R1Y2libGUtcmVzZWFyY2gtYXQtZ2lzY2llbmNlXShodHRwczovL2dpdGh1Yi5jb20vbnVlc3QvcmVwcm9kdWNpYmxlLXJlc2VhcmNoLWF0LWdpc2NpZW5jZSksIGFuZCBhcmNoaXZlZCBvbiBaZW5vZG8gYXQgW2h0dHBzOi8vZG9pLm9yZy8xMC41MjgxL3plbm9kby40MDMyODc1XShodHRwczovL2RvaS5vcmcvMTAuNTI4MS96ZW5vZG8uNDAzMjg3NSkuCgoqKlJ1bnRpbWUgZW52aXJvbm1lbnQgZGVzY3JpcHRpb246KioKCmBgYHtyIHNlc3Npb25faW5mbywgZWNobz1GQUxTRX0Kb3B0aW9ucyh3aWR0aCA9IDEwMCkKZGV2dG9vbHM6OnNlc3Npb25faW5mbyhpbmNsdWRlX2Jhc2UgPSBUUlVFKQpgYGAKCmBgYHtyIHVwbG9hZF90b19kcml2ZSwgZXZhbD1GQUxTRSwgaW5jbHVkZT1GQUxTRX0KIyB1cGxvYWQgdGhlIEhUTUwgZmlsZSB0byB0aGUgUmVwcm9kdWNpYmlsaXR5IENvbW1pdHRlZSBzaGFyZWQgZm9sZGVyCiMgdXBsb2FkIHRoZSBIVE1MIGZpbGUgYW5kIHNvdXJjZSBjb2RlIHRvIHRoZSBSZXByb2R1Y2liaWxpdHkgQ29tbWl0dGVlIHNoYXJlZCBmb2xkZXIKZ29vZ2xlZHJpdmU6OmRyaXZlX2F1dGgodXNlX29vYiA9IFRSVUUpCmdvb2dsZWRyaXZlOjpkcml2ZV9wdXQoImdpc2NpZW5jZS1yZXByb2R1Y2liaWxpdHktYXNzZXNzbWVudC5odG1sIiwgcGF0aCA9IGdvb2dsZWRyaXZlOjphc19kcmliYmxlKCJodHRwczovL2RyaXZlLmdvb2dsZS5jb20vZHJpdmUvZm9sZGVycy8xN0VVdE1fekN4MWdRTWVhMU1ITl81WFNWcnNzeHY5R0EiKSkKZ29vZ2xlZHJpdmU6OmRyaXZlX3B1dCgiZ2lzY2llbmNlLXJlcHJvZHVjaWJpbGl0eS1hc3Nlc3NtZW50LlJtZCIsIHBhdGggPSBnb29nbGVkcml2ZTo6YXNfZHJpYmJsZSgiaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2RyaXZlL2ZvbGRlcnMvMTdFVXRNX3pDeDFnUU1lYTFNSE5fNVhTVnJzc3h2OUdBIikpCmBgYAo=</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("giscience-reproducibility-assessment.Rmd");
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

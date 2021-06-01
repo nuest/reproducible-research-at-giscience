@@ -6,27 +6,23 @@ output:
   html_document:
     df_print: paged
     toc: yes
+    code_download: true
+    code_folding: hide
+    self_contained: false
+    lib_dir: libs
 urlcolor: blue
 ---
 
-<style type="text/css">
-/* https://gist.github.com/Pakillo/8b46a48ea806572566d9 and
-   https://stackoverflow.com/questions/36845178/width-of-r-code-chunk-output-in-rmarkdown-files-knitr-ed-to-html#36846864 */
-/*body, td {
-   font-size: 14px;
-}
-code.r{
-  font-size: 12px;
-}*/
+```{css, echo=FALSE}
 pre {
-  font-size: 12px
+  font-size: 12px;
   overflow-x: auto;
 }
 pre code {
   word-wrap: normal;
   white-space: pre;
 }
-</style>
+```
 
 This document visualises the expert assessment for accepted full papers at the [GIScience conference series](https://www.giscience.org/) for the following conferences and proceedings.
 
@@ -51,7 +47,8 @@ The analysis is based on the assessment first published in _"Reproducible resear
 To create the assessment result data and figures based on this document you can run the following commands in a new R session after completing the prerequisites with the original paper corpus data.
 If you have problems rendering the document you can execute each chunk independently in [RStudio](https://rstudio.com/products/rstudio/).
 
-```{r render_with_rmarkdown, eval=FALSE}
+```{r render_with_rmarkdown, eval=FALSE, class.source = "fold-show"}
+# Following code is not executed when document is created
 require("knitr")
 require("rmarkdown")
 rmarkdown::render("giscience-reproducibility-assessment.Rmd")
@@ -281,7 +278,7 @@ papers_wo_na_wo_prepr <- paper_evaluation_wo_conceptual %>%
                        results, " (", n, ")"))
 ```
 
-```{r fig_alluvial}
+```{r fig_alluvial, warning=FALSE}
 fig_alluvial <- ggplot(data = papers_wo_na_wo_prepr,
        aes(axis1 = `input data`,
            axis2 = `method/analysis/processing`,

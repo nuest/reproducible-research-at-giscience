@@ -6,17 +6,31 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
     toc: yes
+    code_download: true
+    code_folding: hide
+    self_contained: false
+    lib_dir: libs
 params:
   with_sp: no
-  download_private_data: yes
 ---
+
+```{css, echo=FALSE}
+pre {
+  font-size: 12px;
+  overflow-x: auto;
+}
+pre code {
+  word-wrap: normal;
+  white-space: pre;
+}
+```
 
 ## Introduction
 
 This document is an exploratory analysis of all accepted full papers, and posters at the [GIScience conference series](https://www.giscience.org/).
 The analysis is based on the text analysis published in _"Reproducible research and GIScience: an evaluation using AGILE conference papers"_ ([https://doi.org/10.7717/peerj.5072](https://doi.org/10.7717/peerj.5072)).
 
-```{r load_libraries, message=FALSE, warning=FALSE, include=FALSE}
+```{r load_libraries, message=FALSE, warning=FALSE}
 library("here")
 library("pdftools")
 library("stringr")
@@ -53,7 +67,7 @@ LNCS proceedings are available at the publisher website: [https://link.springer.
 **Note:** The 2018 proceedings include the short papers in the same document.
 For comparability, only the full papers are taken into account for the analysis below.
 
-```{r input_files, echo=FALSE}
+```{r input_files}
 data_path <- here::here("proceedings")
 proceedings <- c(
   "2002" = "geographic-information-science-2002.pdf",
@@ -76,23 +90,22 @@ You can contact the original paper authors and ask for the test dataset to repro
 Alternatively, you can download the 2018 proceedings from the LIPIcs website (Open Access; [direct PDF link](https://drops.dagstuhl.de/opus/volltexte/lipics-complete/lipics-vol114-giscience2018-complete.pdf)) and conduct the analysis with that subset of the data.
 For the analysis below the following input files were used:
 
-```{r list_files, echo=FALSE}
+```{r list_files}
 knitr::kable(tibble(year = names(proceedings), file = proceedings)) %>%
   kableExtra::kable_styling("striped", full_width = FALSE)
 ```
 
-```{r data_download_drive, eval=FALSE, echo=FALSE}
+```{r data_download_drive, eval=FALSE}
+# Code not evaluated when document is rendered!
 dir.create(data_path, showWarnings = FALSE)
 
-if(params$download_private_data) {
-  library("googledrive")
-  drive_dir <- googledrive::drive_get("https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
-  drive_dir_contents <- googledrive::drive_ls(drive_dir)
-  for (i in rownames(drive_dir_contents)) {
-    current <- drive_dir_contents[i,]
-    if(endsWith(current$name, ".pdf"))
-      googledrive::drive_download(as_id(current$id), file.path(data_path, current$name))
-  }
+library("googledrive")
+drive_dir <- googledrive::drive_get("https://drive.google.com/drive/folders/17EUtM_zCx1gQMea1MHN_5XSVrssxv9GA")
+drive_dir_contents <- googledrive::drive_ls(drive_dir)
+for (i in rownames(drive_dir_contents)) {
+  current <- drive_dir_contents[i,]
+  if(endsWith(current$name, ".pdf"))
+    googledrive::drive_download(as_id(current$id), file.path(data_path, current$name))
 }
 ```
 
@@ -100,7 +113,7 @@ The text is extracted from PDFs and it is processed to create a [tidy](https://w
 The stop words include specific words, such as `university`, which is included in many pages, abbreviations such as `e.g.`, and terms particular to scientific articles, such as `figure`.
 Also all numeric literas are removed from the word list.
 
-```{r load_files, echo=FALSE}
+```{r load_files, cache=TRUE}
 texts <- lapply(proceedings_files, pdftools::pdf_text)
 
 if(params$with_sp) {
@@ -159,7 +172,7 @@ after_cleanup = nrow(no_stop_words)
 About `r round(after_cleanup/total_words * 100)`&nbsp;% of the words are considered stop words.
 The following tables shows how many non-stop words each conference year has, sorted by number of non-stop words (descending).
 
-```{r stop_words, echo=FALSE, message=FALSE, warning=FALSE}
+```{r stop_words, message=FALSE, warning=FALSE}
 nonstopwords_per_year <- no_stop_words %>%
   dplyr::group_by(year) %>%
   dplyr::summarise(words = n()) %>%
@@ -183,7 +196,7 @@ dplyr::inner_join(nonstopwords_per_year, words_per_year, by = "year") %>%
 
 ## Top wordstems and wordstem clouds
 
-```{r params, include=FALSE}
+```{r params}
 # chosen manually
 minimum_occurence <- 99
 max_words <- 100
@@ -191,7 +204,7 @@ max_words <- 100
 
 The following table shows the number of occurence for the `r max_words` most occuring wordstems across all proceedings.
 
-```{r top_wordstems, echo=FALSE}
+```{r top_wordstems}
 wordstems <- no_stop_words %>%
   dplyr::mutate(wordstem = quanteda::char_wordstem(no_stop_words$word))
 
@@ -225,21 +238,15 @@ The following clouds and table are based on word stems extracted with a stemming
 Words must occur at least `r minimum_occurence` times to be included in the cloud.
 Each cloud has a maximum of `r max_words` words.
 
-```{r cloud_wordstems, echo=FALSE}
+```{r cloud_wordstems, message=FALSE, warning=FALSE}
 cloud_wordstems <- wordstems %>%
   dplyr::group_by(year, wordstem) %>%
   dplyr::tally() %>%
   dplyr::arrange(desc(n))
 ```
 
-```{r wordclouds_create_plot, eval=FALSE, echo=FALSE}
-# FIXME: when running this as part of "Knit", then there is an error; interactively works though
-# Quitting from lines 234-255 (giscience-historic-text-analysis.Rmd) 
-# Error in strwidth(words[i], cex = size[i], ...) : invalid 'cex' value
-# Tried:
-# - https://stackoverflow.com/questions/12400305/wordcloud-package-get-error-in-strwidth-invalid-cex-value
-# - https://stackoverflow.com/questions/20343941/wordcloud-package-get-error-in-strwidth-invalid-cex-value
-# - https://stackoverflow.com/questions/28763389/how-does-the-removesparseterms-in-r-work
+```{r wordclouds_create_plot, message=FALSE, warning=FALSE}
+# plot is created to file to fit more words to a specific pixel size
 png(filename = here::here("results/text_analysis_wordstemclouds.png"),
     width = 1000,
     height = 1000)
@@ -261,11 +268,16 @@ for (the_year in names(proceedings)) {
                        color = brewer.pal(8, "Dark2"))
 }
 dev.off()
+
+file.copy(from = here::here("results/text_analysis_wordstemclouds.png"),
+          to = here::here("docs/text_analysis_wordstemclouds.png"),
+          overwrite = TRUE)
 ```
 
-```{r wordclouds_include_plot, echo=FALSE, dpi=72, fig.cap=paste0("World clouds of full papers per conference year (rowwise, starting top left, from ", head(names(proceedings_files), n = 1), " to ", tail(names(proceedings_files), n = 1), ").")}
-knitr::include_graphics(here::here("results/text_analysis_wordstemclouds.png"))
-```
+<!-- path fixed to output in docs/ directory - see Makefile -->
+![](text_analysis_wordstemclouds.png)
+
+_`r paste0("World clouds of full papers per conference year (rowwise, starting top left, from ", head(names(proceedings_files), n = 1), " to ", tail(names(proceedings_files), n = 1), ").")`_
 
 ## Reproducible research-related keywordstems in GIScience papers
 
@@ -284,7 +296,7 @@ The detection matches full words using regex option `\b`.
 - repository(ies) (`repositor(y|ies)`)
 - collaboration platforms (`git(hub|lab)`)
 
-```{r keywords_per_year, echo=FALSE, warning=FALSE}
+```{r keywords_per_year, warning=FALSE}
 tidy_texts_lower <- stringr::str_to_lower(tidy_texts$text)
 word_counts <- tibble::tibble(
   year = tidy_texts$year,
@@ -321,7 +333,7 @@ word_counts_sums %>%
 
 **Note**: The high number for "code" in 2012 is largely due to a single paper about "land use codes".
 
-## License & Metadata
+## Colophon
 
 This document is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
 All contained code is licensed under the [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/).

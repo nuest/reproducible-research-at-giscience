@@ -42,15 +42,9 @@ papers/*.pdf
 
 proceedings/*.pdf
 
-giscience-historic-text-analysis.html
-
-giscience-historic-text-analysis_files/
-
 giscience-reproducibility-assessment.pdf
 
 giscience-reproducibility-assessment.tex
-
-giscience-reproducibility-assessment_files/
 
 .local/
 
@@ -65,8 +59,6 @@ paper/reproducible-research-at-giscience.tex
 paper/reproducible-research-at-giscience.vtc
 
 .venv/
-
-giscience-reproducibility-assessment.html
 
 paper/reproducible-research-at-giscience_files/
 
@@ -93,3 +85,5 @@ paper/reproducible-research-at-giscience_preprint.pdf
 paper/reproducible-research-at-giscience.out
 
 paper/reproducible-research-at-giscience.blg
+
+.bash_history

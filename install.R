@@ -14,10 +14,10 @@ install.packages("quanteda")
 install.packages("Hmisc")
 # not available (in required version) for R 3.6.0 > install tag from GitHub
 remotes::install_github("tidyverse/googledrive", ref = "v1.0.0", upgrade = "never")
-remotes::install_github("tidyverse/googlesheets4", ref = "v0.1.1", upgrade = "never")
+remotes::install_github("tidyverse/googlesheets4", ref = "ec3946b", upgrade = "never") # v0.1.1
 
 # needs development version from a fork, see https://github.com/rstudio/rticles/pull/288
-#remotes::install_github("yihui/xfun", ref = "v0.15", upgrade = "never")
+remotes::install_github("yihui/xfun", ref = "v0.15", upgrade = "never")
 remotes::install_github("rstudio/rmarkdown", ref = "v2.5", upgrade = "never")
 remotes::install_github("rstudio/rticles", ref = "v0.17", upgrade = "never")
 

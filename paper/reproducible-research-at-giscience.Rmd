@@ -161,11 +161,12 @@ appendix: |
 
 # Introduction
 
-The past two decades have seen the imperative of Open Science gain increased momentum across scientific disciplines, at least partially prompted by the increasing costs of using proprietary software and subscribing to scientific journals. 
-One important element, especially for the computational and natural sciences, is transparency and availability of data, methods, and results, to enable reproducibility (REF MANUFO2017 10.1038/s41562-016-0021).
+The past two decades have seen the imperative of Open Science gain momentum across scientific disciplines.
+The adoption of Open Science practices is partially prompted by the increasing costs of using proprietary software and subscribing to scientific journals, but, more importantly, because of the increased transparency and availability of data, methods, and results, to enable reproducibility \cite{munafo_manifesto_2017}.
+This advantage is especially relevant for the computational and natural sciences, where sharing data and code is a prerequisite for reuse and collaboration.
 A large proportion of GIScience research today uses software to analyse data on computers, meaning that many articles published in the context of the GIScience conference series[^giscience] fall into the categories of data science or computational research.
-Thereby, these articles face challenges of transparency and reproducibility in the sense of the Claerbout/Donoho/Peng terminology \cite{barba_terminologies_2018}, where \emph{reproduction} means a recreation of the same results using the same input data and workflow as the original authors.
-The related concept of replication, i.e., the confirmation of insights gained from a scientific study, is of crucial importance to scientific progress, yet also frequently a challenge for interested readers of a published study.
+Thereby, these articles face challenges of transparency and reproducibility in the sense of the Claerbout/Donoho/Peng terminology \cite{barba_terminologies_2018}, where \emph{reproduction} means a recreation of the same results using the same input data and methods, usually with the actual code created by the original authors.
+The related concept of replication, i.e., the confirmation of insights gained from a scientific study using the same method with new data, is of crucial importance to scientific progress, yet it is also frequently challenging to realise for interested readers of a published study.
 So far, despite the GIScience conference series' rigorous review process, reproducibility and replicability have not been a core concern in the contributions.
 With reproducibility now being a recognized topic in the call for papers, it is time to take stock and identify possible action. 
 In previous work \cite{nust_reproducible_2018}, we assessed the reproducibility of a selection of full and short papers from the AGILE conference series[^agile], a community conference organised by member labs of the Association of Geographic Information Laboratories in Europe (AGILE).
@@ -394,13 +395,13 @@ The third and largest group matches the overall mean values for the typical GISc
 The diagramme also shows additional interesting patterns for a few papers.
 The papers with the lowest level of&nbsp;`0` in _Results_, i.e., according to the assessors the results are documented insufficiently and thus difficult or impossible to fully understand, actually have better values in previous criteria.
 Only few papers that start with level&nbsp;`2` in _Input Data_ can keep this level for _Methods/Analysis/Processing_, and even those who do later drop to level&nbsp;`0` in _Computational Environment_.
-Only one paper each shows the following surprising paths: Starting with level&nbsp;`1` for _Input Data_ , then moving up to level&nbsp;`2` in _Methods_, before reaching level&nbsp;`2` in _Results_ despite having only values of `1` or `0` in other criteria. 
-In summary, not a single paper can reach the required levels for an immediate reproduction by ensuring that all required pieces are _Available_ (level&nbsp;`2`), not even considering the further challenges around documentation if availability is given (e.g.,&nbsp;\cite{nust_improving_2020}).
-An investigation of yearly scores to track possible developments over time do not show any clear trend, i.e., there is little change in reproducibility over the study period. 
-
-The overall low values for _Computational Environment_ are one signal that confirms the growing concerns for reproducibility and reusability of computational research.
+Only one paper each shows the following surprising paths: Starting with level&nbsp;`1` for _Input Data_ , then moving up to level&nbsp;`2` in _Methods_, before reaching level&nbsp;`2` in _Results_ despite having only values of `1` or `0` in other criteria.
+In summary, not a single paper can reach the required levels for an immediate reproduction by ensuring that all required pieces are _Available_ (level&nbsp;`2`), not even considering the further challenges for reproductions, such as incomplete documentation \cite{nust_improving_2020}.
+An investigation of yearly scores to track developments over time does not show any trend, i.e., there is little change in reproducibility over the study period[^trend].
+The overall low values for _Computational Environment_ are one signal that confirms the growing concerns for reproducibility and reusability of computational research are not misplaced.
 
 [^conceptual]: See \cite{nust_reproducible_2018} for a definition of "conceptual".
+[^trend]: See the additional analysis and plots published at <https://nuest.github.io/reproducible-research-at-giscience/giscience-reproducibility-assessment.html> or in the paper's reproducibility package \cite{daniel_nust_2020_4032875}.
 
 \newpage
 
@@ -423,10 +424,10 @@ Regarding the common situation of a paper with _Documented_ (level&nbsp;`1`) for
 Does this imply that a paper with _Unavailable_ (level&nbsp;`0`) in any criterion should not have been accepted? 
 We believe that this requires differentiation between past and future papers. The criteria used in this paper were not included in the previous call for papers or in the reviewer guidelines, and therefore received less attention from authors or reviewers.
 Thus, we have analysed work in a historical context when there were few concrete incentives to push these aspects, beyond the general concerns for good scientific practice.
-Nowadays, with awareness about reproducibility being raised through initiatives, projects, and publications about it, we would expect that reproducibility levels increase, and argue that papers with _Unavailable_ in one more criteria should not be accepted anymore without a clear and explicit justification (e.g., confidential data, privacy concerns).
+Nowadays, with awareness about reproducibility being raised through initiatives, projects, and publications about it, we would expect that reproducibility levels increase, and argue that papers with _Unavailable_ in one more criteria should not be accepted anymore without a clear and explicit justification (e.g., sensitive data on human subjects).
 This does not imply that it is always necessary to achieve the gold standard of _Available and Open_. 
-The overall objective should be to make a study as reproducible as possible before publication.
-We argue that is that for most currently published studies, _Available_ would have been possible and feasible with reasonable efforts.  
+The overall objective should be to make a paper as reproducible as possible before publication.
+We argue that, for most currently published works at the GIScience conference, _Available_ would have been achievable and feasible with reasonable efforts.
 
 However, such a change in standards for paper acceptance would also mean that researchers, editors, and publishers might have to reevaluate their focus on publishing novel and purportedly groundbreaking results in science, and give as much weight to publishing the full process and collection of parts that would allow readers to try to fully understand the research. 
 Clearly, _Unavailable_ for _Input Data_ is the most problematic, because without sufficient knowledge about the characteristics of the input data, all attempts at reproducing results are bound to fail, even when the textual documentation of the data would potentially allow for an time-intensive recreation of the computational workflow.
@@ -447,9 +448,11 @@ Furthermore, it is important to remember that the levels of reproducibility are 
 A level of `1` should be the standard for current and future peer-reviewed papers.
 Reaching level&nbsp;`2` requires several additional steps, while reaching the gold standard of `3` is again a comparatively small step from level&nbsp;`2` in terms of effort - the main difference is to use public repositories with a DOI - yet with a high positive impact on permanent accessibility.
 
-Although the replication was successful, the process was again labor-intensive, making it problematic to scale it up to include several years of several popular journals, for example. 
-Further, despite our best efforts for transparency, the process is inherently subjective, and a different set of investigators might score papers differently even when using this study's rubric.
-While natural language processing techniques have made great progress in the past decades, an automated assessment of a paper's reproducibility seems still out-of-reach, unless at least some important information is included as machine-readable metadata. 
+Although the replication was successful, the process was again labor-intensive, making it problematic to scale it up to assess several years of several popular journals, for example.
+Further, despite our best efforts for transparency and the four-eyes principle in the assessment, the process is inherently subjective.
+A different group of investigators might score papers differently.
+While natural language processing techniques have made great progress in the past decades, an automated assessment of a paper's reproducibility still seems out-of-reach.
+Including important information as machine-readable metadata could allow to come closer to automation.
 
 ## Comparison of conferences
 
@@ -562,12 +565,12 @@ Therefore, a broad discourse around these recommendations, tools, and concepts w
 A survey for authors, as conducted for AGILE \cite{nust_reproducible_2018}, could help identify special requirements and specific circumstances, beyond the findings presented here and in related work.
 
 Future work may replicate the reproducibility assessment at other major events and outlets for GIScience research, such as GeoComputation or COSIT conferences and domain journals (cf.&nbsp;\cite{egenhofer_contributions_2016} for an extensive list), but we would not expect significantly differing results.
-Practical reproductions of papers and even replications of fundamental works are even more promising projects to convincingly underpin a call for a culture change \cite{ostermann_linking_2021}.
-A successfull _reproducibility turn_ would not mean that every reprodudicible paper would be reproduced, nor would this be necessary. 
-But at least for influential, i.e, highly cited papers, a validation of their applicability and transferability to other study areas should be possible.
+Practical reproductions of papers, and even more so replications of fundamental works, are promising projects to convincingly underpin a call for a culture change \cite{ostermann_linking_2021}.
+A successfull _reproducibility turn_ would not mean that every reproducible paper would be fullly reproduced, nor would this be necessary. 
+But at least for influential, e.g., highly cited, papers, a validation of their applicability and transferability to other study areas should be possible---reproducibility is a prerequisite for that.
 For example, Egenhofer et&nbsp;al.&nbsp;\cite{egenhofer_contributions_2016} provide for a list of the most frequently cited articles as potential candidates.
 Such a project would ideally be supported with proper funding.
-There is currently a lot of activity in the GIScience discipline to address reproducibility and replicability of geospatial research. 
+There is currently growing activity in the GIScience discipline to address reproducibility and replicability of geospatial research.
 The GIScience conference community has the opportunity to play a leading and shaping role in this process, thereby ensuring its continuing attractiveness for authors to submit their work, and in consequence its high relevance for the wider GIScience discipline. 
 A timely adoption of the technological and procedural solutions may allow GIScience researchers, together with the entirety of academia, to level up and approach the challenges of the _"second phase of reproducible research"_ by tackling long-term funding for maintenance of code and data and building supporting infrastructure for reproducible research \cite{peng_reproducible_2020}.
 

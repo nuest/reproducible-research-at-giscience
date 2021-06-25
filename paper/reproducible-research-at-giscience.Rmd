@@ -64,10 +64,6 @@ output:
     keep_tex: yes
     pandoc_args : ["--verbose"]
 header-includes:
-  # add packages manually because they are needed for table in the appendix, and that is somehow not picked up
-  - \usepackage{longtable}
-  - \usepackage{booktabs}
-  - \usepackage[table]{xcolor}
   - \interfootnotelinepenalty=10000
 ---
 
@@ -113,44 +109,13 @@ count_n <- nrow(paper_evaluation_wo_conceptual)
 ---
 abstract: |
   GIScience conference authors and researchers face the same computational reproducibility challenges as authors and researchers from other disciplines who use computers to analyse data.
-  Here, to assess the reproducibility of GIScience research, we apply a rubric for assessing the reproducibility of `r count_n`&nbsp;conference papers published at the GIScience conference series in the years 2012-2018.
+  Here, to assess the reproducibility of GIScience research, we apply a rubric for assessing the reproducibility of `r count_n`&nbsp;conference papers published at the GIScience conference series in the years `r min(paper_evaluation$year)`-`r max(paper_evaluation$year)`.
   Since the rubric and process were previously applied to the publications of the AGILE conference series, this paper itself is an attempt to replicate that analysis, however going beyond the previous work by evaluating and discussing proposed measures to improve reproducibility in the specific context of the GIScience conference series.
   The results of the GIScience paper assessment are in line with previous findings:
   although descriptions of workflows and the inclusion of the data and software suffice to explain the presented work, in most published papers they do not allow a third party to reproduce the results and findings with a reasonable effort.
   We summarise and adapt previous recommendations for improving this situation and propose the GIScience community to start a broad discussion on the reusability, quality, and openness of its research.
   Further, we critically reflect on the process of assessing paper reproducibility, and provide suggestions for improving future assessments.
   The code and data for this article are published at [https://doi.org/10.5281/zenodo.4032875](https://doi.org/10.5281/zenodo.4032875).
-appendix: |
-
-  \newpage
-  
-  # Appendix
-  
-  ```{r corpus-table, echo=FALSE, message=FALSE, warning=FALSE, out.width='100%'}
-  library("knitr")
-  library("kableExtra")
-  library("dplyr")
-  
-  knitr::kable(paper_evaluation %>%
-                 select(year, title, `conceptual paper`,
-                        `input data`, `preprocessing`, `method/analysis/processing`, `computational environment`, `results`),
-        format = "latex",
-        longtable = TRUE,
-        booktabs = TRUE,
-        col.names = c("year", "title", "con-cep-tual",
-                      "input data", "pre-proc.", "method/ anal./ proc.", "comp. env.", "results"),
-        caption = "Assessment results excerpt; for all fields (including assessors, authors, and assessment comments) see reproducibility package at \\url{https://doi.org/10.5281/zenodo.4032875}.") %>%
-    kableExtra::row_spec(0, bold = TRUE) %>%
-    kableExtra::column_spec(2, width = "23em") %>%
-    kableExtra::column_spec(3, width = "2.8em") %>%
-    kableExtra::column_spec(4, width = "2em") %>%
-    kableExtra::column_spec(5, width = "2em") %>%
-    kableExtra::column_spec(6, width = "2.8em") %>%
-    kableExtra::column_spec(7, width = "2em") %>%
-    kableExtra::column_spec(8, width = "2.8em") %>%
-    kableExtra::kable_styling(latex_options = c("striped", "repeat_header"),
-                              font_size = 6)
-  ```
 ---
 
 # Introduction
@@ -576,4 +541,10 @@ message("WORDCOUNT: ", wordcountaddin::word_count(filename = here::here("paper/r
 
 ```{r remove_temp_file}
 unlink("temp")
+```
+
+```{r render_appendix}
+# only render appendix when it does not exist
+if( !file.exists("reproducible-research-at-giscience-appendix.pdf"))
+  rmarkdown::render("reproducible-research-at-giscience-appendix.Rmd")
 ```

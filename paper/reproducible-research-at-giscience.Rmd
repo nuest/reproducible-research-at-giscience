@@ -37,6 +37,7 @@ author:
     funding: "Project [_o2r_](https://www.uni-muenster.de/forschungaz/project/12343), German Research Foundation, grant numbers [KR&nbsp;3930/8-1](https://gepris.dfg.de/gepris/projekt/415851837) and [TR&nbsp;864/12-1]()."
 bibliography: bibliography
 authorrunning: "F.\\thinspace O. Ostermann, D. Nüst, C. Granell, B. Hofer, M. Konkol" # mandatory. First: Use abbreviated first/middle names. Second (only in severe cases): Use first author plus 'et al.'
+copyright: "Frank\\thinspace O. Ostermann, Daniel Nüst, Carlos Granell, Barbara Hofer, and Markus Konkol" # mandatory, please use full first names. LIPIcs license is "CC-BY";  http://creativecommons.org/licenses/by/3.0/
 ccdesc:
   # Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm
   concept_significance: "500"
@@ -63,6 +64,7 @@ output:
     pandoc_args : ["--verbose"]
 header-includes:
   - \interfootnotelinepenalty=10000
+  - \ArticleNo{2}
 ---
 
 ```{r global_options, include=FALSE}
